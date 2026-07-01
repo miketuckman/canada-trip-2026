@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atlantic Canada 2026 — Halifax · PEI · Newfoundland · Saint-Pierre</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<style>
+  :root {
+    --navy: #0b3a52;
+    --navy-deep: #082a3d;
+    --teal: #1c7293;
+    --sand: #f6f1e7;
+    --sand-card: #ffffff;
+    --coral: #d9713c;
+    --amber: #c98a1f;
+    --amber-bg: #fdf3df;
+    --amber-border: #e3b25a;
+    --red: #b83b3b;
+    --red-bg: #fbe9e7;
+    --red-border: #e08a7d;
+    --green: #2f7a52;
+    --green-bg: #eaf5ee;
+    --green-border: #9bcbae;
+    --ink: #23313a;
+    --muted: #5c6b73;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    background: var(--sand);
+    color: var(--ink);
+    line-height: 1.55;
+  }
+  header.hero {
+    background: linear-gradient(160deg, var(--navy-deep), var(--navy) 55%, var(--teal));
+    color: #fff;
+    padding: 72px 24px 56px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header.hero::after {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 10px;
+    background: repeating-linear-gradient(90deg, var(--coral) 0 24px, transparent 24px 48px);
+    opacity: 0.6;
+  }
+  header.hero .eyebrow {
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-size: 13px;
+    color: #cfe4ee;
+    margin-bottom: 14px;
+  }
+  header.hero h1 {
+    font-size: clamp(30px, 5vw, 52px);
+    margin: 0 0 14px;
+    font-weight: 700;
+  }
+  header.hero p.sub {
+    font-size: clamp(15px, 2vw, 19px);
+    color: #dce9ef;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  .stat-strip {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 34px;
+  }
+  .stat-pill {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 999px;
+    padding: 8px 18px;
+    font-size: 14px;
+    color: #fff;
+  }
+  main { max-width: 900px; margin: 0 auto; padding: 0 20px 80px; }
+  section { margin-top: 56px; }
+  h2.section-title {
+    font-size: 26px;
+    color: var(--navy-deep);
+    border-bottom: 3px solid var(--coral);
+    display: inline-block;
+    padding-bottom: 6px;
+    margin-bottom: 24px;
+  }
+  p.lead { color: var(--muted); font-size: 16px; margin-bottom: 24px; }
+
+  /* Route flow */
+  .route-flow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+    padding: 20px;
+    background: var(--sand-card);
+    border-radius: 16px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  }
+  .route-node {
+    background: var(--navy);
+    color: #fff;
+    padding: 12px 18px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 14px;
+    text-align: center;
+    min-width: 110px;
+  }
+  .route-node .days {
+    display: block;
+    font-weight: 400;
+    font-size: 12px;
+    color: #cfe4ee;
+    margin-top: 3px;
+  }
+  .route-arrow {
+    color: var(--coral);
+    font-size: 20px;
+    font-weight: 700;
+    padding: 0 2px;
+  }
+  .route-mode {
+    font-size: 11px;
+    color: var(--muted);
+    text-align: center;
+    min-width: 60px;
+  }
+
+  /* Map */
+  #trip-map {
+    height: 480px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    background: #dce9ef;
+  }
+  .map-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 14px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .map-legend span.swatch {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+
+  /* Timeline */
+  .timeline-scroll { overflow-x: auto; padding-bottom: 10px; }
+  .timeline {
+    display: grid;
+    grid-template-columns: repeat(13, minmax(66px, 1fr));
+    gap: 6px;
+    min-width: 780px;
+  }
+  .tl-day {
+    border-radius: 10px;
+    padding: 12px 8px;
+    color: #fff;
+    font-size: 12.5px;
+    font-weight: 700;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 64px;
+  }
+  .tl-day span {
+    display: block;
+    font-weight: 400;
+    font-size: 11px;
+    margin-top: 4px;
+    opacity: 0.92;
+  }
+  .tl-halifax { background: var(--navy); }
+  .tl-nl { background: var(--teal); }
+  .tl-spm { background: var(--coral); }
+  .tl-pei { background: var(--green); }
+  .tl-travel { background: #cabfa4; color: #3a3226; }
+  .timeline-note {
+    font-size: 13.5px;
+    color: var(--amber);
+    background: var(--amber-bg);
+    border: 1px solid var(--amber-border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-top: 16px;
+  }
+
+  /* Cards */
+  .card {
+    background: var(--sand-card);
+    border-radius: 14px;
+    padding: 22px 24px;
+    margin-bottom: 18px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    border-left: 6px solid var(--teal);
+  }
+  .card h3 {
+    margin: 0 0 8px;
+    font-size: 18px;
+    color: var(--navy-deep);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .card p { margin: 6px 0; color: var(--ink); font-size: 15px; }
+  .card .meta {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 10px;
+  }
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    margin-left: 6px;
+  }
+  .badge.confirmed { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
+  .badge.open { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-border); }
+
+  /* Alert boxes */
+  .alert {
+    border-radius: 14px;
+    padding: 20px 24px;
+    margin: 22px 0;
+    border: 1px solid;
+  }
+  .alert.warn { background: var(--amber-bg); border-color: var(--amber-border); }
+  .alert.critical { background: var(--red-bg); border-color: var(--red-border); }
+  .alert.good { background: var(--green-bg); border-color: var(--green-border); }
+  .alert h3 {
+    margin: 0 0 8px;
+    font-size: 16px;
+  }
+  .alert.warn h3 { color: var(--amber); }
+  .alert.critical h3 { color: var(--red); }
+  .alert.good h3 { color: var(--green); }
+  .alert p { margin: 4px 0; font-size: 14.5px; }
+
+  /* Day allocation bars */
+  .day-bars { display: flex; flex-direction: column; gap: 14px; }
+  .day-bar-row { display: flex; align-items: center; gap: 14px; }
+  .day-bar-label { width: 130px; font-size: 14px; font-weight: 600; color: var(--navy-deep); text-align: right; }
+  .day-bar-track { flex: 1; background: #e7e0d0; border-radius: 8px; height: 22px; overflow: hidden; }
+  .day-bar-fill { height: 100%; background: linear-gradient(90deg, var(--teal), var(--navy)); border-radius: 8px; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; color: #fff; font-size: 12px; font-weight: 600; }
+
+  /* Checklist */
+  .checklist { list-style: none; padding: 0; margin: 0; }
+  .checklist li {
+    background: var(--sand-card);
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-bottom: 10px;
+    font-size: 15px;
+    display: flex;
+    gap: 12px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .checklist li .num {
+    background: var(--coral);
+    color: #fff;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .checklist li.done .num { background: var(--green); }
+  .checklist li.done { opacity: 0.75; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  @media (max-width: 640px) {
+    .two-col { grid-template-columns: 1fr; }
+    .day-bar-label { width: 96px; font-size: 12.5px; }
+  }
+
+  footer {
+    text-align: center;
+    padding: 40px 20px 60px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+  footer a { color: var(--teal); }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="eyebrow">A Maritime Canada Adventure</div>
+  <h1>Halifax · PEI · Newfoundland · Saint-Pierre</h1>
+  <p class="sub">Planning notes and research so far for a July 2026 trip — shared for feedback before we lock dates and bookings.</p>
+  <div class="stat-strip">
+    <div class="stat-pill">🗓️ Window: July 10–25, 2026</div>
+    <div class="stat-pill">📍 4 destinations</div>
+    <div class="stat-pill">⏱️ ~10-11 days on the ground</div>
+    <div class="stat-pill">🎯 Priority: time over money</div>
+  </div>
+</header>
+
+<main>
+
+  <section>
+    <h2 class="section-title">The Route</h2>
+    <p class="lead">Both friend groups join for the Newfoundland / Saint-Pierre leg — Halifax friends visited first, PEI friends travel up to Halifax to meet us before we all fly north together. No leg gets repeated.</p>
+    <div class="route-flow">
+      <div class="route-node">Home<span class="days">JAX area</span></div>
+      <div class="route-arrow">→</div>
+      <div class="route-mode">✈️ flight<br>(connection)</div>
+      <div class="route-arrow">→</div>
+      <div class="route-node">Halifax<span class="days">1–2 days</span></div>
+      <div class="route-arrow">→</div>
+      <div class="route-mode">✈️ 1h55m<br>direct</div>
+      <div class="route-arrow">→</div>
+      <div class="route-node">St. John's, NL<span class="days">~2 days</span></div>
+      <div class="route-arrow">→</div>
+      <div class="route-mode">✈️ 45m<br>direct</div>
+      <div class="route-arrow">→</div>
+      <div class="route-node">Saint-Pierre<span class="days">~2 days</span></div>
+      <div class="route-arrow">→</div>
+      <div class="route-mode">✈️ 1h15m<br>direct</div>
+      <div class="route-arrow">→</div>
+      <div class="route-node">Halifax<span class="days">passthrough</span></div>
+      <div class="route-arrow">→</div>
+      <div class="route-mode">⛴️ 1h15m<br>ferry + car</div>
+      <div class="route-arrow">→</div>
+      <div class="route-node">PEI<span class="days">5 days</span></div>
+      <div class="route-arrow">→</div>
+      <div class="route-mode">🚗⛴️ back<br>to Halifax</div>
+      <div class="route-arrow">→</div>
+      <div class="route-node">Home<span class="days">✈️ connection</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">Map</h2>
+    <p class="lead">Solid pins and the dashed coral line are the confirmed loop. Amber pins and the dashed amber branch are Gander / Gros Morne National Park — under consideration, not yet part of the core plan. Drag/scroll to explore.</p>
+    <div id="trip-map"></div>
+    <div class="map-legend">
+      <div><span class="swatch" style="background:#0b3a52;"></span>Confirmed stops</div>
+      <div><span class="swatch" style="background:#c98a1f;"></span>Under consideration (Gander / Gros Morne)</div>
+      <div><span class="swatch" style="background:#d9713c;"></span>Confirmed route</div>
+      <div><span class="swatch" style="background:#c98a1f;"></span>Possible extension</div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">Timeline</h2>
+    <p class="lead">Relative day count — exact calendar dates are still TBD within the July 10–25 window, but the sequence and leg lengths hold once we pick a start date.</p>
+    <div class="timeline-scroll">
+      <div class="timeline">
+        <div class="tl-day tl-halifax" style="grid-column: span 2;">Day 1–2<span>Halifax</span></div>
+        <div class="tl-day tl-travel">Day 3<span>✈️ to St. John's</span></div>
+        <div class="tl-day tl-nl">Day 4<span>Newfoundland</span></div>
+        <div class="tl-day tl-travel">Day 5<span>✈️ to Saint-Pierre</span></div>
+        <div class="tl-day tl-spm">Day 6<span>Saint-Pierre</span></div>
+        <div class="tl-day tl-travel">Day 7<span>✈️ + ⛴️ to PEI</span></div>
+        <div class="tl-day tl-pei" style="grid-column: span 5;">Day 8–12<span>PEI</span></div>
+        <div class="tl-day tl-travel">Day 13<span>⛴️ + ✈️ home</span></div>
+      </div>
+    </div>
+    <div class="timeline-note">⚠️ Wherever the start date lands, the Newfoundland → Saint-Pierre flight (around Day 5) can't fall on <strong>July 14</strong> — Air Saint-Pierre runs no flights that day (Bastille Day).</div>
+
+    <div class="alert warn" style="margin-top:26px;">
+      <h3>🧭 Under consideration: Gander + Gros Morne National Park</h3>
+      <p>Gander is ~3.5–4 hrs drive from St. John's. Gros Morne is another ~4.5–5 hrs past Gander (~7–8 hrs / 700km total from St. John's) — essentially the opposite coast of the island. That's not a manageable add to the current 2-day, Avalon-focused Newfoundland budget as a drive.</p>
+      <p><strong>Better option:</strong> Deer Lake (YDF), the airport for Gros Morne, has direct flights to both Halifax and St. John's — fly in rather than drive across the island. Gander sits roughly at the midpoint, so it works well as a waypoint if we do decide to drive between St. John's and Gros Morne instead.</p>
+      <p>Realistically, adding both means <strong>+3–4 days</strong> on the Newfoundland leg — worth deciding whether that pushes the trip past July 25 or trims time elsewhere (PEI, Halifax).</p>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">Days on the Ground</h2>
+    <div class="day-bars">
+      <div class="day-bar-row">
+        <div class="day-bar-label">Halifax</div>
+        <div class="day-bar-track"><div class="day-bar-fill" style="width: 20%;">1–2 days</div></div>
+      </div>
+      <div class="day-bar-row">
+        <div class="day-bar-label">Newfoundland</div>
+        <div class="day-bar-track"><div class="day-bar-fill" style="width: 26%;">~2 days</div></div>
+      </div>
+      <div class="day-bar-row">
+        <div class="day-bar-label">Saint-Pierre</div>
+        <div class="day-bar-track"><div class="day-bar-fill" style="width: 26%;">~2 days</div></div>
+      </div>
+      <div class="day-bar-row">
+        <div class="day-bar-label">PEI</div>
+        <div class="day-bar-track"><div class="day-bar-fill" style="width: 62%;">5 days</div></div>
+      </div>
+    </div>
+    <p class="lead" style="margin-top:18px;">~10-11 destination days plus travel days — fits comfortably inside the July 10–25 window with room to flex exact dates. (Newfoundland bar grows by ~3-4 days if Gander/Gros Morne make the cut — see Timeline above.)</p>
+  </section>
+
+  <section>
+    <h2 class="section-title">Leg by Leg</h2>
+
+    <div class="card">
+      <h3>✈️ Getting There <span class="badge open">open item</span></h3>
+      <p>Jacksonville, Orlando, Daytona, and Sanford were all considered as gateway airports. We initially favored Orlando for a nonstop to Halifax — <strong>but that route doesn't run in July</strong> (it's a winter/spring-only seasonal service). In July, every candidate airport requires a connection, most likely through Toronto or Montreal.</p>
+      <p class="meta">Still need: a live fare/itinerary comparison across all four airports before booking.</p>
+    </div>
+
+    <div class="card">
+      <h3>🏙️ Halifax <span class="badge confirmed">confirmed plan</span></h3>
+      <p>1–2 days visiting Halifax friends. Rent a car here for local touring (e.g. Peggy's Cove), then return it before flying north — no reason to pay for it to sit at the airport while we're away.</p>
+    </div>
+
+    <div class="card">
+      <h3>✈️ Halifax → Newfoundland <span class="badge confirmed">confirmed plan</span></h3>
+      <p>Fly, don't drive-ferry. The Marine Atlantic car ferry runs 6–7 hours (Port aux Basques, then still a 9–10 hour drive across the island) or a seasonal 14–15 hour overnight to Argentia — either would burn a full day or more against just a ~2-day NL budget. The direct Halifax↔St. John's flight is under 2 hours.</p>
+    </div>
+
+    <div class="alert good">
+      <h3>✅ Newfoundland lodging &amp; car — looking better than feared</h3>
+      <p><strong>Lodging:</strong> plenty of VRBO options found in both St. John's and Saint-Pierre — no longer a concern.</p>
+      <p><strong>Rental car:</strong> Turo listings confirmed available in St. John's. The island-wide shortage is real (see below), so this is still worth booking early rather than waiting, but it's no longer a hard blocker.</p>
+    </div>
+
+    <div class="alert critical">
+      <h3>⚠️ Background: why Newfoundland rental cars are tight</h3>
+      <p>St. John's has had a severe, well-documented rental car shortage every summer since COVID — traditional agency fleets on the island never rebuilt. May/June/July vehicles have reportedly sold out months in advance; when available through the major brands, weekly rates have run <strong>$1,300–$2,900</strong>. Turo (peer-to-peer) has been the reliable workaround — book it as soon as dates are set rather than waiting.</p>
+    </div>
+
+    <div class="card">
+      <h3>✈️ Newfoundland → Saint-Pierre <span class="badge confirmed">confirmed plan</span></h3>
+      <p>Fly instead of the Fortune ferry — Fortune is a ~4 hour drive each way from St. John's, so the ferry route effectively costs a full extra day versus a 45-minute flight. Air Saint-Pierre flies St. John's↔Saint-Pierre on <strong>Mon / Wed / Fri</strong>, plus a seasonal <strong>Sunday</strong> add (late June–August) — 4 weekly options in our window.</p>
+    </div>
+
+    <div class="alert warn">
+      <h3>⚠️ Bastille Day blackout — July 14</h3>
+      <p>Air Saint-Pierre runs <strong>no flights on July 14</strong> on any route (St. John's, Halifax, Montreal, Paris, Miquelon) — the island shuts down to celebrate. Whatever dates we land on, the Newfoundland → Saint-Pierre leg needs to be scheduled around this.</p>
+    </div>
+
+    <div class="card">
+      <h3>✈️ Saint-Pierre → Halifax <span class="badge confirmed">confirmed plan</span></h3>
+      <p>Air Saint-Pierre also flies direct Saint-Pierre↔Halifax (1h15m, same Mon/Wed/Fri/seasonal-Sun pattern) — this skips backtracking through St. John's on the way to PEI.</p>
+    </div>
+
+    <div class="card">
+      <h3>⛴️ Halifax → PEI <span class="badge confirmed">confirmed plan</span></h3>
+      <p>Skip the long drive around through New Brunswick to the Confederation Bridge — take the <strong>Wood Islands–Caribou ferry</strong> instead (Northumberland Ferries). About 1h15m, up to 8x/day in summer, and it carries the car. Pick up a fresh rental in Halifax on return from Saint-Pierre and drive it straight onto the ferry.</p>
+    </div>
+
+    <div class="card">
+      <h3>🏝️ PEI <span class="badge confirmed">confirmed plan</span></h3>
+      <p>5 days with our PEI friends, back on their home turf. Car comes with us via the ferry.</p>
+    </div>
+
+    <div class="card">
+      <h3>✈️ PEI → Home <span class="badge open">open item</span></h3>
+      <p>We loop back to Halifax (rather than flying out of tiny Charlottetown) for the trip home — Halifax is a much larger airport with far more frequent Toronto/Montreal connections. Charlottetown only reaches Orlando via Toronto/Montreal or a Boston connection on JetBlue, with less frequency. Needs a live fare check closer to booking.</p>
+    </div>
+
+  </section>
+
+  <section>
+    <h2 class="section-title">What's Still Open</h2>
+    <ol class="checklist">
+      <li class="done"><span class="num">✓</span> Newfoundland lodging (VRBO — plenty in St. John's &amp; Saint-Pierre) and rental cars (Turo confirmed available) — no longer blockers, but book early.</li>
+      <li><span class="num">1</span> Decide whether Gander + Gros Morne National Park make the cut — adds ~3-4 days to the Newfoundland leg; fly into Deer Lake (YDF) rather than drive cross-island.</li>
+      <li><span class="num">2</span> Pin exact July dates that avoid July 14, aligned to the Mon/Wed/Fri/Sun Saint-Pierre flight schedule.</li>
+      <li><span class="num">3</span> Compare live gateway-airport itineraries (JAX / MCO / Daytona / Sanford → Halifax) — no nonstop exists from any of them in July, so this is a real decision now.</li>
+      <li><span class="num">4</span> Build a day-by-day skeleton once the above are locked.</li>
+      <li><span class="num">5</span> Confirm headcount / vehicle needs for the Newfoundland leg now that our PEI friends are joining.</li>
+      <li><span class="num">6</span> Lodging research for Halifax and PEI.</li>
+    </ol>
+  </section>
+
+</main>
+
+<footer>
+  Working document — last updated 2026-07-01. Details (schedules, fares, availability) subject to change; verify close to booking.
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  const map = L.map('trip-map', { scrollWheelZoom: false });
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors',
+    maxZoom: 10
+  }).addTo(map);
+
+  const NAVY = '#0b3a52', CORAL = '#d9713c', AMBER = '#c98a1f';
+
+  function pin(color) {
+    return L.divIcon({
+      className: '',
+      html: '<div style="background:' + color + ';width:16px;height:16px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,0.4);"></div>',
+      iconSize: [16, 16],
+      iconAnchor: [8, 16]
+    });
+  }
+
+  const confirmedStops = [
+    { name: "Halifax, NS", ll: [44.6488, -63.5752], note: "Start &amp; end — Halifax friends, gateway airport" },
+    { name: "St. John's, NL", ll: [47.5615, -52.7126], note: "Avalon Peninsula touring (~2 days)" },
+    { name: "Saint-Pierre (France)", ll: [46.7778, -56.1778], note: "French island, 45-min flight from St. John's" },
+    { name: "Charlottetown, PEI", ll: [46.2382, -63.1311], note: "5 days with PEI friends" }
+  ];
+  confirmedStops.forEach(function (s) {
+    L.marker(s.ll, { icon: pin(NAVY) }).addTo(map).bindPopup('<strong>' + s.name + '</strong><br>' + s.note);
+  });
+
+  const considerationStops = [
+    { name: "Gander, NL", ll: [48.9540, -54.6086], note: "Under consideration — ~4hr drive from St. John's" },
+    { name: "Gros Morne National Park", ll: [49.5834, -57.8890], note: "Under consideration — fly into Deer Lake (YDF) instead of the 7-8hr cross-island drive" }
+  ];
+  considerationStops.forEach(function (s) {
+    L.marker(s.ll, { icon: pin(AMBER) }).addTo(map).bindPopup('<strong>' + s.name + '</strong><br>' + s.note);
+  });
+
+  const coreRoute = [
+    [44.6488, -63.5752], [47.5615, -52.7126], [46.7778, -56.1778],
+    [44.6488, -63.5752], [46.2382, -63.1311], [44.6488, -63.5752]
+  ];
+  L.polyline(coreRoute, { color: CORAL, weight: 3, dashArray: '2,8' }).addTo(map);
+
+  const considerationRoute = [
+    [47.5615, -52.7126], [48.9540, -54.6086], [49.5834, -57.8890], [44.6488, -63.5752]
+  ];
+  L.polyline(considerationRoute, { color: AMBER, weight: 3, dashArray: '6,6' }).addTo(map);
+
+  map.fitBounds(coreRoute.concat(considerationRoute), { padding: [30, 30] });
+</script>
+
+</body>
+</html>
