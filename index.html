@@ -165,9 +165,9 @@
   .timeline-scroll { overflow-x: auto; padding-bottom: 10px; }
   .timeline {
     display: grid;
-    grid-template-columns: repeat(13, minmax(66px, 1fr));
+    grid-template-columns: repeat(14, minmax(64px, 1fr));
     gap: 6px;
-    min-width: 780px;
+    min-width: 840px;
   }
   .tl-day {
     border-radius: 10px;
@@ -190,6 +190,7 @@
   }
   .tl-halifax { background: var(--navy); }
   .tl-nl { background: var(--teal); }
+  .tl-gander { background: #6a4c93; }
   .tl-spm { background: var(--coral); }
   .tl-pei { background: var(--green); }
   .tl-travel { background: #cabfa4; color: #3a3226; }
@@ -358,13 +359,12 @@
 
   <section>
     <h2 class="section-title">Map</h2>
-    <p class="lead">Solid pins and the dashed coral line are the confirmed loop. Amber pins and the dashed amber branch are Gander / Gros Morne National Park — under consideration, not yet part of the core plan. Drag/scroll to explore.</p>
+    <p class="lead">Navy pins and the coral line are the confirmed loop — all flights except the Halifax↔PEI ferry. The purple pin and dashed purple line are the Gander day trip: a drive out and back from St. John's, not a separate leg. Drag/scroll to explore.</p>
     <div id="trip-map"></div>
     <div class="map-legend">
       <div><span class="swatch" style="background:#0b3a52;"></span>Confirmed stops</div>
-      <div><span class="swatch" style="background:#c98a1f;"></span>Under consideration (Gander / Gros Morne)</div>
-      <div><span class="swatch" style="background:#d9713c;"></span>Confirmed route</div>
-      <div><span class="swatch" style="background:#c98a1f;"></span>Possible extension</div>
+      <div><span class="swatch" style="background:#d9713c;"></span>Confirmed route (flights + ferry)</div>
+      <div><span class="swatch" style="background:#6a4c93;"></span>Gander — day trip by car from St. John's</div>
     </div>
   </section>
 
@@ -375,21 +375,25 @@
       <div class="timeline">
         <div class="tl-day tl-halifax" style="grid-column: span 2;">Day 1–2<span>Halifax</span></div>
         <div class="tl-day tl-travel">Day 3<span>✈️ to St. John's</span></div>
-        <div class="tl-day tl-nl">Day 4<span>Newfoundland</span></div>
-        <div class="tl-day tl-travel">Day 5<span>✈️ to Saint-Pierre</span></div>
-        <div class="tl-day tl-spm">Day 6<span>Saint-Pierre</span></div>
-        <div class="tl-day tl-travel">Day 7<span>✈️ + ⛴️ to PEI</span></div>
-        <div class="tl-day tl-pei" style="grid-column: span 5;">Day 8–12<span>PEI</span></div>
-        <div class="tl-day tl-travel">Day 13<span>⛴️ + ✈️ home</span></div>
+        <div class="tl-day tl-nl">Day 4<span>St. John's / Avalon</span></div>
+        <div class="tl-day tl-gander">Day 5<span>🚗 Gander day trip</span></div>
+        <div class="tl-day tl-travel">Day 6<span>✈️ to Saint-Pierre</span></div>
+        <div class="tl-day tl-spm">Day 7<span>Saint-Pierre</span></div>
+        <div class="tl-day tl-travel">Day 8<span>✈️ + ⛴️ to PEI</span></div>
+        <div class="tl-day tl-pei" style="grid-column: span 5;">Day 9–13<span>PEI</span></div>
+        <div class="tl-day tl-travel">Day 14<span>⛴️ + ✈️ home</span></div>
       </div>
     </div>
-    <div class="timeline-note">⚠️ Wherever the start date lands, the Newfoundland → Saint-Pierre flight (around Day 5) can't fall on <strong>July 14</strong> — Air Saint-Pierre runs no flights that day (Bastille Day).</div>
+    <div class="timeline-note">⚠️ Wherever the start date lands, the Newfoundland → Saint-Pierre flight (around Day 6) can't fall on <strong>July 14</strong> — Air Saint-Pierre runs no flights that day (Bastille Day).</div>
 
     <div class="alert warn" style="margin-top:26px;">
-      <h3>🧭 Under consideration: Gander + Gros Morne National Park</h3>
-      <p>Gander is ~3.5–4 hrs drive from St. John's. Gros Morne is another ~4.5–5 hrs past Gander (~7–8 hrs / 700km total from St. John's) — essentially the opposite coast of the island. That's not a manageable add to the current 2-day, Avalon-focused Newfoundland budget as a drive.</p>
-      <p><strong>Better option:</strong> Deer Lake (YDF), the airport for Gros Morne, has direct flights to both Halifax and St. John's — fly in rather than drive across the island. Gander sits roughly at the midpoint, so it works well as a waypoint if we do decide to drive between St. John's and Gros Morne instead.</p>
-      <p>Realistically, adding both means <strong>+3–4 days</strong> on the Newfoundland leg — worth deciding whether that pushes the trip past July 25 or trims time elsewhere (PEI, Halifax).</p>
+      <h3>🚗 Gander — kept as a day trip from St. John's</h3>
+      <p>Gander is ~3.5 hrs drive each way on the Trans-Canada Highway (~7 hrs round trip). Worth it for the transatlantic aviation history — the North Atlantic Aviation Museum, the "Come From Away" 9/11 story, and the Silent Witness memorial. It fits as a full-day loop from a St. John's base, no need to relocate lodging.</p>
+    </div>
+
+    <div class="alert critical" style="margin-top:18px;">
+      <h3>❌ Gros Morne National Park — leaning against it</h3>
+      <p>Gros Morne is on the far west coast — a ~7–8 hr / 700 km drive from St. John's, so it can't be reached by car within the Newfoundland budget. Flying is possible: <strong>St. John's → Deer Lake (YDF)</strong> runs ~15x/week on PAL Airlines / Air Canada, ~1h10m, from ~C$320. But Deer Lake is only the airport — you'd still need a <em>separate rental car</em> there to reach and tour the park, on top of the +3–4 days it would add. Given the Newfoundland car-supply crunch and the time cost, the call is to skip it this trip.</p>
     </div>
   </section>
 
@@ -402,7 +406,7 @@
       </div>
       <div class="day-bar-row">
         <div class="day-bar-label">Newfoundland</div>
-        <div class="day-bar-track"><div class="day-bar-fill" style="width: 26%;">~2 days</div></div>
+        <div class="day-bar-track"><div class="day-bar-fill" style="width: 30%;">~2 days (Avalon + Gander)</div></div>
       </div>
       <div class="day-bar-row">
         <div class="day-bar-label">Saint-Pierre</div>
@@ -413,7 +417,7 @@
         <div class="day-bar-track"><div class="day-bar-fill" style="width: 62%;">5 days</div></div>
       </div>
     </div>
-    <p class="lead" style="margin-top:18px;">~10-11 destination days plus travel days — fits comfortably inside the July 10–25 window with room to flex exact dates. (Newfoundland bar grows by ~3-4 days if Gander/Gros Morne make the cut — see Timeline above.)</p>
+    <p class="lead" style="margin-top:18px;">~10-11 destination days plus travel days — fits comfortably inside the July 10–25 window with room to flex exact dates. Newfoundland now includes an Avalon day plus a Gander day trip; Gros Morne is set aside (see Timeline above).</p>
   </section>
 
   <section>
@@ -482,7 +486,7 @@
     <h2 class="section-title">What's Still Open</h2>
     <ol class="checklist">
       <li class="done"><span class="num">✓</span> Newfoundland lodging (VRBO — plenty in St. John's &amp; Saint-Pierre) and rental cars (Turo confirmed available) — no longer blockers, but book early.</li>
-      <li><span class="num">1</span> Decide whether Gander + Gros Morne National Park make the cut — adds ~3-4 days to the Newfoundland leg; fly into Deer Lake (YDF) rather than drive cross-island.</li>
+      <li><span class="num">1</span> Gander is in as a day trip from St. John's; Gros Morne is set aside (too far — ~7-8 hr drive, and flying into Deer Lake still needs a separate rental there).</li>
       <li><span class="num">2</span> Pin exact July dates that avoid July 14, aligned to the Mon/Wed/Fri/Sun Saint-Pierre flight schedule.</li>
       <li><span class="num">3</span> Compare live gateway-airport itineraries (JAX / MCO / Daytona / Sanford → Halifax) — no nonstop exists from any of them in July, so this is a real decision now.</li>
       <li><span class="num">4</span> Build a day-by-day skeleton once the above are locked.</li>
@@ -505,7 +509,7 @@
     maxZoom: 10
   }).addTo(map);
 
-  const NAVY = '#0b3a52', CORAL = '#d9713c', AMBER = '#c98a1f';
+  const NAVY = '#0b3a52', CORAL = '#d9713c', PURPLE = '#6a4c93';
 
   function pin(color) {
     return L.divIcon({
@@ -526,13 +530,8 @@
     L.marker(s.ll, { icon: pin(NAVY) }).addTo(map).bindPopup('<strong>' + s.name + '</strong><br>' + s.note);
   });
 
-  const considerationStops = [
-    { name: "Gander, NL", ll: [48.9540, -54.6086], note: "Under consideration — ~4hr drive from St. John's" },
-    { name: "Gros Morne National Park", ll: [49.5834, -57.8890], note: "Under consideration — fly into Deer Lake (YDF) instead of the 7-8hr cross-island drive" }
-  ];
-  considerationStops.forEach(function (s) {
-    L.marker(s.ll, { icon: pin(AMBER) }).addTo(map).bindPopup('<strong>' + s.name + '</strong><br>' + s.note);
-  });
+  L.marker([48.9540, -54.6086], { icon: pin(PURPLE) }).addTo(map)
+    .bindPopup('<strong>Gander, NL</strong><br>Day trip by car from St. John\'s (~3.5 hrs each way) — transatlantic aviation history');
 
   const coreRoute = [
     [44.6488, -63.5752], [47.5615, -52.7126], [46.7778, -56.1778],
@@ -540,12 +539,10 @@
   ];
   L.polyline(coreRoute, { color: CORAL, weight: 3, dashArray: '2,8' }).addTo(map);
 
-  const considerationRoute = [
-    [47.5615, -52.7126], [48.9540, -54.6086], [49.5834, -57.8890], [44.6488, -63.5752]
-  ];
-  L.polyline(considerationRoute, { color: AMBER, weight: 3, dashArray: '6,6' }).addTo(map);
+  const ganderTrip = [ [47.5615, -52.7126], [48.9540, -54.6086] ];
+  L.polyline(ganderTrip, { color: PURPLE, weight: 3, dashArray: '6,6' }).addTo(map);
 
-  map.fitBounds(coreRoute.concat(considerationRoute), { padding: [30, 30] });
+  map.fitBounds(coreRoute.concat(ganderTrip), { padding: [30, 30] });
 </script>
 
 </body>
