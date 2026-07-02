@@ -21,6 +21,7 @@
     --spm: #35479c;
     --spm-red: #c8404a;
     --pei: #2f7d50;
+    --idm: #b0563a;
     --travel: #b3a488;
 
     --gold: #c9921f;
@@ -173,6 +174,7 @@
   .rb.stj { background: var(--stj); }
   .rb.spm { background: var(--spm); }
   .rb.pei { background: var(--pei); }
+  .rb.idm { background: var(--idm); }
   .rb.home { background: var(--travel); color: #3c3323; }
   .ribbon-caption { font-size: 13.5px; color: var(--muted); margin-top: 12px; }
   .ribbon-caption b { color: var(--ink); }
@@ -203,6 +205,7 @@
   .chapter.stj .chap-head { background: linear-gradient(120deg, #0a5560, var(--stj)); }
   .chapter.spm .chap-head { background: linear-gradient(120deg, #232f6e, var(--spm) 70%, #55418f); }
   .chapter.pei .chap-head { background: linear-gradient(120deg, #1f5c39, var(--pei)); }
+  .chapter.idm .chap-head { background: linear-gradient(120deg, #7e3a24, var(--idm) 70%, #c47a4f); }
   .chap-body { padding: 24px 30px 28px; }
   .getting {
     font-size: 14px; color: var(--muted);
@@ -242,8 +245,8 @@
   .wtable-scroll { overflow-x: auto; }
 
   /* ---------- OPTION CARDS ---------- */
-  .opts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 22px; }
-  @media (max-width: 800px) { .opts { grid-template-columns: 1fr; } }
+  .opts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin-top: 22px; }
+  @media (max-width: 700px) { .opts { grid-template-columns: 1fr; } }
   .opt {
     background: var(--card); border-radius: 16px; padding: 22px;
     border: 1.5px solid var(--line);
@@ -315,23 +318,18 @@
 
 <header class="hero">
   <div class="kicker">A proposal for July 2026 · for review by the travel committee 🗳️</div>
-  <h1>Two countries.<br>Four islands. <em>One July.</em></h1>
-  <p class="dek">Nova Scotia → Newfoundland → a little piece of actual France floating off the Canadian coast → Prince Edward Island. With friends on both ends.</p>
+  <h1 id="hero-h1">Two countries.<br>Four islands. <em>One July.</em></h1>
+  <p class="dek" id="hero-dek">Nova Scotia → Newfoundland → a little piece of actual France floating off the Canadian coast → Prince Edward Island. With friends on both ends.</p>
   <p class="dates" id="hero-dates">July 15 – 30, 2026 <span style="opacity:.7;font-size:.75em">(Plan A · nothing booked yet)</span></p>
-  <div class="chips">
-    <span class="chip">🛬 <span id="chip-days">16 days · 15 nights</span></span>
-    <span class="chip">🇨🇦 🇫🇷 2 countries</span>
-    <span class="chip">✈️ 6 flights · ⛴️ 3 ferries</span>
-    <span class="chip">🧭 easternmost point of North America</span>
-    <span class="chip">🥐 croissants priced in euros</span>
-  </div>
+  <div class="chips" id="hero-chips"></div>
 </header>
 
 <nav class="chapnav">
   <a href="#route"><span class="dot" style="background:var(--gold)"></span>The Route</a>
   <a href="#ch1"><span class="dot" style="background:var(--hfx)"></span>Halifax</a>
-  <a href="#ch2"><span class="dot" style="background:var(--stj)"></span>St. John's</a>
-  <a href="#ch3"><span class="dot" style="background:var(--spm)"></span>Saint-Pierre</a>
+  <a href="#ch2" data-link="ch2"><span class="dot" style="background:var(--stj)"></span>St. John's</a>
+  <a href="#ch3" data-link="ch3"><span class="dot" style="background:var(--spm)"></span>Saint-Pierre</a>
+  <a href="#ch5" data-link="ch5" style="display:none"><span class="dot" style="background:var(--idm)"></span>Madeleines</a>
   <a href="#ch4"><span class="dot" style="background:var(--pei)"></span>PEI</a>
   <a href="#options"><span class="dot" style="background:var(--spm-red)"></span>Compare Plans</a>
   <a href="#receipts"><span class="dot" style="background:var(--travel)"></span>Fine Print</a>
@@ -343,7 +341,7 @@
   <section id="route">
     <div class="sec-kicker">The Big Picture</div>
     <h2 class="sec-title">One clean loop — pick your version of it</h2>
-    <p class="lead">We fly into <strong>Halifax</strong> and out of Halifax, and everything in between chains together. Saint-Pierre's tiny airline only connects St. John's on <strong>Sundays &amp; Wednesdays</strong> and Halifax on <strong>Mon / Wed / Fri</strong> — so there are exactly three sensible shapes for this trip. <strong>This page is interactive:</strong> switch plans below and the calendar, map, and chapters all update.</p>
+    <p class="lead">We fly into <strong>Halifax</strong> and out of Halifax, and everything in between chains together. Saint-Pierre's tiny airline only connects St. John's on <strong>Sundays &amp; Wednesdays</strong> and Halifax on <strong>Mon / Wed / Fri</strong> — so there are exactly three sensible shapes for the full loop, plus a <strong>wildcard</strong> that skips Newfoundland and France entirely for Québec's Îles de la Madeleine. <strong>This page is interactive:</strong> switch plans below and the calendar, map, and chapters all update.</p>
 
     <div class="switcher" id="switcher">
       <button data-plan="A" class="active">
@@ -360,6 +358,11 @@
         <span class="pl">Plan C</span>
         <span class="pn">France First</span>
         <span class="pd">SPM Jul 17–22 direct · home Jul 30</span>
+      </button>
+      <button data-plan="D">
+        <span class="pl">Plan D · Wildcard</span>
+        <span class="pn">The Madeleine Swap</span>
+        <span class="pd">No NL/France · ÎdM Jul 20–24 · home Jul 29</span>
       </button>
     </div>
     <p class="plan-note" id="plan-note"></p>
@@ -485,13 +488,39 @@
     </div>
   </section>
 
+  <section id="ch5" data-chap="idm" style="display:none">
+    <div class="chapter idm">
+      <div class="chap-head">
+        <span class="num">03</span>
+        <h3>Îles de la Madeleine <span style="font-size:.6em">⚜️</span></h3>
+        <div class="when"></div>
+      </div>
+      <div class="chap-body">
+        <div class="getting"></div>
+        <ul class="hl">
+          <li><span class="ico">🏖️</span><div><b>Dunes without end</b><span class="sub">A dozen islands stitched together by 300 km of sand — Dune du Sud, Old Harry, red sandstone cliffs, and Gulf water that actually warms up in July.</span></div></li>
+          <li><span class="ico">🎨</span><div><b>La Grave</b><span class="sub">The heritage fishing village on Havre-Aubert — artisan shacks, cafés, and boat sheds turned galleries. The islands' soul in half a kilometre.</span></div></li>
+          <li><span class="ico">🦞</span><div><b>Eat like a Madelinot</b><span class="sub">This is Québec's lobster fishery. Add Pied-de-Vent cheese from island cows and À l'abri de la Tempête, a microbrewery on the beach.</span></div></li>
+          <li><span class="ico">🪁</span><div><b>Wind country</b><span class="sub">Kite-surf capital of Canada, sea-kayaking under the red caves at Gros-Cap, seals in the lagoons. French-first, cheerfully bilingual — and no passport needed.</span></div></li>
+        </ul>
+        <div class="alert red" style="margin:22px 0 0">
+          <h4>🚨 Plan D's feasibility gate: the ferry slot &amp; the room</h4>
+          <p>Our window (Jul 20–24) sits inside <b>Québec's construction holiday (Jul 19 – Aug 1)</b> — the two weeks half the province vacations, and the Madeleines are their favorite beach. Two things must confirm before this plan is real:</p>
+          <p>⛴️ <b>CTMA vehicle reservation</b>, Souris ↔ Cap-aux-Meules, both directions (1-888-986-3278 / traversierctma.ca). Extra night sailings were added for summer 2026 — a hint of demand. Fallback: cross as foot passengers and rent a car or scooters on-island (limited inventory).</p>
+          <p>🛏️ <b>Island lodging for 4 nights</b> — Québécois families book by winter. Check tourismilesdelamadeleine.com listings + hotels (Château Madelinot, Auberge Madeli) same day as the ferry.</p>
+        </div>
+        <div class="stay">🧭 <b>Good to know:</b> the Madeleines are the one corner of Québec on <b>Atlantic time</b> — no clock change from PEI. The crossing is ~5 hours each way; bring a book and watch for whales.</div>
+      </div>
+    </div>
+  </section>
+
   </div><!-- /chapters -->
 
   <!-- ================= OPTIONS ================= -->
   <section id="options">
     <div class="sec-kicker">Side by Side</div>
-    <h2 class="sec-title">Three shapes, same trip</h2>
-    <p class="lead">The Saint-Pierre hotel is the scarce resource, so each plan is really a different <strong>Saint-Pierre window</strong> with the rest of the trip re-folded around it. All three start with the same $432 Orlando→Halifax flight on July 15. Tap <em>view</em> to preview one above.</p>
+    <h2 class="sec-title">Four ways to cut it</h2>
+    <p class="lead">Plans A–C are really different <strong>Saint-Pierre windows</strong> with the trip re-folded around them. Plan D asks a bigger question: swap Newfoundland + France for Québec's Madeleine archipelago and cut the trip's moving parts in half. All four start with the same $432 Orlando→Halifax flight on July 15. Tap <em>view</em> to preview one above.</p>
     <div class="opts">
       <div class="opt" data-opt="A">
         <span class="badge">Plan A · Recommended</span>
@@ -537,6 +566,21 @@
         </ul>
         <div class="foot">Home Thu Jul 30 · 16 days</div>
         <button class="view" data-plan="C">View this plan ↑</button>
+      </div>
+      <div class="opt" data-opt="D">
+        <span class="badge">Plan D · Wildcard</span>
+        <h4>The Madeleine Swap</h4>
+        <div class="strip">
+          <i style="background:var(--hfx);flex:2" title="Halifax 2n"></i><i style="background:var(--pei);flex:3" title="PEI 3n"></i><i style="background:var(--idm);flex:4" title="Madeleines 4n"></i><i style="background:var(--pei);flex:5" title="PEI 5n"></i><i style="background:var(--travel);flex:1" title="home"></i>
+        </div>
+        <ul>
+          <li>Halifax 2 · PEI 3 · <b>Madeleines Jul 20–24</b> · PEI 5</li>
+          <li><b class="good">✓</b> No tiny-plane schedules — one car, ferries only, 2 flights total</li>
+          <li><b class="good">✓</b> Home Jul 29, the earliest finish · most friend time of any plan</li>
+          <li><b class="bad">✗</b> No France, no puffins — and ÎdM sits in Québec's construction-holiday crush</li>
+        </ul>
+        <div class="foot">Home Wed Jul 29 · 15 days</div>
+        <button class="view" data-plan="D">View this plan ↑</button>
       </div>
     </div>
   </section>
@@ -587,6 +631,13 @@
     </details>
 
     <details>
+      <summary>🏝️ Plan D: the Madeleine Islands math</summary>
+      <div class="din">
+        <p>The Îles de la Madeleine are reached from our loop exactly one way: the <b>CTMA ferry from Souris, PEI</b> — ~5 hours across the Gulf, daily in summer (roughly 1:00p out of Souris, 7:00a returns, plus extra night sailings added for 2026). There are no useful flights: Pascan serves the islands only from Québec City, Montréal, Bonaventure and Gaspé — nothing from Halifax. That makes Plan D the simplest plan logistically (one rental car end-to-end, two flights total, four ferry rides) and the cheapest on paper. Its risks are concentrated instead: <b>vehicle deck space and island lodging during Québec's construction holiday (Jul 19–Aug 1)</b>, both of which book far ahead. One more check before committing: confirm the rental agency permits the car on the CTMA ferry. Bonus trivia: the Madeleines run on Atlantic time — the only bit of Québec that does — so no clock changes all trip.</p>
+      </div>
+    </details>
+
+    <details>
       <summary>🗓️ What happened to "back by July 25"?</summary>
       <div class="din">
         <p>The original target window was July 10–25. Anchoring on the July 15 fare and adding the requested extra days in St. John's and Saint-Pierre pushes the return to <b>July 30</b> (Plans A &amp; C). Getting back inside July 25 would mean gutting either PEI or Saint-Pierre — the two legs with people and scarce rooms waiting. Recommendation: accept the 30th. Plan B pushes to Aug 1; if that's too far, its PEI leg trims from 4½ days to 4.</p>
@@ -599,7 +650,7 @@
     <div class="sec-kicker">Action Items</div>
     <h2 class="sec-title">What we book, in order</h2>
     <ol class="todo">
-      <li class="hot"><span class="n">1</span><div><b>Saint-Pierre lodging — this week.</b> Query Hôtel Robert, Auberge Saint-Pierre, Nuits Saint-Pierre + the tourism-office B&amp;B list for all three windows (Jul 19–24 · Jul 17–22 · Jul 22–27). Whichever answers yes picks our plan.</div></li>
+      <li class="hot"><span class="n">1</span><div><b>Saint-Pierre lodging — this week.</b> Query Hôtel Robert, Auberge Saint-Pierre, Nuits Saint-Pierre + the tourism-office B&amp;B list for all three windows (Jul 19–24 · Jul 17–22 · Jul 22–27). Whichever answers yes picks our plan. <em>Leaning Plan D instead? Same drill, different targets: CTMA vehicle slots (both directions) + island lodging Jul 20–24 — check the same week.</em></div></li>
       <li><span class="n">2</span><div><b>Orlando→Halifax, Jul 15</b> — Economy + bag, $432 for two, apply the United credit (verify the credit's fare-class rules at checkout).</div></li>
       <li><span class="n">3</span><div><b>Air Saint-Pierre legs</b> — book both hops the same day the hotel confirms (ATR-42s are small; July fills).</div></li>
       <li><span class="n">4</span><div><b>Halifax→St. John's + St. John's Turo + VRBO</b> — all three in one sitting once the plan letter is chosen.</div></li>
@@ -715,6 +766,37 @@
       gander: '<h4>✂️ What got cut: Gander</h4><p>Three nights here is enough for Cape Spear, the puffins and downtown — but not the 7-hour round-trip Gander drive. If Gander matters most, <b>Plan B</b> is the one that fits it. Gros Morne stays out in every plan: 8-hour drive, opposite coast, second rental car we can\'t count on.</p>',
       map: { seq: [['HFX',1,'hfx','Arrive Jul 15 · 2 nights · also the exit hub'],['FSP',2,'spm','Jul 17–22 · actual France 🇫🇷, direct from Halifax'],['YYT',3,'stj','Jul 22–25 · puffins, Cape Spear, screech-in'],['PEI',4,'pei','Jul 25–30 · friends\' home turf']],
              flights: [['HFX','FSP'],['FSP','YYT'],['YYT','HFX']], gander: false }
+    },
+
+    D: {
+      name: 'Plan D · The Madeleine Swap',
+      heroDates: 'July 15 – 29, 2026',
+      chipDays: '15 days · 14 nights',
+      h1: 'Three provinces.<br>A dozen islands. <em>One July.</em>',
+      dek: 'Nova Scotia → Prince Edward Island → Québec\'s wind-swept Îles de la Madeleine, five hours out in the Gulf — then back to PEI. Same friends, zero passports, one car.',
+      chips: ['🇨🇦 3 provinces, 1 country','✈️ 2 flights · ⛴️ 4 ferries · 🚗 one car','🏖️ 300 km of dunes & red cliffs','🦞 Québec\'s lobster capital'],
+      note: '<b>Plan D (the wildcard):</b> skip Newfoundland and France entirely — sail from Souris, 40 minutes from our friends\' place, five hours across the Gulf to Québec\'s Îles de la Madeleine. Two flights total, one car, home earliest of any plan. The catch: our window sits inside Québec\'s construction-holiday crush (Jul 19–Aug 1), so the ferry slot and lodging need checking immediately.',
+      title: 'Fifteen days, color-coded',
+      caption: 'Squares show where we sleep. <b>Halifax 2 · PEI 3 + 5 (two acts) · Madeleines 4.</b> Trip ends Wednesday July 29 — the earliest finish of any plan.',
+      footRoute: 'Halifax → PEI → Îles de la Madeleine → PEI → home',
+      order: ['ch1','ch4','ch5'],
+      ribbon: [
+        {d:15,c:'hfx',w:'🛬 land 3:58p'},{d:16,c:'hfx',w:'Peggy\'s Cove'},
+        {d:17,c:'pei',w:'⛴️ ferry → PEI'},{d:18,c:'pei',w:'beach day'},{d:19,c:'pei',w:'lobster supper'},
+        {d:20,c:'idm',w:'⛴️ 1p Souris'},{d:21,c:'idm',w:'La Grave'},{d:22,c:'idm',w:'dunes 🪁'},{d:23,c:'idm',w:'cliffs + brewery'},
+        {d:24,c:'pei',w:'⛴️ 7a back'},{d:25,c:'pei',w:'PEI'},{d:26,c:'pei',w:'PEI'},{d:27,c:'pei',w:'PEI'},{d:28,c:'pei',w:'PEI'},
+        {d:29,c:'home',w:'⛴️ + 🛫 home'}
+      ],
+      chap: {
+        hfx: { when: '<b>Wed Jul 15 → Fri Jul 17</b>2 nights · with our Halifax friends',
+               get: '<b>Getting there:</b> Orlando → Halifax, Wed Jul 15, United/Air Canada via Chicago · 7:09a → 3:58p · Economy + 1 checked bag ≈ <b>$432 total for two</b> (cheapest fare of the entire week we sampled — and it works with the United credit).' },
+        pei: { when: '<b>Jul 17–20 &amp; Jul 24–29</b>8 nights in two acts · our friends\' home turf',
+               get: '<b>Getting there:</b> one rental car for the whole trip — pick it up at Halifax airport Friday morning, drive ~1¾ hrs to Caribou, and the <b>Wood Islands ferry</b> (75 min) lands us at our friends\' place by evening. Act one is the warm-up weekend; act two is everything we didn\'t get to, after the Madeleines.' },
+        idm: { when: '<b>Mon Jul 20 → Fri Jul 24</b>4 nights · Québec, five hours into the Gulf',
+               get: '<b>Getting there:</b> CTMA ferry from Souris — 40 minutes east of our friends\' place — sails ~1:00p, docks at Cap-aux-Meules ~6:15p. The return sails ~7:00a Friday and has us back on PEI for lunch. The car rides along (vehicle reservation required — see below).' }
+      },
+      map: { seq: [['HFX',1,'hfx','Arrive Jul 15 · 2 nights · exit hub Jul 29'],['PEI',2,'pei','Jul 17–20 & 24–29 · friends\' home turf, two acts'],['IDM',3,'idm','Jul 20–24 · Îles de la Madeleine, Québec']],
+             flights: [], gander: false, idm: true, bounds: ['HFX','PEI','IDM','CARIBOU'] }
     }
   };
 
@@ -724,13 +806,14 @@
     attribution: '&copy; OpenStreetMap contributors', maxZoom: 10
   }).addTo(map);
 
-  const COLOR = { hfx:'#14395a', stj:'#0e7480', spm:'#35479c', pei:'#2f7d50', gold:'#c9921f' };
+  const COLOR = { hfx:'#14395a', stj:'#0e7480', spm:'#35479c', pei:'#2f7d50', idm:'#b0563a', gold:'#c9921f' };
   const PT = {
     HFX:[44.6488,-63.5752], YYT:[47.5615,-52.7126], FSP:[46.7778,-56.1778],
     PEI:[46.2382,-63.1311], GANDER:[48.9540,-54.6086],
-    CARIBOU:[45.7280,-62.6680], WOODISL:[45.9490,-62.7440]
+    CARIBOU:[45.7280,-62.6680], WOODISL:[45.9490,-62.7440],
+    SOURIS:[46.3560,-62.2500], IDM:[47.3810,-61.8570]
   };
-  const NAMES = { HFX:'Halifax', YYT:'St. John\'s', FSP:'Saint-Pierre 🇫🇷', PEI:'PEI' };
+  const NAMES = { HFX:'Halifax', YYT:'St. John\'s', FSP:'Saint-Pierre 🇫🇷', PEI:'PEI', IDM:'Îles de la Madeleine' };
 
   function numPin(n, color) {
     return L.divIcon({
@@ -756,8 +839,11 @@
     // drive + ferry to PEI
     L.polyline([PT.HFX, PT.CARIBOU], {color: COLOR.pei, weight: 3, opacity: .9}).addTo(layer);
     L.polyline([PT.CARIBOU, PT.WOODISL, PT.PEI], {color: COLOR.pei, weight: 3, dashArray: '1,7', opacity: .95}).addTo(layer);
-    // Gander
-    if (m.gander) {
+    // Madeleines (Plan D) or Gander (everyone else)
+    if (m.idm) {
+      L.polyline([PT.PEI, PT.SOURIS], {color: COLOR.idm, weight: 3, opacity: .9}).addTo(layer);
+      L.polyline([PT.SOURIS, PT.IDM], {color: COLOR.idm, weight: 3, dashArray: '1,7', opacity: .95}).addTo(layer);
+    } else if (m.gander) {
       L.marker(PT.GANDER, {icon: L.divIcon({className:'', html:`<div style="background:${COLOR.stj};width:16px;height:16px;border-radius:50%;border:3px solid #fff;box-shadow:0 1px 5px rgba(0,0,0,.3)"></div>`, iconSize:[16,16], iconAnchor:[8,8]})})
         .addTo(layer).bindPopup('<b>Gander</b><br>Day trip Sun Jul 19 — Come From Away country');
       L.polyline([PT.YYT, PT.GANDER], {color: COLOR.stj, weight: 3, dashArray: '2,8', opacity: .85}).addTo(layer);
@@ -766,6 +852,7 @@
         .addTo(layer).bindPopup('<b>Gander</b><br>Only visited in Plan B');
       L.polyline([PT.YYT, PT.GANDER], {color: COLOR.stj, weight: 2, dashArray: '2,9', opacity: .35}).addTo(layer);
     }
+    map.fitBounds((m.bounds || ['HFX','YYT','FSP','PEI','GANDER']).map(k => PT[k]), {padding: [36,36]});
   }
 
   /* ============ RENDER ============ */
@@ -783,7 +870,10 @@
 
     // hero + captions
     document.getElementById('hero-dates').innerHTML = `${p.heroDates} <span style="opacity:.7;font-size:.75em">(${p.name.split(' · ')[0]} · nothing booked yet)</span>`;
-    document.getElementById('chip-days').textContent = p.chipDays;
+    document.getElementById('hero-h1').innerHTML = p.h1 || 'Two countries.<br>Four islands. <em>One July.</em>';
+    document.getElementById('hero-dek').innerHTML = p.dek || 'Nova Scotia → Newfoundland → a little piece of actual France floating off the Canadian coast → Prince Edward Island. With friends on both ends.';
+    const chips = ['🛬 ' + p.chipDays, ...(p.chips || ['🇨🇦 🇫🇷 2 countries','✈️ 6 flights · ⛴️ 3 ferries','🧭 easternmost point of North America','🥐 croissants priced in euros'])];
+    document.getElementById('hero-chips').innerHTML = chips.map(c => `<span class="chip">${c}</span>`).join('');
     document.getElementById('plan-note').innerHTML = p.note;
     document.getElementById('ribbon-title').textContent = p.title;
     document.getElementById('ribbon-caption').innerHTML = p.caption;
@@ -794,8 +884,14 @@
       `<div class="rb ${r.c}"><div class="dow">${DOW[r.d]}</div><div class="d">${dlabel(r.d)}</div><div class="what">${r.w}</div></div>`
     ).join('');
 
-    // chapter order + numbering + copy
+    // chapter visibility + order + numbering + copy
     const wrap = document.getElementById('chapters');
+    ['ch1','ch2','ch3','ch4','ch5'].forEach(id => {
+      document.getElementById(id).style.display = p.order.includes(id) ? '' : 'none';
+    });
+    document.querySelectorAll('.chapnav a[data-link]').forEach(a => {
+      a.style.display = p.order.includes(a.dataset.link) ? '' : 'none';
+    });
     p.order.forEach((id, i) => {
       const sec = document.getElementById(id);
       wrap.appendChild(sec);
@@ -804,7 +900,7 @@
       sec.querySelector('.when').innerHTML = p.chap[ck].when;
       sec.querySelector('.getting').innerHTML = p.chap[ck].get;
     });
-    document.getElementById('gander-note').innerHTML = p.gander;
+    if (p.gander) document.getElementById('gander-note').innerHTML = p.gander;
 
     // map
     drawMap(p);
@@ -818,7 +914,6 @@
     }));
 
   setPlan('A');
-  map.fitBounds([PT.HFX, PT.YYT, PT.FSP, PT.PEI, PT.GANDER], {padding: [36,36]});
 </script>
 </body>
 </html>

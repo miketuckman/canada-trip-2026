@@ -98,6 +98,16 @@ Anchored on the booked-plan MCO→YHZ arrival Wed Jul 15, targets revised to 2-3
 
 **The play:** query all SPM hotels for all three windows; whichever window has rooms picks the plan. Note all plans end past the original Jul 25 target (documented trade-off: going back inside Jul 25 would gut PEI or SPM).
 
+### Plan D — "The Madeleine Swap" (wildcard, added 2026-07-02)
+Skips St. John's and Saint-Pierre entirely; substitutes Québec's **Îles de la Madeleine**, reached by the **CTMA ferry from Souris, PEI** (~40 min from the friends' area). Shape: Halifax Jul 15–17 (2n) → Wood Islands ferry → PEI Jul 17–20 (3n) → CTMA Souris→Cap-aux-Meules Mon Jul 20 (~1:00p, ~5h crossing, docks ~6:15p) → ÎdM Jul 20–24 (4n) → return sailing ~7:00a Fri Jul 24 → PEI Jul 24–29 (5n) → home Wed Jul 29. **15 days — the earliest finish of any plan.**
+
+Logistics facts (verified 2026-07-02):
+- CTMA Souris↔Cap-aux-Meules: ~5 hr crossing, the main access to the archipelago; summer schedule ~1:00p out of Souris / ~7:00a returns, **extra night sailings added for summer 2026** (demand signal). Vehicle reservations essential: 1-888-986-3278 / traversierctma.ca.
+- **No flights from Halifax to ÎdM (YGR)** — Pascan serves the islands only from Québec City, Montréal, Bonaventure, Gaspé (Air Canada from Montréal). The ferry is the only sensible route from this loop.
+- Simplifications vs Plans A–C: ONE rental car end-to-end (Halifax pickup Jul 17 → return Jul 29; confirm agency permits CTMA ferry passage), only 2 flights total (MCO↔YHZ), no ASP schedule constraints, no Turo, no St. John's VRBO. ÎdM is on **Atlantic time** (only part of Québec that is) — no clock changes.
+- **Feasibility gate:** the Jul 20–24 window sits inside **Québec's construction holiday (Jul 19–Aug 1, 2026)** — peak of peak for ÎdM. CTMA vehicle slots + island lodging (tourismilesdelamadeleine.com; Château Madelinot, Auberge Madeli) book far ahead; both must confirm before this plan is real. Fallback: cross as foot passengers, rent car/scooters on-island (limited).
+- Trade-offs: no France, no puffins/Cape Spear, no Gander; in exchange — beaches/dunes/red cliffs, La Grave heritage site, Pied-de-Vent cheese + À l'abri de la Tempête brewery, lobster fishery, most friend time, fewest moving parts, earliest return.
+
 ### ⚠️ Correction: Halifax–Orlando is NOT nonstop in July
 Verified directly against Halifax Stanfield's own published route schedule: both Air Canada's and Porter's Halifax↔Orlando nonstop service are **winter/spring-only seasonal routes** (roughly late Oct 2026 – late March 2027). No nonstop Halifax–Orlando service exists in July.
 
@@ -107,7 +117,7 @@ Practical effect: the flight home in July requires a connection (most likely via
 Rent in Halifax for the initial 1-2 days there, return it before flying to NL (no reason to pay for it sitting at the airport for ~4-5 days while you're in NL/SPM), then pick up a fresh rental in Halifax on return for the PEI leg (drive it onto the Wood Islands ferry), and drop off in Halifax at the very end. One-way Halifax→Charlottetown drop-off is available through Enterprise/National if needed, but isn't necessary since the loop ends back in Halifax anyway.
 
 ## Open Items / Next Steps
-1. **#1 — Saint-Pierre lodging, this week:** query Hôtel Robert / Auberge Saint-Pierre / Nuits Saint-Pierre + tourism-office B&Bs for all three windows (Jul 19–24, Jul 17–22, Jul 22–27). The window that has rooms picks Plan A/B/C.
+1. **#1 — Saint-Pierre lodging, this week:** query Hôtel Robert / Auberge Saint-Pierre / Nuits Saint-Pierre + tourism-office B&Bs for all three windows (Jul 19–24, Jul 17–22, Jul 22–27). The window that has rooms picks Plan A/B/C. **If leaning Plan D instead:** the equivalent gate is CTMA vehicle slots (both directions, Jul 20 & 24) + ÎdM lodging — same urgency, same week.
 2. Book MCO→YHZ Jul 15 (Economy + bag, $432 for two) — verify the United credit's fare-class rules at checkout.
 3. Book both Air Saint-Pierre legs the same day the hotel confirms (small ATR-42s, July fills).
 4. Then in one sitting: Halifax→St. John's flights, St. John's Turo, St. John's VRBO.
@@ -145,3 +155,5 @@ Rent in Halifax for the initial 1-2 days there, return it before flying to NL (n
 - [Air Saint-Pierre — St. John's timetable, PJ1127/1128 Sun & Wed only](https://www.airsaintpierre.com/flight-schedules/st-johns) (fetched 2026-07-01, "last update Jan 12, 2026")
 - [Tourism Saint-Pierre & Miquelon — hotels & B&Bs](https://en.spm-tourisme.fr/stay/sleep/hotels-en/)
 - [Hôtel Robert](https://www.hotelrobert.com/en/) · [Auberge Saint-Pierre](https://www.aubergesaint-pierre.com/en/) · [Nuits Saint-Pierre](https://nuitssaintpierre.com/en/)
+- [CTMA Ferry — Souris ↔ Cap-aux-Meules schedule](https://traversierctma.ca/en/plan-your-trip/schedule) · [extra 2026 night sailings notice](https://www.traversierctma.ca/en/plan-your-trip/important-notices/375-additionnal-trip-summer)
+- [Pascan Aviation — Îles-de-la-Madeleine routes (QC/YUL/Bonaventure/Gaspé only — no Halifax)](https://www.pascan.com/en/flights/tickets/iles-de-la-madeleine/)
