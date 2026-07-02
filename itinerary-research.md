@@ -85,23 +85,31 @@ Earlier note said "plenty of VRBO in both St. John's and Saint-Pierre" — **wro
 - B&B list on the official tourism site (en.spm-tourisme.fr) — several email-only
 Summer dinner reservations are near-mandatory too — book restaurants the same week as the room. **SPM lodging is now action item #1**; it decides which plan shape the trip takes.
 
-## Itinerary v4 — NEWFOUNDLAND REMOVED (Mike's call, 2026-07-02 evening)
-**St. John's is out of the trip entirely.** Aligning ASP flights with SPM lodging became the whole puzzle; a third island multiplied every risk. The shortlist is now **three plans**:
+## Itinerary v5 — NEWFOUNDLAND BACK via Plan D (Mike's call, 2026-07-02)
+Plan A (Madeleines) is faltering — **no rental cars turning up on the island** on top of the sold-out car decks. So Newfoundland returns as **Plan D**: take Plan C's booked France leg, then instead of flying back to Halifax, **sail the Thu Jul 23 SPM→Fortune ferry into Newfoundland**, a few days around St. John's, and loop home through PEI as always. Four plans now:
 
-| | Plan A — Madeleines (conditional) | Plan B — SPM Sunday window | Plan C — SPM Townhouse window |
-|---|---|---|---|
-| Halifax | Jul 15–17 (2n) | Jul 15–19 (4n, long visit) | Jul 15–20 (5n, long visit) |
-| Island leg | ÎdM Jul 20–24 (4n, **walk-on only** — car decks sold out) | SPM **Sun Jul 19 18:30 → Fri Jul 24** (5n, 4 full days) | SPM **Mon Jul 20 15:30 → Fri Jul 24** (4n, 3 full days) |
-| Lodging status | ÎdM lodging + island car TBD | **Not found yet** (the blocker) | **✅ FOUND: Airbnb 3BR townhouse** — sleeps 5, 3 beds/1.5 bath, 4.93★/30 reviews, Superhost, **$840/3 nights all fees in**, free cancel before Jul 19, avail **Jul 20–23** · ⚠️ 1 bridge night to solve (checkout 23rd, flight 24th 9a — ask host to extend or 1 hotel night) |
-| PEI | Jul 24–26 (2n; +3n act one) | Jul 24–29 (5n) | Jul 24–29 (5n) |
-| Home | Sun Jul 26 (12 days) | Wed Jul 29 (15 days) | Wed Jul 29 (15 days) |
-| Cost us / friends | ≈$3,500 / $900 | ≈$4,400 / $2,050 | ≈$4,500 / $1,850 |
+| | Plan A — Madeleines (conditional) | Plan B — SPM Sunday window | Plan C — SPM Townhouse window | Plan D — The Big Loop (NF) |
+|---|---|---|---|---|
+| Halifax | Jul 15–17 (2n) | Jul 15–19 (4n) | Jul 15–20 (5n) | Jul 15–20 (5n) |
+| Island leg | ÎdM Jul 20–24 (4n, **walk-on only** — car decks sold out, cars scarce) | SPM **Sun Jul 19 18:30 → Fri Jul 24** (5n, 4 full days) | SPM **Mon Jul 20 15:30 → Fri Jul 24** (4n, 3 full days) | SPM **Mon Jul 20 15:30** (3n, townhouse) → **⛴️ Fortune Thu Jul 23** |
+| Newfoundland | — | — | — | **St. John's Jul 23–26 (3n)** via Fortune ferry + Burin shuttle; YYT rental car |
+| Lodging status | ÎdM lodging + island car TBD | **Not found yet** (the blocker) | **✅ BOOKED: Airbnb 3BR townhouse** ($840/3n, Jul 20–23) · ⚠️ short 1 night (checkout 23rd, flight 24th) | Townhouse (same) + easy St. John's hotels/Airbnbs — **ferry dissolves the bridge night** |
+| PEI | Jul 24–26 (2n; +3n act one) | Jul 24–29 (5n) | Jul 24–29 (5n) | Jul 26–31 (5n) — via YYT→YHZ flight + Wood Islands ferry |
+| Home | Sun Jul 26 (12 days) | Wed Jul 29 (15 days) | Wed Jul 29 (15 days) | ~Fri Jul 31 (17 days) |
+| Cost us / friends | ≈$3,500 / $900 | ≈$4,400 / $2,050 | ≈$4,500 / $1,850 | ≈$5,500 / $2,900 |
 
-Both SPM flight windows quoted refundable at the same **C$3,102.64 for all four**. Decision logic: **whichever roof confirms first picks the plan** — the townhouse (reservable now, free cancellation) makes Plan C the closest to lockable. B/C presented as separate plans specifically so different flight windows can be shown side by side.
+Both SPM flight windows quoted refundable at the same **C$3,102.64 for all four**. Decision logic: **whichever roof confirms first picks the plan** — the townhouse (booked, free cancellation) anchors C; **D is C plus Newfoundland** for maximal appetite. B/C/D presented as separate plans specifically so different flight windows can be shown side by side.
 
-**Status updates (2026-07-02 evening):**
+**Plan D — Newfoundland ferry loop (new 2026-07-02):**
+- **SPM Ferries schedule (2026, from the official PDF Mike supplied):** Saint-Pierre → Fortune sails most days, NOT Mondays — including **Thu Jul 23 at 10:00a** (~1h30 crossing). This corrects the earlier (wrong) note that "SPM Ferries runs Mon/Wed/Fri only" and that "nothing leaves SPM on a Thursday." It doesn't help Plan C (Fortune is the wrong direction for getting home via Halifax), but it IS the whole spine of Plan D.
+- **Fortune → St. John's** = 360 km / ~4¾ hrs, no rental counters at the wharf. Ground answer: **daily shuttle vans** — Foote's Taxi & Bus (Grand Bank, ~$70/pp, 1-800-866-1181 / 709-832-0491), R&E Transportation (709-891-1866), Da Boot Bussing (709-567-4703). Rent a car in St. John's (YYT) for the Avalon days.
+- **Home leg:** fly YYT→YHZ (~1h30, several daily WestJet/AC), collect the PEI friends' car parked at Halifax, drive Caribou → Wood Islands ferry → PEI; drive back to Halifax to fly home.
+- **Time zones:** NL is +30 min vs Atlantic; SPM (France) is −30 min vs Atlantic — the short ferry hop crosses a full hour.
+
+**Status updates (2026-07-02):**
 - **✅ Townhouse BOOKED & CONFIRMED by Mike** (Airbnb, Jul 20–23; free cancellation before Jul 19 keeps it reversible). Multiple other lodging inquiries still out.
-- **⚠️ Bridge-night analysis (Thu Jul 23) — the ferry CANNOT bridge it:** nothing exits SPM on Thursdays — ASP doesn't fly Thu, and SPM Ferries runs Mon/Wed/Fri only. The Fri Jul 24 boat departs the same morning as the Fri flight (solves nothing), and Fortune, NL is ~4 hr from St. John's with no rentals → ferry is a **fog-emergency tool only** (boats sail when ATRs can't; $40–55/pp; 709-832-3455). **Bridge-night ladder:** 1) host extension to Jul 24 · 2) one hotel night Thu Jul 23 (single night ×4 = much easier ask than 5-night blocks) · 3) **re-date the refundable return to Wed Jul 22 9:00a** (seats verified) — France drops to 2 full days, townhouse night 3 unused (~$280), PEI gains 2 days · 4) fog-only ferry.
+- **Plan A weakening:** no island rental cars found so far (compounding the sold-out car decks) — Plan D is the adventure hedge if A dies.
+- **⚠️ Bridge-night (Thu Jul 23) — Plan C only:** no flight leaves SPM toward Halifax on a Thursday. Ladder: 1) host extension to Jul 24 · 2) one hotel night Thu Jul 23 (single night ×4 = much easier ask than 5-night blocks) · 3) **re-date the refundable return to Wed Jul 22 9:00a** (seats verified) — France drops to 2 full days, townhouse night 3 unused (~$280), PEI gains 2 days · 4) or switch to **Plan D**, whose Thursday ferry turns the checkout day into the start of the NF leg.
 - **Hosting note:** GitHub Pages had a documented degradation today (slow builds + random failures). If it recurs, the agreed fallback is **Cloudflare Pages** connected to the same repo (Mike does the dashboard connect; workflow unchanged) — NOT self-hosting on Proxmox for a family-shared static page.
 
 ## ~~Itinerary v2 — four plan shapes~~ (superseded; kept for history, updated 2026-07-02)
