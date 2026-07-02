@@ -94,7 +94,7 @@
     padding: 14px 16px;
     background: #fffdf8;
     border-bottom: 1px solid var(--line);
-    position: sticky; top: 0; z-index: 1000;
+    position: sticky; top: 0; z-index: 1200;
   }
   .chapnav a {
     text-decoration: none;
@@ -121,8 +121,14 @@
     display: flex; flex-wrap: wrap; gap: 8px;
     background: var(--card); border: 1px solid var(--line);
     border-radius: 16px; padding: 8px;
-    margin: 4px 0 24px;
+    margin: 22px 0 0;
     box-shadow: 0 2px 10px rgba(20,40,60,0.07);
+  }
+  @media (min-width: 701px) {
+    .switcher {
+      position: sticky; top: var(--navh, 54px); z-index: 1100;
+      box-shadow: 0 6px 18px rgba(20,40,60,0.14);
+    }
   }
   .switcher button {
     flex: 1; min-width: 180px;
@@ -145,7 +151,7 @@
   .switcher button.active { background: #f0f7f1; border-color: var(--pei); }
   .switcher button.active .pl { color: var(--pei); }
   .plan-note {
-    font-size: 13.5px; color: var(--muted); margin: -10px 0 20px;
+    font-size: 13.5px; color: var(--muted); margin: 12px 0 0;
   }
   .plan-note b { color: var(--pei); }
 
@@ -177,13 +183,16 @@
   .rb.idm { background: var(--idm); }
   .rb.home { background: var(--travel); color: #3c3323; }
   .grip {
-    flex: none; width: 15px; border-radius: 8px;
+    flex: none; width: 22px; border-radius: 8px;
     background: #e3dac6; color: #8f8368;
     display: flex; align-items: center; justify-content: center;
-    font-size: 12px; cursor: ew-resize;
+    font-size: 13px; font-weight: 700; letter-spacing: -2px;
+    cursor: ew-resize;
     user-select: none; -webkit-user-select: none; touch-action: none;
   }
   .grip:hover, .grip.dragging { background: var(--gold); color: #fff; }
+  body.dragging-ribbon, body.dragging-ribbon * { cursor: ew-resize !important; }
+  body.dragging-ribbon { user-select: none; -webkit-user-select: none; }
   .ribbon-caption { font-size: 13.5px; color: var(--muted); margin-top: 12px; }
   .ribbon-caption b { color: var(--ink); }
   #ribbon-note { font-size: 13px; color: var(--gold); font-weight: 600; margin-top: 8px; min-height: 20px; }
@@ -357,8 +366,9 @@
     <div class="sec-kicker">The Big Picture</div>
     <h2 class="sec-title">One clean loop — pick your version of it</h2>
     <p class="lead">We fly into <strong>Halifax</strong> and out of Halifax, and everything in between chains together. The front-runner (<strong>Plan A</strong>) skips the international islands entirely: ferry from our friends' end of PEI to Québec's <strong>Îles de la Madeleine</strong> — every leg runs daily, so the dates bend to us. Plans B–D keep <strong>Newfoundland + Saint-Pierre (France)</strong>, where Air Saint-Pierre's Sun/Wed and Mon/Wed/Fri schedules pin the dates. <strong>This page is interactive:</strong> switch plans and the calendar, map, and chapters all update — and on Plan A you can drag the calendar itself.</p>
+  </section>
 
-    <div class="switcher" id="switcher">
+  <div class="switcher" id="switcher">
       <button data-plan="A" class="active">
         <span class="pl">Plan A · Recommended</span>
         <span class="pn">The Madeleine Swap</span>
@@ -380,8 +390,9 @@
         <span class="pd">SPM Jul 17–22 direct · home Jul 30</span>
       </button>
     </div>
-    <p class="plan-note" id="plan-note"></p>
+  <p class="plan-note" id="plan-note"></p>
 
+  <section style="margin-top: 26px">
     <div id="trip-map"></div>
     <div class="map-legend">
       <div class="lg"><span class="sw" style="background:var(--hfx)"></span>Numbered stops, in order</div>
@@ -915,7 +926,7 @@
         else w = SEGNAME[sg.k];
         html += cell(sg.k, d, w);
       }
-      if (p.draggable) html += `<div class="grip" data-b="${i === D.length - 1 ? 'end' : i}" title="${i === D.length - 1 ? 'drag to shorten or lengthen the trip' : 'drag to trade days between stops'}">⋮</div>`;
+      if (p.draggable) html += `<div class="grip" data-b="${i === D.length - 1 ? 'end' : i}" title="${i === D.length - 1 ? 'drag to shorten or lengthen the trip' : 'drag to trade days between stops'}">⋮⋮</div>`;
     });
     html += cell('home', home, p.homeLabel);
     const rb = document.getElementById('ribbon');
@@ -938,17 +949,24 @@
   }
 
   /* ============ DRAG (Plan A only — every leg runs daily) ============ */
+  // Pointer capture goes on the #ribbon container (which survives re-renders),
+  // not the grip (which is destroyed every re-render) — otherwise touch drags
+  // and some mouse streams die after the first re-render.
   let drag = null;
-  document.getElementById('ribbon').addEventListener('pointerdown', e => {
+  const ribbonEl = document.getElementById('ribbon');
+  ribbonEl.addEventListener('pointerdown', e => {
     const g = e.target.closest('.grip');
     if (!g || !PLANS[cur.key].draggable) return;
     e.preventDefault();
-    const cellEl = document.querySelector('#ribbon .rb');
-    drag = { b: g.dataset.b, x: e.clientX, cw: cellEl ? cellEl.getBoundingClientRect().width + 5 : 56, base: clone(cur.segs) };
+    try { ribbonEl.setPointerCapture(e.pointerId); } catch (_) {}
+    const cellEl = ribbonEl.querySelector('.rb');
+    drag = { b: g.dataset.b, x: e.clientX, cw: cellEl ? cellEl.getBoundingClientRect().width + 5 : 56, base: clone(cur.segs), pid: e.pointerId };
     g.classList.add('dragging');
+    document.body.classList.add('dragging-ribbon');
   });
   document.addEventListener('pointermove', e => {
     if (!drag) return;
+    e.preventDefault();
     const delta = Math.round((e.clientX - drag.x) / drag.cw);
     const segs = clone(drag.base);
     const last = segs.length - 1;
@@ -969,11 +987,15 @@
       note(`↔️ ${breakdown(segDates(segs))} · home ${fmtShort(homeDay(segs))} — keep dragging or release.`);
     }
   });
-  document.addEventListener('pointerup', () => {
+  const endDrag = () => {
     if (!drag) return;
+    try { ribbonEl.releasePointerCapture(drag.pid); } catch (_) {}
     drag = null;
+    document.body.classList.remove('dragging-ribbon');
     renderRibbon();
-  });
+  };
+  document.addEventListener('pointerup', endDrag);
+  document.addEventListener('pointercancel', endDrag);
 
   /* ============ RENDER ============ */
   function setPlan(key) {
@@ -1018,6 +1040,11 @@
       setPlan(b.dataset.plan);
       if (b.classList.contains('view')) document.getElementById('route').scrollIntoView({behavior: 'smooth'});
     }));
+
+  // keep the sticky switcher pinned exactly below the (wrap-height-varying) nav
+  const setNavH = () => document.documentElement.style.setProperty('--navh', document.querySelector('.chapnav').offsetHeight + 'px');
+  window.addEventListener('resize', setNavH);
+  setNavH();
 
   setPlan('A');
 </script>
