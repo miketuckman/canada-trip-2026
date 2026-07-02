@@ -85,7 +85,21 @@ Earlier note said "plenty of VRBO in both St. John's and Saint-Pierre" — **wro
 - B&B list on the official tourism site (en.spm-tourisme.fr) — several email-only
 Summer dinner reservations are near-mandatory too — book restaurants the same week as the room. **SPM lodging is now action item #1**; it decides which plan shape the trip takes.
 
-## Itinerary v2 — four plan shapes (updated 2026-07-02)
+## Itinerary v4 — NEWFOUNDLAND REMOVED (Mike's call, 2026-07-02 evening)
+**St. John's is out of the trip entirely.** Aligning ASP flights with SPM lodging became the whole puzzle; a third island multiplied every risk. The shortlist is now **three plans**:
+
+| | Plan A — Madeleines (conditional) | Plan B — SPM Sunday window | Plan C — SPM Townhouse window |
+|---|---|---|---|
+| Halifax | Jul 15–17 (2n) | Jul 15–19 (4n, long visit) | Jul 15–20 (5n, long visit) |
+| Island leg | ÎdM Jul 20–24 (4n, **walk-on only** — car decks sold out) | SPM **Sun Jul 19 18:30 → Fri Jul 24** (5n, 4 full days) | SPM **Mon Jul 20 15:30 → Fri Jul 24** (4n, 3 full days) |
+| Lodging status | ÎdM lodging + island car TBD | **Not found yet** (the blocker) | **✅ FOUND: Airbnb 3BR townhouse** — sleeps 5, 3 beds/1.5 bath, 4.93★/30 reviews, Superhost, **$840/3 nights all fees in**, free cancel before Jul 19, avail **Jul 20–23** · ⚠️ 1 bridge night to solve (checkout 23rd, flight 24th 9a — ask host to extend or 1 hotel night) |
+| PEI | Jul 24–26 (2n; +3n act one) | Jul 24–29 (5n) | Jul 24–29 (5n) |
+| Home | Sun Jul 26 (12 days) | Wed Jul 29 (15 days) | Wed Jul 29 (15 days) |
+| Cost us / friends | ≈$3,500 / $900 | ≈$4,400 / $2,050 | ≈$4,500 / $1,850 |
+
+Both SPM flight windows quoted refundable at the same **C$3,102.64 for all four**. Decision logic: **whichever roof confirms first picks the plan** — the townhouse (reservable now, free cancellation) makes Plan C the closest to lockable. B/C presented as separate plans specifically so different flight windows can be shown side by side.
+
+## ~~Itinerary v2 — four plan shapes~~ (superseded; kept for history, updated 2026-07-02)
 Anchored on the booked-plan MCO→YHZ arrival Wed Jul 15. **Re-lettered 2026-07-02: the Madeleine swap is now Plan A (recommended — Mike's leaning #1)**, and the three Saint-Pierre plans shifted to B/C/D. **PEI trimmed to 5 nights across all plans** (was 6 in the old Plan A, 3+5 in the Madeleine plan). The presentation (trip-presentation.html) is fully interactive: a plan switcher re-renders calendar, chapters, and map — and **Plan A's calendar ribbon is drag-editable** (grip handles between stays + at the end; every Plan A leg is a daily ferry so any dragged split is bookable; B–D show a lock note since ASP flight days pin their dates; captions/chapter dates/hero recompute live; reset button restores defaults).
 
 **Restructured 2026-07-02 (v3):** "Full Newfoundland" (the 4½-day St. John's / Gander maximalist, home Aug 1) was **dropped**; Islands in Order moved B→C; new **Plan B "Saint-Pierre Simple"** added: Halifax + SPM + PEI only, no Newfoundland. SPM sits at the *front* (not sandwiched) because there are **no PEI↔SPM flights** — Halifax is the hinge both ways, and SPM-at-end would require a too-tight morning-ferry-to-1pm-flight transfer. Consequence: **Gander no longer fits any plan** (would need +2 St. John's days on Plan C).
