@@ -183,14 +183,23 @@
   .rb.idm { background: var(--idm); }
   .rb.home { background: var(--travel); color: #3c3323; }
   .grip {
-    flex: none; width: 22px; border-radius: 8px;
-    background: #e3dac6; color: #8f8368;
+    flex: none; width: 24px; border-radius: 9px;
+    background: #fff; border: 2px solid var(--gold); color: var(--gold);
     display: flex; align-items: center; justify-content: center;
-    font-size: 13px; font-weight: 700; letter-spacing: -2px;
+    font-size: 14px; font-weight: 700; letter-spacing: -2px;
     cursor: ew-resize;
+    box-shadow: 0 1px 5px rgba(201,146,31,0.25);
     user-select: none; -webkit-user-select: none; touch-action: none;
   }
   .grip:hover, .grip.dragging { background: var(--gold); color: #fff; }
+  .rb[data-slide] { cursor: grab; }
+  .movetag {
+    margin: 5px auto 0; width: 30px; border-radius: 999px;
+    background: rgba(255,255,255,0.22); border: 1.5px solid rgba(255,255,255,0.85);
+    font-size: 12px; line-height: 1.5; font-weight: 700; text-align: center;
+    cursor: grab;
+  }
+  .rb[data-slide]:hover .movetag { background: rgba(255,255,255,0.45); }
   body.dragging-ribbon, body.dragging-ribbon * { cursor: ew-resize !important; }
   body.dragging-ribbon { user-select: none; -webkit-user-select: none; }
   .ribbon-caption { font-size: 13.5px; color: var(--muted); margin-top: 12px; }
@@ -406,7 +415,7 @@
   <section id="calendar">
     <div class="sec-kicker">Day by Day</div>
     <h2 class="sec-title" id="ribbon-title"></h2>
-    <p class="lead">Each square is a night; travel legs are morning or afternoon hops, not lost days. On <strong>Plan A</strong>, drag the <strong>⋮ handles</strong> between stops to trade days — and drag the last handle to lengthen or shorten the whole trip. Every Plan A leg is a daily ferry, so any split you drag is bookable. (Plans B–D are pinned to Air Saint-Pierre's flight days.)</p>
+    <p class="lead">Each square is a night; travel legs are morning or afternoon hops, not lost days. On <strong>Plan A</strong> the calendar is drag-editable: the gold <strong>⋮⋮ bars</strong> between stays resize them (the last bar stretches the whole trip), and the <strong>↔ badge in the middle of a stay slides the entire block</strong> to different dates. Every Plan A leg is a daily ferry, so anything you drag is bookable. (Plans B–D are pinned to Air Saint-Pierre's flight days.)</p>
     <div class="ribbon-scroll"><div class="ribbon" id="ribbon"></div></div>
     <p class="ribbon-caption" id="ribbon-caption"></p>
     <p id="ribbon-note"></p>
@@ -712,7 +721,7 @@
   const DEFAULT_H1  = 'Two countries.<br>Four islands. <em>One July.</em>';
   const DEFAULT_DEK = 'Nova Scotia → Newfoundland → a little piece of actual France floating off the Canadian coast → Prince Edward Island. With friends on both ends.';
   const DEFAULT_CHIPS = ['🇨🇦 🇫🇷 2 countries','✈️ 6 flights · ⛴️ 3 ferries','🧭 easternmost point of North America','🥐 croissants priced in euros'];
-  const DRAG_HINT = '↔️ Drag the ⋮ handles to reshape this plan — every leg runs daily, so any split is bookable.';
+  const DRAG_HINT = '↔️ Gold <b>⋮⋮ bars</b> resize a stay (the last one stretches the whole trip) · the <b>↔ badge mid-stay slides the entire block</b> to new dates. Every leg runs daily, so any result is bookable.';
   const LOCK_NOTE = '🔒 Travel days in this plan are pinned to Air Saint-Pierre\'s schedule (Sun/Wed from St. John\'s · Mon/Wed/Fri/Sun from Halifax) — switch to Plan A for free dragging.';
 
   /* ============ PLAN DATA ============ */
@@ -915,16 +924,20 @@
   function renderRibbon() {
     const p = PLANS[cur.key], D = segDates(cur.segs), custom = isCustom(), home = homeDay(cur.segs);
     const curated = {}; p.ribbon.forEach(r => curated[r.d] = r);
-    const cell = (k, d, w) => `<div class="rb ${k}"><div class="dow">${dow(d)}</div><div class="d">${cellDay(d)}</div><div class="what">${w}</div></div>`;
+    const cell = (k, d, w, attrs = '', extra = '') => `<div class="rb ${k}"${attrs}><div class="dow">${dow(d)}</div><div class="d">${cellDay(d)}</div><div class="what">${w}</div>${extra}</div>`;
 
     let html = '';
     D.forEach((sg, i) => {
+      const slidable = p.draggable && i > 0 && i < D.length - 1;
+      const attrs = ` data-seg="${i}"${slidable ? ' data-slide="1" title="drag to slide this whole stay"' : ''}`;
+      const mid = sg.s + Math.floor((sg.n - 1) / 2);
       for (let d = sg.s; d <= sg.e; d++) {
         let w;
         if (d === sg.s) w = p.travel[i];
         else if (curated[d] && curated[d].c === sg.k) w = curated[d].w;
         else w = SEGNAME[sg.k];
-        html += cell(sg.k, d, w);
+        const extra = slidable && d === mid ? '<div class="movetag">↔</div>' : '';
+        html += cell(sg.k, d, w, attrs, extra);
       }
       if (p.draggable) html += `<div class="grip" data-b="${i === D.length - 1 ? 'end' : i}" title="${i === D.length - 1 ? 'drag to shorten or lengthen the trip' : 'drag to trade days between stops'}">⋮⋮</div>`;
     });
@@ -955,13 +968,20 @@
   let drag = null;
   const ribbonEl = document.getElementById('ribbon');
   ribbonEl.addEventListener('pointerdown', e => {
+    if (!PLANS[cur.key].draggable) return;
     const g = e.target.closest('.grip');
-    if (!g || !PLANS[cur.key].draggable) return;
+    const sc = e.target.closest('.rb[data-slide]');
+    if (!g && !sc) return;
     e.preventDefault();
     try { ribbonEl.setPointerCapture(e.pointerId); } catch (_) {}
     const cellEl = ribbonEl.querySelector('.rb');
-    drag = { b: g.dataset.b, x: e.clientX, cw: cellEl ? cellEl.getBoundingClientRect().width + 5 : 56, base: clone(cur.segs), pid: e.pointerId };
-    g.classList.add('dragging');
+    const cw = cellEl ? cellEl.getBoundingClientRect().width + 5 : 56;
+    if (g) {
+      drag = { b: g.dataset.b, x: e.clientX, cw, base: clone(cur.segs), pid: e.pointerId };
+      g.classList.add('dragging');
+    } else {
+      drag = { b: 'slide', seg: +sc.dataset.seg, x: e.clientX, cw, base: clone(cur.segs), pid: e.pointerId };
+    }
     document.body.classList.add('dragging-ribbon');
   });
   document.addEventListener('pointermove', e => {
@@ -973,6 +993,11 @@
     if (drag.b === 'end') {
       const others = segs.slice(0, -1).reduce((a,s) => a + s.n, 0);
       segs[last].n = Math.max(1, Math.min(segs[last].n + delta, 33 - 15 - others)); // cap: home ≤ Aug 2
+    } else if (drag.b === 'slide') {
+      // slide a whole inner stay: length unchanged, neighbors absorb the shift
+      const i = drag.seg;
+      const d = Math.max(-(segs[i - 1].n - 1), Math.min(segs[i + 1].n - 1, delta));
+      segs[i - 1].n += d; segs[i + 1].n -= d;
     } else {
       const i = +drag.b;
       const D0 = segDates(segs);
