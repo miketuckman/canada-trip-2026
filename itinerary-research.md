@@ -99,6 +99,11 @@ Summer dinner reservations are near-mandatory too — book restaurants the same 
 
 Both SPM flight windows quoted refundable at the same **C$3,102.64 for all four**. Decision logic: **whichever roof confirms first picks the plan** — the townhouse (reservable now, free cancellation) makes Plan C the closest to lockable. B/C presented as separate plans specifically so different flight windows can be shown side by side.
 
+**Status updates (2026-07-02 evening):**
+- **✅ Townhouse RESERVED by Mike** (zero-risk hold — free cancellation before Jul 19) while other lodging inquiries are out.
+- **Ferry escape hatch verified:** the only sea exit from SPM is **SPM Ferries → Fortune, NL** (Mon/Wed/Fri ~9:00a in July — **Fri Jul 24 sails**; 1h30, $40–55/pp; info@saintpierreferry.ca, 709-832-3455). No ferry to NS or PEI exists. Not a planning option (Fortune is ~4 hr from St. John's, no rentals, then still a YYT→YHZ flight) but it's the classic **fog contingency** — FSP airport is fog-prone, boats sail when ATRs can't. Refundable air fares are the insurance.
+- **Hosting note:** GitHub Pages had a documented degradation today (slow builds + random failures). If it recurs, the agreed fallback is **Cloudflare Pages** connected to the same repo (Mike does the dashboard connect; workflow unchanged) — NOT self-hosting on Proxmox for a family-shared static page.
+
 ## ~~Itinerary v2 — four plan shapes~~ (superseded; kept for history, updated 2026-07-02)
 Anchored on the booked-plan MCO→YHZ arrival Wed Jul 15. **Re-lettered 2026-07-02: the Madeleine swap is now Plan A (recommended — Mike's leaning #1)**, and the three Saint-Pierre plans shifted to B/C/D. **PEI trimmed to 5 nights across all plans** (was 6 in the old Plan A, 3+5 in the Madeleine plan). The presentation (trip-presentation.html) is fully interactive: a plan switcher re-renders calendar, chapters, and map — and **Plan A's calendar ribbon is drag-editable** (grip handles between stays + at the end; every Plan A leg is a daily ferry so any dragged split is bookable; B–D show a lock note since ASP flight days pin their dates; captions/chapter dates/hero recompute live; reset button restores defaults).
 
