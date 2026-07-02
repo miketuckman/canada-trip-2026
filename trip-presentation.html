@@ -240,6 +240,27 @@
   .badge.confirmed { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
   .badge.open { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-border); }
 
+  /* Fare tables */
+  .fare-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 13.5px;
+  }
+  .fare-table th, .fare-table td {
+    text-align: left;
+    padding: 7px 10px;
+    border-bottom: 1px solid #e7e0d0;
+  }
+  .fare-table th {
+    color: var(--navy-deep);
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+  .fare-table tr.highlight td { background: var(--green-bg); font-weight: 700; }
+  .fare-table td.num { text-align: right; font-variant-numeric: tabular-nums; }
+
   /* Alert boxes */
   .alert {
     border-radius: 14px;
@@ -370,21 +391,22 @@
 
   <section>
     <h2 class="section-title">Timeline</h2>
-    <p class="lead">Relative day count — exact calendar dates are still TBD within the July 10–25 window, but the sequence and leg lengths hold once we pick a start date.</p>
+    <p class="lead">Anchored to the Jul 15 Halifax flight we priced (below dates assume that start — not yet booked). Sequence and leg lengths hold regardless.</p>
     <div class="timeline-scroll">
       <div class="timeline">
-        <div class="tl-day tl-halifax" style="grid-column: span 2;">Day 1–2<span>Halifax</span></div>
-        <div class="tl-day tl-travel">Day 3<span>✈️ to St. John's</span></div>
-        <div class="tl-day tl-nl">Day 4<span>St. John's / Avalon</span></div>
-        <div class="tl-day tl-gander">Day 5<span>🚗 Gander day trip</span></div>
-        <div class="tl-day tl-travel">Day 6<span>✈️ to Saint-Pierre</span></div>
-        <div class="tl-day tl-spm">Day 7<span>Saint-Pierre</span></div>
-        <div class="tl-day tl-travel">Day 8<span>✈️ + ⛴️ to PEI</span></div>
-        <div class="tl-day tl-pei" style="grid-column: span 5;">Day 9–13<span>PEI</span></div>
-        <div class="tl-day tl-travel">Day 14<span>⛴️ + ✈️ home</span></div>
+        <div class="tl-day tl-halifax" style="grid-column: span 2;">Jul 15–16<span>Halifax</span></div>
+        <div class="tl-day tl-travel">Jul 17<span>✈️ to St. John's</span></div>
+        <div class="tl-day tl-nl">Jul 18<span>St. John's / Avalon</span></div>
+        <div class="tl-day tl-gander">Jul 19<span>🚗 Gander day trip</span></div>
+        <div class="tl-day tl-travel">Jul 20<span>✈️ to Saint-Pierre</span></div>
+        <div class="tl-day tl-spm">Jul 21<span>Saint-Pierre</span></div>
+        <div class="tl-day tl-travel">Jul 22<span>✈️ + ⛴️ to PEI</span></div>
+        <div class="tl-day tl-pei" style="grid-column: span 5;">Jul 23–27<span>PEI</span></div>
+        <div class="tl-day tl-travel">Jul 28<span>⛴️ + ✈️ home</span></div>
       </div>
     </div>
-    <div class="timeline-note">⚠️ Wherever the start date lands, the Newfoundland → Saint-Pierre flight (around Day 6) can't fall on <strong>July 14</strong> — Air Saint-Pierre runs no flights that day (Bastille Day).</div>
+    <div class="timeline-note">✅ Jul 15 start clears the <strong>July 14</strong> Air Saint-Pierre blackout (Bastille Day) automatically — the NL→Saint-Pierre flight lands on Jul 20, a regular Monday departure.</div>
+    <div class="timeline-note" style="background:var(--red-bg); border-color:var(--red-border); color:var(--red);">⚠️ This full 14-day run ends <strong>Jul 28</strong> — 3 days past the original July 25 target. Worth confirming that's fine, or trimming a day or two (e.g. 1 Halifax day instead of 2, or 4 PEI days) to land back inside the window.</div>
 
     <div class="alert warn" style="margin-top:26px;">
       <h3>🚗 Gander — kept as a day trip from St. John's</h3>
@@ -424,9 +446,22 @@
     <h2 class="section-title">Leg by Leg</h2>
 
     <div class="card">
-      <h3>✈️ Getting There <span class="badge open">open item</span></h3>
+      <h3>✈️ Getting There <span class="badge confirmed">MCO priced</span> <span class="badge open">other gateways open</span></h3>
       <p>Jacksonville, Orlando, Daytona, and Sanford were all considered as gateway airports. We initially favored Orlando for a nonstop to Halifax — <strong>but that route doesn't run in July</strong> (it's a winter/spring-only seasonal service). In July, every candidate airport requires a connection, most likely through Toronto or Montreal.</p>
-      <p class="meta">Still need: a live fare/itinerary comparison across all four airports before booking.</p>
+      <p>Priced live: <strong>MCO → YHZ</strong> across the week around Jul 15 (2 passengers, base fare):</p>
+      <table class="fare-table">
+        <tr><th>Date</th><th>Cheapest</th><th>Routing</th><th>Duration</th></tr>
+        <tr><td>Sun Jul 12</td><td class="num">$470</td><td>United/AC via Chicago</td><td>7h49m</td></tr>
+        <tr><td>Mon Jul 13</td><td class="num">$468</td><td>Air Canada via Montreal</td><td>8h7m</td></tr>
+        <tr><td>Tue Jul 14</td><td class="num">$468</td><td>Air Canada via Montreal</td><td>8h7m</td></tr>
+        <tr class="highlight"><td>Wed Jul 15</td><td class="num">$274</td><td>United/AC via Chicago</td><td>7h49m</td></tr>
+        <tr><td>Thu Jul 16</td><td class="num">$427</td><td>WestJet/Delta</td><td>11h8m</td></tr>
+        <tr><td>Fri Jul 17</td><td class="num">$511</td><td>Delta</td><td>15h18m</td></tr>
+        <tr><td>Sat Jul 18</td><td class="num">$274</td><td>Delta (8h17m) or United (15h15m)</td><td>varies</td></tr>
+      </table>
+      <p><strong>Jul 15 is the cheapest fare of the entire week, on any airline</strong> — likely a fare-sale blip worth locking in. It's also the cheapest United fare of the week specifically, which matters since we have a United travel credit to use — no conflict between "cheapest" and "use the credit" here.</p>
+      <p><strong>Booking Economy, not Basic</strong> — checked-bag fees ($50/pax) apply in every United fare tier, so the real gap is Basic all-in ($374 with 2 checked bags) vs Economy all-in ($482) — about $108 total for a free carry-on each, free seat selection (sitting together), and free changes. Worth it given how many downstream connections this trip has to protect (Jul 14 blackout, an Air Saint-Pierre leg that only flies 4x/week). Assuming <strong>1 checked bag total</strong>: <strong>Economy $382 + $50 bag = $432 for both passengers (~$216/person)</strong>.</p>
+      <p class="meta">Still open: live pricing from JAX/Daytona/Sanford to confirm MCO is genuinely the best gateway. Also worth checking whether the United credit applies to Basic Economy (informational only — Economy is the plan regardless).</p>
     </div>
 
     <div class="card">
@@ -486,12 +521,12 @@
     <h2 class="section-title">What's Still Open</h2>
     <ol class="checklist">
       <li class="done"><span class="num">✓</span> Newfoundland lodging (VRBO — plenty in St. John's &amp; Saint-Pierre) and rental cars (Turo confirmed available) — no longer blockers, but book early.</li>
-      <li><span class="num">1</span> Gander is in as a day trip from St. John's; Gros Morne is set aside (too far — ~7-8 hr drive, and flying into Deer Lake still needs a separate rental there).</li>
-      <li><span class="num">2</span> Pin exact July dates that avoid July 14, aligned to the Mon/Wed/Fri/Sun Saint-Pierre flight schedule.</li>
-      <li><span class="num">3</span> Compare live gateway-airport itineraries (JAX / MCO / Daytona / Sanford → Halifax) — no nonstop exists from any of them in July, so this is a real decision now.</li>
-      <li><span class="num">4</span> Build a day-by-day skeleton once the above are locked.</li>
-      <li><span class="num">5</span> Confirm headcount / vehicle needs for the Newfoundland leg now that our PEI friends are joining.</li>
-      <li><span class="num">6</span> Lodging research for Halifax and PEI.</li>
+      <li class="done"><span class="num">✓</span> Gander is in as a day trip from St. John's; Gros Morne is set aside (too far — ~7-8 hr drive, and flying into Deer Lake still needs a separate rental there).</li>
+      <li class="done"><span class="num">✓</span> MCO→YHZ priced: Wed Jul 15, Economy, 1 checked bag — $432 total for 2 passengers, cheapest fare of the week and clear of the July 14 blackout.</li>
+      <li><span class="num">1</span> Price JAX/Daytona/Sanford → Halifax to confirm MCO is genuinely the best gateway.</li>
+      <li><span class="num">2</span> Build a day-by-day skeleton now that the gateway leg is priced and dated.</li>
+      <li><span class="num">3</span> Confirm headcount / vehicle needs for the Newfoundland leg now that our PEI friends are joining.</li>
+      <li><span class="num">4</span> Lodging research for Halifax and PEI.</li>
     </ol>
   </section>
 
