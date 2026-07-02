@@ -380,7 +380,7 @@
   <section id="route">
     <div class="sec-kicker">The Big Picture</div>
     <h2 class="sec-title">One clean loop — pick your version of it</h2>
-    <p class="lead">We fly into <strong>Halifax</strong> and out of Halifax, and everything in between chains together. The front-runner (<strong>Plan A</strong>) skips the international islands entirely: ferry from our friends' end of PEI to Québec's <strong>Îles de la Madeleine</strong> — every leg runs daily, so the dates bend to us. Plans B–D keep <strong>Saint-Pierre (France)</strong>: B pairs it with PEI alone (no Newfoundland — there are no PEI↔Saint-Pierre flights, so Halifax is the hinge), while C and D add St. John's. Air Saint-Pierre's Sun/Wed and Mon/Wed/Fri schedules pin those dates. <strong>This page is interactive:</strong> switch plans and the calendar, map, and chapters all update — and on Plan A you can drag the calendar itself.</p>
+    <p class="lead">We fly into <strong>Halifax</strong> and out of Halifax, and everything in between chains together. The front-runner (<strong>Plan A</strong>) skips the international islands entirely: ferry from our friends' end of PEI to Québec's <strong>Îles de la Madeleine</strong> — every leg runs daily, so the dates bend to us. Plans B and C keep <strong>Saint-Pierre (France)</strong> on the one window with verified seats (<strong>Jul 19–24</strong>): B pairs it with PEI alone (no Newfoundland — there are no PEI↔Saint-Pierre flights, so Halifax is the hinge), C adds St. John's. Plan D's Jul 17 flight sold out — it's kept for reference only. <strong>This page is interactive:</strong> switch plans and the calendar, map, and chapters all update — and on Plan A you can drag the calendar itself.</p>
   </section>
 
   <div class="switcher" id="switcher">
@@ -392,7 +392,7 @@
       <button data-plan="B">
         <span class="pl">Plan B</span>
         <span class="pn">Saint-Pierre Simple</span>
-        <span class="pd">No Newfoundland · SPM Jul 17–22 · home Jul 27</span>
+        <span class="pd">No Newfoundland · SPM Jul 19–24 · home Jul 29</span>
       </button>
       <button data-plan="C">
         <span class="pl">Plan C</span>
@@ -400,9 +400,9 @@
         <span class="pd">+ St. John's · SPM Jul 19–24 · home Jul 29</span>
       </button>
       <button data-plan="D">
-        <span class="pl">Plan D</span>
+        <span class="pl">Plan D · ⛔ Sold out</span>
         <span class="pn">France First</span>
-        <span class="pd">SPM Jul 17–22 direct · home Jul 30</span>
+        <span class="pd">Jul 17 flight gone — reference only</span>
       </button>
     </div>
   <p class="plan-note" id="plan-note"></p>
@@ -499,11 +499,12 @@
         <div class="wtable-scroll">
         <table class="wtable">
           <tr><th>Saint-Pierre window</th><th>Full days</th><th>What it does to the rest</th></tr>
-          <tr data-win="B D"><td><b>Fri Jul 17 → Wed Jul 22</b> <span class="tag">Plans B &amp; D</span></td><td>4</td><td>France first, direct from Halifax · Plan B ferries straight to PEI the morning it ends (home Jul 27) · Plan D continues to St. John's instead (home Jul 30)</td></tr>
-          <tr data-win="C"><td><b>Sun Jul 19 → Fri Jul 24</b> <span class="tag">Plan C</span></td><td>4</td><td>St. John's first (2 days of puffins &amp; Cape Spear) · the 9:00a Friday exit lands Halifax 9:30a → <b>same-day ferry to PEI</b> · home Jul 29</td></tr>
+          <tr><td style="color:var(--muted)"><s>Fri Jul 17 → Wed Jul 22</s> <span class="tag" style="background:var(--spm-red)">⛔ sold out</span></td><td style="color:var(--muted)">4</td><td style="color:var(--muted)">The original Plan B/D window — the Jul 17 Halifax outbound has no seats (verified in the booking engine Jul 2)</td></tr>
+          <tr data-win="B C"><td><b>Sun Jul 19 → Fri Jul 24</b> <span class="tag">Plans B &amp; C</span></td><td>4</td><td><b>Quoted &amp; bookable</b> (C$3,102.64 refundable, all four) · Plan B flies it direct from Halifax (6:30p Sunday out) · Plan C reaches the same window via St. John's · both exit on the 9:00a Friday flight → <b>same-day ferry to PEI</b> · home Jul 29</td></tr>
+          <tr><td><b>Mon Jul 20 → Fri Jul 24</b> <span class="tag" style="background:var(--muted)">fallback</span></td><td>3</td><td>Also has seats (3:30p Monday out) — trims France to 3 full days if the Sunday flight fills before we book</td></tr>
         </table>
         </div>
-        <p style="font-size:13px;color:var(--muted);margin-top:8px">Why these exact dates? Air Saint-Pierre only connects St. John's on <b>Sundays and Wednesdays</b>, and Halifax on <b>Mon/Wed/Fri (+Sun)</b> — the calendar is quantized for us. Every viable window gives ~4 full French days.</p>
+        <p style="font-size:13px;color:var(--muted);margin-top:8px">Availability verified in the booking engine Jul 2: Halifax outbounds have seats <b>Sun Jul 19, Mon Jul 20, Wed Jul 22, Fri Jul 24</b> (C$392.67/person base); <b>Fri Jul 17 has none</b>. Returns have seats on every scheduled day Jul 19–27 (C$329.89/person base). The quoted refundable round trip for all four: <b>C$3,102.64</b> — and the fare is flat across dates.</p>
       </div>
     </div>
   </section>
@@ -562,7 +563,7 @@
   <section id="options">
     <div class="sec-kicker">Side by Side</div>
     <h2 class="sec-title">Four ways to cut it</h2>
-    <p class="lead"><strong>Plan A</strong> swaps the international islands for Québec's Madeleines, halves the moving parts, and is the only plan whose dates drag freely. <strong>Plans B–D</strong> keep Saint-Pierre: B skips Newfoundland, C and D add St. John's. All four start with the same $432 Orlando→Halifax flight on July 15. Cost lines are rough estimates for flights + lodging + cars + ferries (no meals/activities) — <em>us two</em>, and the <em>friends' share</em> for the legs they join. Tap <em>view</em> to preview one above.</p>
+    <p class="lead"><strong>Plan A</strong> swaps the international islands for Québec's Madeleines — conditional on the walk-on checks. <strong>Plans B and C</strong> keep Saint-Pierre on the verified Jul 19–24 window: B direct from Halifax, C via St. John's. <strong>Plan D died Jul 2</strong> when its Jul 17 flight sold out. All plans start with the same $432 Orlando→Halifax flight on July 15. Cost lines cover flights + lodging + cars + ferries (no meals/activities) — <em>us two</em>, and the <em>friends' share</em> for the legs they join. Tap <em>view</em> to preview one above.</p>
     <div class="opts">
       <div class="opt" data-opt="A">
         <span class="badge">Plan A · Recommended</span>
@@ -584,16 +585,16 @@
         <span class="badge">Plan B</span>
         <h4>Saint-Pierre Simple</h4>
         <div class="strip">
-          <i style="background:var(--hfx);flex:2" title="Halifax 2n"></i><i style="background:var(--spm);flex:5" title="Saint-Pierre 5n"></i><i style="background:var(--pei);flex:5" title="PEI 5n"></i><i style="background:var(--travel);flex:1" title="home"></i>
+          <i style="background:var(--hfx);flex:4" title="Halifax 4n"></i><i style="background:var(--spm);flex:5" title="Saint-Pierre 5n"></i><i style="background:var(--pei);flex:5" title="PEI 5n"></i><i style="background:var(--travel);flex:1" title="home"></i>
         </div>
         <ul>
-          <li>Halifax 2 · <b>SPM Jul 17–22</b> · PEI 5 — no Newfoundland</li>
-          <li><b class="good">✓</b> Shortest France plan — home Jul 27, two days past the target</li>
-          <li><b class="good">✓</b> Wednesday 9:30a landing → same-day ferry to PEI</li>
-          <li><b class="bad">✗</b> No puffins, no Cape Spear · SPM only reachable via Halifax</li>
+          <li>Halifax 4 · <b>SPM Jul 19–24</b> · PEI 5 — no Newfoundland</li>
+          <li><b class="good">✓</b> Flights quoted &amp; seats verified — Sun 6:30p out, Fri 9:00a back</li>
+          <li><b class="good">✓</b> Friday 9:30a landing → same-day ferry to PEI</li>
+          <li><b class="bad">✗</b> Jul 17 sold out forced +2 Halifax nights (or swap them for a 2-night PEI warm-up, home Jul 27, at the cost of the double ferry)</li>
         </ul>
-        <div class="cost">💰 Us two ≈ <b>$3,800</b> · PEI friends ≈ <b>$1,950</b> <span style="color:var(--muted)">(SPM flights + room)</span></div>
-        <div class="foot">Home Mon Jul 27 · 13 days</div>
+        <div class="cost">💰 Us two ≈ <b>$4,400</b> · PEI friends ≈ <b>$2,050</b> <span style="color:var(--muted)">(real ASP quote · less if the Halifax friends host)</span></div>
+        <div class="foot">Home Wed Jul 29 · 15 days</div>
         <button class="view" data-plan="B">View this plan ↑</button>
       </div>
       <div class="opt" data-opt="C">
@@ -612,8 +613,8 @@
         <div class="foot">Home Wed Jul 29 · 15 days</div>
         <button class="view" data-plan="C">View this plan ↑</button>
       </div>
-      <div class="opt" data-opt="D">
-        <span class="badge">Plan D</span>
+      <div class="opt" data-opt="D" style="opacity:.62">
+        <span class="badge" style="background:var(--red-bg);color:var(--spm-red);border-color:#e39c94">⛔ Sold out</span>
         <h4>France First</h4>
         <div class="strip">
           <i style="background:var(--hfx);flex:2" title="Halifax 2n"></i><i style="background:var(--spm);flex:5" title="Saint-Pierre 5n"></i><i style="background:var(--stj);flex:3" title="St. John's 3n"></i><i style="background:var(--pei);flex:5" title="PEI 5n"></i><i style="background:var(--travel);flex:1" title="home"></i>
@@ -622,10 +623,10 @@
           <li>Halifax 2 · <b>SPM Jul 17–22</b> · St. John's 2½ · PEI 4½</li>
           <li><b class="good">✓</b> Direct Halifax→Saint-Pierre flight, no connection</li>
           <li><b class="good">✓</b> Exit from St. John's uses <i>daily</i> flights — most rebookable of the SPM plans</li>
-          <li><b class="bad">✗</b> Weekend in SPM = the busiest lodging window · longest trip left standing</li>
+          <li><b class="bad">⛔</b> Its Fri Jul 17 outbound <b>sold out</b> (verified Jul 2) — no workable replacement window</li>
         </ul>
-        <div class="cost">💰 Us two ≈ <b>$4,900</b> · PEI friends ≈ <b>$2,650</b> <span style="color:var(--muted)">(SPM + StJ flights &amp; rooms)</span></div>
-        <div class="foot">Home Thu Jul 30 · 16 days</div>
+        <div class="cost" style="text-decoration:line-through;color:var(--muted)">💰 Us two ≈ $4,900 · PEI friends ≈ $2,650</div>
+        <div class="foot">Dead as designed — Plan C covers France + Newfoundland instead</div>
         <button class="view" data-plan="D">View this plan ↑</button>
       </div>
     </div>
@@ -665,7 +666,7 @@
     <details>
       <summary>🛩️ The Air Saint-Pierre schedule that shapes Plans B–D</summary>
       <div class="din">
-        <p>Verified against the airline's own timetable (Jan 2026 update). <b>St. John's ↔ Saint-Pierre runs only Sundays &amp; Wednesdays</b> (PJ1127/1128, 45 min: Sun 3:00p out / Wed 5:00p out; returns Sun 2:00p / Wed 4:00p). <b>Halifax ↔ Saint-Pierre runs Mon/Wed/Fri plus summer Sundays</b> (PJ1121/1122, ~1h15–1h30: outbound Mon 3:30p, Wed/Fri 1:00p, Sun 6:30p; returns Mon 11:00a, Wed/Fri 9:00a, Sun 5:00p). The <b>9:00a Saint-Pierre→Halifax departures are the keystone of Plans B and C</b> — landing 9:30a, early enough for a same-day ferry to PEI (Wednesday in B, Friday in C). There are <b>no PEI↔Saint-Pierre flights at all</b>, which is why every SPM plan routes through Halifax. <b>Correction:</b> an earlier draft of this plan had the St. John's days wrong — this is the airline's own table. No flights anywhere on July 14 (Bastille Day), which we dodge entirely by arriving the 15th. The Fortune, NL ferry (~1h30 crossing) exists as a capacity fallback but sits a 4-hour drive from St. John's.</p>
+        <p>Verified against the airline's own timetable (Jan 2026 update). <b>St. John's ↔ Saint-Pierre runs only Sundays &amp; Wednesdays</b> (PJ1127/1128, 45 min: Sun 3:00p out / Wed 5:00p out; returns Sun 2:00p / Wed 4:00p). <b>Halifax ↔ Saint-Pierre runs Mon/Wed/Fri plus summer Sundays</b> (PJ1121/1122, ~1h15–1h30: outbound Mon 3:30p, Wed/Fri 1:00p, Sun 6:30p; returns Mon 11:00a, Wed/Fri 9:00a, Sun 5:00p). The <b>9:00a Saint-Pierre→Halifax departures are the keystone of Plans B and C</b> — landing 9:30a, early enough for a same-day ferry to PEI (Wednesday in B, Friday in C). There are <b>no PEI↔Saint-Pierre flights at all</b>, which is why every SPM plan routes through Halifax. <b>Live availability (booking engine, Jul 2):</b> Halifax outbounds have seats Sun Jul 19 · Mon Jul 20 · Wed Jul 22 · Fri Jul 24 (C$392.67/person base) — <b>Fri Jul 17 sold out</b>, which killed the original Plan B window and all of Plan D; returns have seats every scheduled day Jul 19–27 (C$329.89/person base); quoted refundable round trip for all four travelers: C$3,102.64, flat across dates. No flights anywhere on July 14 (Bastille Day), which we dodge entirely by arriving the 15th. The Fortune, NL ferry (~1h30 crossing) exists as a capacity fallback but sits a 4-hour drive from St. John's.</p>
       </div>
     </details>
 
@@ -690,7 +691,7 @@
         <table>
           <tr><th>Rate used</th><th>Source / basis</th></tr>
           <tr><td>Orlando↔Halifax: $432 out (sampled) + ~$480 back, both for 2</td><td>Google Flights, Economy + bag</td></tr>
-          <tr><td>Air Saint-Pierre Halifax↔SPM: ~C$720 rt/person</td><td>Kayak/Skyscanner samples C$673–781</td></tr>
+          <tr><td>Air Saint-Pierre Halifax↔SPM: <b>C$775.66 rt/person</b> (refundable tier; fare is flat across dates)</td><td>actual booking quote Jul 2 — C$3,102.64 total for all four travelers</td></tr>
           <tr><td>Air Saint-Pierre St. John's↔SPM: C$311 ow / C$540 rt per person</td><td>airline fare pages</td></tr>
           <tr><td>Halifax↔St. John's: ~C$200 ow/person</td><td>Kayak samples C$155–221</td></tr>
           <tr><td>CTMA ferry (high season): C$59.10/adult each way (+fuel surcharge); vehicle deck sold out for our window → walk-on + island rental (~C$100/day, Agence de Location des Îles)</td><td>CTMA published fares + live availability check Jul 2</td></tr>
@@ -701,9 +702,9 @@
         <table>
           <tr><th>Plan</th><th>Us two</th><th>PEI friends (their legs only)</th></tr>
           <tr><td><b>A · Madeleines</b></td><td>≈ $3,500</td><td>≈ $900 — CTMA walk-on rt ×2 + their ÎdM room (4n); island car shared 4 ways</td></tr>
-          <tr><td><b>B · Saint-Pierre Simple</b></td><td>≈ $3,800</td><td>≈ $1,950 — ASP Halifax rt ×2 + their SPM room (5n) + getting to Halifax</td></tr>
+          <tr><td><b>B · Saint-Pierre Simple</b></td><td>≈ $4,400</td><td>≈ $2,050 — ASP Halifax rt ×2 (quoted) + their SPM room (5n) + getting to Halifax. Our side carries 2 extra Halifax hotel + car nights (Jul 17 sellout) — less if the Halifax friends host</td></tr>
           <tr><td><b>C · Islands in Order</b></td><td>≈ $4,600</td><td>≈ $2,450 — YHZ→YYT→SPM→YHZ flights ×2 + St. John's (2n) + SPM (5n) rooms</td></tr>
-          <tr><td><b>D · France First</b></td><td>≈ $4,900</td><td>≈ $2,650 — same flight set reversed + SPM (5n) + St. John's (3n) rooms</td></tr>
+          <tr><td style="color:var(--muted)"><s>D · France First</s></td><td style="color:var(--muted)">—</td><td style="color:var(--muted)">Sold out as designed (Jul 17 outbound gone)</td></tr>
         </table>
         <p style="color:var(--muted);font-size:13px">The friends' biggest lever: on Plan A they spend under half of any Saint-Pierre plan, because there are no flights in their share at all.</p>
       </div>
@@ -712,7 +713,7 @@
     <details>
       <summary>🗓️ What happened to "back by July 25"?</summary>
       <div class="din">
-        <p>The original target window was July 10–25. <b>Plan A gets home July 26 — one day over — and Plan B lands July 27, two days over.</b> The Newfoundland plans run longer because Air Saint-Pierre's schedule quantizes the windows and the St. John's days have to fit around them: Plan C lands July 29, Plan D July 30. Pulling any plan inside July 25 would gut either PEI or Saint-Pierre — the two legs with people and scarce rooms waiting. PEI is already trimmed to 5 nights across the board.</p>
+        <p>The original target window was July 10–25. <b>Plan A gets home July 26 — one day over.</b> Plans B and C both land <b>July 29</b>: the Jul 17 flight sellout pushed B's France window to Jul 19–24 (its two freed days went to Halifax; a PEI warm-up variant lands Jul 27 but double-crosses the ferry). Pulling any plan inside July 25 would gut either PEI or Saint-Pierre — the two legs with people and scarce rooms waiting. PEI is already trimmed to 5 nights across the board.</p>
       </div>
     </details>
   </section>
@@ -722,7 +723,7 @@
     <div class="sec-kicker">Action Items</div>
     <h2 class="sec-title">What we book, in order</h2>
     <ol class="todo">
-      <li class="hot"><span class="n">1</span><div><b>Plan A's revised gate — today:</b> car decks are gone, so it's (a) CTMA <em>passenger</em> seats, Souris→CaM Jul 20 + CaM→Souris Jul 24 (1-888-986-3278), (b) an island car from Agence de Location des Îles (1-888-818-4537), and (c) ÎdM lodging 4 nights. All three or Plan A is out. <em>In parallel (or if A falls through):</em> query Hôtel Robert, Auberge Saint-Pierre, Nuits Saint-Pierre + the SPM tourism-office B&amp;B list for the two windows (Jul 17–22 for B/D · Jul 19–24 for C) — whichever answers yes picks the Saint-Pierre plan.</div></li>
+      <li class="hot"><span class="n">1</span><div><b>Plan A's revised gate — today:</b> car decks are gone, so it's (a) CTMA <em>passenger</em> seats, Souris→CaM Jul 20 + CaM→Souris Jul 24 (1-888-986-3278), (b) an island car from Agence de Location des Îles (1-888-818-4537), and (c) ÎdM lodging 4 nights. All three or Plan A is out. <em>In parallel (or if A falls through):</em> query Hôtel Robert, Auberge Saint-Pierre, Nuits Saint-Pierre + the SPM tourism-office B&amp;B list for <b>Jul 19–24</b> — the one SPM window with verified flight seats (serves both B and C; Jul 20–24 is the shorter fallback). A room there + booking the quoted C$3,102.64 refundable flights the same day locks the France plan.</div></li>
       <li><span class="n">2</span><div><b>Orlando→Halifax, Jul 15</b> — Economy + bag, $432 for two, apply the United credit (verify the credit's fare-class rules at checkout).</div></li>
       <li><span class="n">3</span><div><b>Plan-specific legs</b> — Plan A: nothing else to fly! Plans B–D: book both Air Saint-Pierre hops the same day the hotel confirms (ATR-42s are small; July fills), plus Halifax→St. John's + St. John's Turo + VRBO in one sitting.</div></li>
       <li><span class="n">4</span><div><b>Return flight home</b> — YHZ→MCO on the trip's last day, afternoon/evening departure (unpriced; connection via Toronto or Montréal).</div></li>
@@ -796,24 +797,24 @@
       h1: 'Two countries.<br>One tiny France. <em>One July.</em>',
       dek: 'Nova Scotia → five days in actual France → Prince Edward Island. No Newfoundland, no extra hops — the simplest way to put croissants and red-sand beaches in the same trip.',
       chips: ['🇨🇦 🇫🇷 2 countries','✈️ 4 flights · ⛴️ 2 ferries','🥐 croissants priced in euros','🏖️ red-sand beaches to finish'],
-      note: '<b>Plan B:</b> the middle path — keep France, skip Newfoundland. Our PEI friends meet us in Halifax, we all fly to Saint-Pierre direct on Friday, five nights of boulangeries and Miquelon, and the Wednesday 9:00a return lands early enough to catch the ferry to PEI the same day. Home July 27 — the shortest Saint-Pierre plan.',
+      note: '<b>Plan B:</b> keep France, skip Newfoundland. <b>⚠️ The Fri Jul 17 flight sold out (verified Jul 2)</b>, so we fly the Sunday-evening Jul 19 departure instead and give Halifax the long visit — four nights, with a Lunenburg or Annapolis Valley day trip. Still 4 full French days, and the Friday 9:00a return catches the same-day ferry to PEI. Home July 29. <em>Alternative if 4 Halifax nights is too many: a 2-night PEI warm-up (Jul 17–19) before the flight — home Jul 27, but it re-crosses the ferry twice.</em>',
       footRoute: 'Halifax → Saint-Pierre → PEI → home',
       order: ['ch1','ch3','ch4'],
-      segs: [{k:'hfx',n:2},{k:'spm',n:5},{k:'pei',n:5}],
-      travel: ['🛬 land 3:58p','✈️ 1p → France','✈️ 9a + ⛴️ → PEI'],
+      segs: [{k:'hfx',n:4},{k:'spm',n:5},{k:'pei',n:5}],
+      travel: ['🛬 land 3:58p','✈️ 6:30p → France','✈️ 9a + ⛴️ → PEI'],
       homeLabel: '⛴️ + 🛫 home',
-      whenTag: { hfx:'with our Halifax friends', spm:'France, direct from Halifax', pei:'our friends\' home turf' },
+      whenTag: { hfx:'the long visit with our Halifax friends', spm:'France, direct from Halifax', pei:'our friends\' home turf' },
       ribbon: [
-        {d:15,c:'hfx',w:'🛬 land 3:58p'},{d:16,c:'hfx',w:'Peggy\'s Cove'},
-        {d:17,c:'spm',w:'✈️ 1p → France'},{d:18,c:'spm',w:'Saint-Pierre'},{d:19,c:'spm',w:'Île aux Marins'},{d:20,c:'spm',w:'Miquelon'},{d:21,c:'spm',w:'flâner 🇫🇷'},
-        {d:22,c:'pei',w:'✈️ 9a + ⛴️ → PEI'},{d:23,c:'pei',w:'PEI'},{d:24,c:'pei',w:'PEI'},{d:25,c:'pei',w:'PEI'},{d:26,c:'pei',w:'PEI'}
+        {d:15,c:'hfx',w:'🛬 land 3:58p'},{d:16,c:'hfx',w:'Peggy\'s Cove'},{d:17,c:'hfx',w:'Lunenburg day'},{d:18,c:'hfx',w:'harbour + friends'},
+        {d:19,c:'spm',w:'✈️ 6:30p → France'},{d:20,c:'spm',w:'Saint-Pierre'},{d:21,c:'spm',w:'Île aux Marins'},{d:22,c:'spm',w:'Miquelon'},{d:23,c:'spm',w:'flâner 🇫🇷'},
+        {d:24,c:'pei',w:'✈️ 9a + ⛴️ → PEI'},{d:25,c:'pei',w:'PEI'},{d:26,c:'pei',w:'PEI'},{d:27,c:'pei',w:'PEI'},{d:28,c:'pei',w:'PEI'}
       ],
       chap: {
-        hfx: { get: '<b>Getting there:</b> Orlando → Halifax, Wed Jul 15, United/Air Canada via Chicago · 7:09a → 3:58p · Economy + 1 checked bag ≈ <b>$432 total for two</b> (cheapest fare of the entire week we sampled — and it works with the United credit).' },
-        spm: { get: '<b>Getting there:</b> Air Saint-Pierre PJ1122 <b>direct from Halifax</b>, Fri Jul 17, 1:00p → 3:15p · ~1¼ hrs · passports required — this is <b>actual France</b>: euros, EU plugs, boulangeries, two-hour lunches. All four of us on the same turboprop.' },
-        pei: { get: '<b>Getting there:</b> the Wednesday-morning special — Saint-Pierre → Halifax lands <b>9:30 AM</b>, grab rental car #2, drive ~1¾ hrs to Caribou, roll onto the <b>Wood Islands ferry</b>, and dinner is at our friends\' place. There are no direct PEI↔Saint-Pierre flights, so Halifax is the hinge both ways.' }
+        hfx: { get: '<b>Getting there:</b> Orlando → Halifax, Wed Jul 15, United/Air Canada via Chicago · 7:09a → 3:58p · Economy + 1 checked bag ≈ <b>$432 total for two</b> (cheapest fare of the entire week we sampled — and it works with the United credit). Four nights here in this plan — enough for Peggy\'s Cove AND a Lunenburg day.' },
+        spm: { get: '<b>Getting there:</b> Air Saint-Pierre PJ1122 <b>direct from Halifax</b>, Sun Jul 19, 6:30p → 8:45p · ~1¼ hrs · the Fri Jul 17 flight is sold out — this Sunday-evening departure is the verified-seats option. Passports required — this is <b>actual France</b>: euros, EU plugs, boulangeries, two-hour lunches. All four of us on the same turboprop.' },
+        pei: { get: '<b>Getting there:</b> the Friday-morning special — Saint-Pierre → Halifax lands <b>9:30 AM Jul 24</b> (seats verified), grab rental car #2, drive ~1¾ hrs to Caribou, roll onto the <b>Wood Islands ferry</b>, and dinner is at our friends\' place. There are no direct PEI↔Saint-Pierre flights, so Halifax is the hinge both ways.' }
       },
-      map: { seq: [['HFX',1,'hfx','Arrive Jul 15 · 2 nights · the hinge both ways'],['FSP',2,'spm','Jul 17–22 · actual France 🇫🇷, direct from Halifax'],['PEI',3,'pei','Jul 22–27 · friends\' home turf']],
+      map: { seq: [['HFX',1,'hfx','Arrive Jul 15 · 4 nights · the hinge both ways'],['FSP',2,'spm','Jul 19–24 · actual France 🇫🇷, direct from Halifax'],['PEI',3,'pei','Jul 24–29 · friends\' home turf']],
              flights: [['HFX','FSP']], bounds: ['HFX','FSP','PEI','CARIBOU'] }
     },
 
@@ -847,7 +848,7 @@
     D: {
       name: 'Plan D · France First',
       draggable: false,
-      note: '<b>Plan D:</b> the contrarian. Fly to Saint-Pierre <b>direct from Halifax</b> (no St. John\'s connection), do France over the weekend, then Newfoundland — whose daily flights back to Halifax make the tail end the most rebookable of the Saint-Pierre plans.',
+      note: '<b>⛔ Plan D is dead as designed (Jul 2):</b> its Fri Jul 17 Halifax→Saint-Pierre outbound <b>sold out</b>, and no later departure leaves enough St. John\'s time without blowing past August. Kept here for reference — Plan C covers the same France-plus-Newfoundland combo on flights that still have seats.',
       footRoute: 'Halifax → Saint-Pierre → St. John\'s → PEI → home',
       order: ['ch1','ch3','ch2','ch4'],
       segs: [{k:'hfx',n:2},{k:'spm',n:5},{k:'stj',n:3},{k:'pei',n:5}],

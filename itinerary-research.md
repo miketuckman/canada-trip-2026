@@ -90,13 +90,13 @@ Anchored on the booked-plan MCO→YHZ arrival Wed Jul 15. **Re-lettered 2026-07-
 
 **Restructured 2026-07-02 (v3):** "Full Newfoundland" (the 4½-day St. John's / Gander maximalist, home Aug 1) was **dropped**; Islands in Order moved B→C; new **Plan B "Saint-Pierre Simple"** added: Halifax + SPM + PEI only, no Newfoundland. SPM sits at the *front* (not sandwiched) because there are **no PEI↔SPM flights** — Halifax is the hinge both ways, and SPM-at-end would require a too-tight morning-ferry-to-1pm-flight transfer. Consequence: **Gander no longer fits any plan** (would need +2 St. John's days on Plan C).
 
-| | Plan B — "Saint-Pierre Simple" | Plan C — "Islands in Order" | Plan D — "France First" |
+| | Plan B — "Saint-Pierre Simple" (v2, post-sellout) | Plan C — "Islands in Order" | ~~Plan D — "France First"~~ ⛔ SOLD OUT |
 |---|---|---|---|
-| Halifax | Jul 15–17 (2 nights) | Jul 15–17 (2n) | Jul 15–17 (2n) |
-| St. John's | — (skipped) | Jul 17–19 (2n, no Gander) | Jul 22–25 (3n, after SPM) |
-| Saint-Pierre | **Fri Jul 17 → Wed Jul 22** (5n, direct YHZ→FSP 13:00 Fri) | **Sun Jul 19 → Fri Jul 24** (5n) | **Fri Jul 17 → Wed Jul 22** (5n, direct) |
-| PEI | Jul 22–27 (5n; Wed 09:30 YHZ landing → same-day ferry) | Jul 24–29 (5n; Fri 09:30 landing → same-day ferry) | Jul 25–30 (5n; daily YYT→YHZ flights → most rebookable) |
-| Home | Mon Jul 27 (13 days) | Wed Jul 29 (15 days) | Thu Jul 30 (16 days) |
+| Halifax | Jul 15–19 (4 nights — long visit) | Jul 15–17 (2n) | ~~Jul 15–17~~ |
+| St. John's | — (skipped) | Jul 17–19 (2n, no Gander) | ~~Jul 22–25~~ |
+| Saint-Pierre | **Sun Jul 19 18:30 → Fri Jul 24 09:00** (5n; quoted C$3,102.64/4 pax refundable) | **Sun Jul 19 → Fri Jul 24** (5n, via YYT) | ~~Fri Jul 17 → Wed Jul 22~~ (Jul 17 outbound sold out) |
+| PEI | Jul 24–29 (5n; Fri 09:30 YHZ landing → same-day ferry) | Jul 24–29 (5n; same transfer) | — |
+| Home | Wed Jul 29 (15 days) | Wed Jul 29 (15 days) | — |
 
 **The play for B–D:** query all SPM hotels for both windows (Jul 17–22 serves B & D; Jul 19–24 serves C); whichever has rooms picks among them. All end past the original Jul 25 target (going back inside Jul 25 would gut PEI or SPM); B is closest at +2 days.
 
@@ -110,7 +110,14 @@ Flights + lodging + cars + ferries for 2; excludes meals/activities/insurance. F
 | C — Islands in Order | ≈ $4,600 | ≈ $2,450 (YHZ→YYT→SPM→YHZ flights ×2 + StJ 2n + SPM 5n rooms) |
 | D — France First | ≈ $4,900 | ≈ $2,650 (same flight set reversed + SPM 5n + StJ 3n rooms) |
 
-Key researched rates: ASP YHZ↔FSP ~C$720 rt pp (Kayak/Skyscanner C$673–781) · ASP YYT↔FSP C$311 ow / C$540 rt · YHZ↔YYT ~C$200 ow (samples C$155–221) · CTMA high season C$59.10/adult + C$110.15/vehicle each way (+fuel surcharge; 2023-24 published rates) · Wood Islands ~C$86/car, collected only leaving PEI · Halifax rental ~C$100/day · Turo StJ ~C$130/day · rooms/night: HFX ~C$270, SPM ~€150, StJ ~C$275, ÎdM ~C$250, PEI $0 (friends).
+**Actual ASP availability & quote (Mike, booking engine, 2026-07-02):**
+- **⛔ Fri Jul 17 YHZ→FSP: SOLD OUT** ("no flights available on this day") → killed Plan B's original Jul 17–22 window AND all of Plan D (France First), which had no workable replacement.
+- Outbound YHZ→FSP seats available: **Wed Jul 15, Sun Jul 19, Mon Jul 20, Wed Jul 22, Fri Jul 24** (C$392.67/person base). Returns FSP→YHZ: seats on **every scheduled day Jul 19–27** (C$329.89/person base).
+- Quoted round trip for all 4 travelers, **Sun Jul 19 18:30 out → Fri Jul 24 09:00 back: C$3,102.64 total (C$775.66/person), refundable tier** — fare is flat across date windows.
+- **Plan B reshaped:** Halifax stretches to 4 nights (Jul 15–19, Lunenburg/Peggy's Cove day trips) → SPM **Sun Jul 19 → Fri Jul 24** (5n, 4 full days) → Fri 9:30a landing → same-day ferry → PEI Jul 24–29 (5n) → home **Wed Jul 29, 15 days**. Costs: us ≈$4,400 (2 extra Halifax hotel+car nights; less if Halifax friends host), friends ≈$2,050. *Variant:* 2-night PEI warm-up Jul 17–19 instead of the extra Halifax nights → home Jul 27, but re-crosses the ferry twice (the backtrack shape previously ruled out — now the only path to a shorter B).
+- **Plans B & C now share the same SPM window (Jul 19–24)** — one hotel query covers both. **Plan D: dead as designed**, kept in the presentation as reference (grayed out).
+
+Key researched rates: ASP YHZ↔FSP ~C$720 rt pp (Kayak/Skyscanner C$673–781; actual refundable quote C$775.66) · ASP YYT↔FSP C$311 ow / C$540 rt · YHZ↔YYT ~C$200 ow (samples C$155–221) · CTMA high season C$59.10/adult + C$110.15/vehicle each way (+fuel surcharge; 2023-24 published rates) · Wood Islands ~C$86/car, collected only leaving PEI · Halifax rental ~C$100/day · Turo StJ ~C$130/day · rooms/night: HFX ~C$270, SPM ~€150, StJ ~C$275, ÎdM ~C$250, PEI $0 (friends).
 
 ### Plan A — "The Madeleine Swap" (RECOMMENDED; promoted from wildcard 2026-07-02)
 Skips St. John's and Saint-Pierre entirely; substitutes Québec's **Îles de la Madeleine**, reached by the **CTMA ferry from Souris, PEI** (~40 min from the friends' area). Shape: Halifax Jul 15–17 (2n) → Wood Islands ferry → PEI Jul 17–20 (3n) → CTMA Souris→Cap-aux-Meules Mon Jul 20 (~1:00p, ~5h crossing, docks ~6:15p) → ÎdM Jul 20–24 (4n) → return sailing ~7:00a Fri Jul 24 → PEI Jul 24–26 (2n) → home **Sun Jul 26. 12 days — one day past the original Jul 25 target, earliest finish of any plan.** Because every leg runs daily, these dates slide freely (the draggable ribbon in the presentation exists for exactly this).
