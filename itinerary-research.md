@@ -88,15 +88,29 @@ Summer dinner reservations are near-mandatory too — book restaurants the same 
 ## Itinerary v2 — four plan shapes (updated 2026-07-02)
 Anchored on the booked-plan MCO→YHZ arrival Wed Jul 15. **Re-lettered 2026-07-02: the Madeleine swap is now Plan A (recommended — Mike's leaning #1)**, and the three Saint-Pierre plans shifted to B/C/D. **PEI trimmed to 5 nights across all plans** (was 6 in the old Plan A, 3+5 in the Madeleine plan). The presentation (trip-presentation.html) is fully interactive: a plan switcher re-renders calendar, chapters, and map — and **Plan A's calendar ribbon is drag-editable** (grip handles between stays + at the end; every Plan A leg is a daily ferry so any dragged split is bookable; B–D show a lock note since ASP flight days pin their dates; captions/chapter dates/hero recompute live; reset button restores defaults).
 
-| | Plan B — "Islands in Order" | Plan C — "Full Newfoundland" | Plan D — "France First" |
+**Restructured 2026-07-02 (v3):** "Full Newfoundland" (the 4½-day St. John's / Gander maximalist, home Aug 1) was **dropped**; Islands in Order moved B→C; new **Plan B "Saint-Pierre Simple"** added: Halifax + SPM + PEI only, no Newfoundland. SPM sits at the *front* (not sandwiched) because there are **no PEI↔SPM flights** — Halifax is the hinge both ways, and SPM-at-end would require a too-tight morning-ferry-to-1pm-flight transfer. Consequence: **Gander no longer fits any plan** (would need +2 St. John's days on Plan C).
+
+| | Plan B — "Saint-Pierre Simple" | Plan C — "Islands in Order" | Plan D — "France First" |
 |---|---|---|---|
 | Halifax | Jul 15–17 (2 nights) | Jul 15–17 (2n) | Jul 15–17 (2n) |
-| St. John's | Jul 17–19 (2n, no Gander) | Jul 17–22 (5n, **Gander fits** Sun Jul 19) | Jul 22–25 (3n, after SPM) |
-| Saint-Pierre | **Sun Jul 19 → Fri Jul 24** (5n) | **Wed Jul 22 → Mon Jul 27** (5n) | **Fri Jul 17 → Wed Jul 22** (5n, direct YHZ→FSP 13:00 Fri) |
-| PEI | Jul 24–29 (5n; Fri 09:30 YHZ landing → same-day ferry) | Jul 27–Aug 1 (5n; Mon 11:30 landing → same-day ferry) | Jul 25–30 (5n; daily YYT→YHZ flights → most rebookable) |
-| Home | Wed Jul 29 (15 days) | Sat Aug 1 (18 days) | Thu Jul 30 (16 days) |
+| St. John's | — (skipped) | Jul 17–19 (2n, no Gander) | Jul 22–25 (3n, after SPM) |
+| Saint-Pierre | **Fri Jul 17 → Wed Jul 22** (5n, direct YHZ→FSP 13:00 Fri) | **Sun Jul 19 → Fri Jul 24** (5n) | **Fri Jul 17 → Wed Jul 22** (5n, direct) |
+| PEI | Jul 22–27 (5n; Wed 09:30 YHZ landing → same-day ferry) | Jul 24–29 (5n; Fri 09:30 landing → same-day ferry) | Jul 25–30 (5n; daily YYT→YHZ flights → most rebookable) |
+| Home | Mon Jul 27 (13 days) | Wed Jul 29 (15 days) | Thu Jul 30 (16 days) |
 
-**The play for B–D:** query all SPM hotels for all three windows; whichever window has rooms picks among them. All end past the original Jul 25 target (going back inside Jul 25 would gut PEI or SPM).
+**The play for B–D:** query all SPM hotels for both windows (Jul 17–22 serves B & D; Jul 19–24 serves C); whichever has rooms picks among them. All end past the original Jul 25 target (going back inside Jul 25 would gut PEI or SPM); B is closest at +2 days.
+
+### Cost estimates (added 2026-07-02, USD, ±20%)
+Flights + lodging + cars + ferries for 2; excludes meals/activities/insurance. FX: C$1≈US$0.73, €1≈US$1.08. Friends' column = their share of the legs they join only.
+
+| Plan | Us two | PEI friends |
+|---|---|---|
+| A — Madeleines | ≈ $3,400 | ≈ $900 (CTMA walk-on rt ×2 + ÎdM room 4n; they ride in our car) |
+| B — Saint-Pierre Simple | ≈ $3,800 | ≈ $1,950 (ASP YHZ rt ×2 + SPM room 5n + getting to Halifax) |
+| C — Islands in Order | ≈ $4,600 | ≈ $2,450 (YHZ→YYT→SPM→YHZ flights ×2 + StJ 2n + SPM 5n rooms) |
+| D — France First | ≈ $4,900 | ≈ $2,650 (same flight set reversed + SPM 5n + StJ 3n rooms) |
+
+Key researched rates: ASP YHZ↔FSP ~C$720 rt pp (Kayak/Skyscanner C$673–781) · ASP YYT↔FSP C$311 ow / C$540 rt · YHZ↔YYT ~C$200 ow (samples C$155–221) · CTMA high season C$59.10/adult + C$110.15/vehicle each way (+fuel surcharge; 2023-24 published rates) · Wood Islands ~C$86/car, collected only leaving PEI · Halifax rental ~C$100/day · Turo StJ ~C$130/day · rooms/night: HFX ~C$270, SPM ~€150, StJ ~C$275, ÎdM ~C$250, PEI $0 (friends).
 
 ### Plan A — "The Madeleine Swap" (RECOMMENDED; promoted from wildcard 2026-07-02)
 Skips St. John's and Saint-Pierre entirely; substitutes Québec's **Îles de la Madeleine**, reached by the **CTMA ferry from Souris, PEI** (~40 min from the friends' area). Shape: Halifax Jul 15–17 (2n) → Wood Islands ferry → PEI Jul 17–20 (3n) → CTMA Souris→Cap-aux-Meules Mon Jul 20 (~1:00p, ~5h crossing, docks ~6:15p) → ÎdM Jul 20–24 (4n) → return sailing ~7:00a Fri Jul 24 → PEI Jul 24–26 (2n) → home **Sun Jul 26. 12 days — one day past the original Jul 25 target, earliest finish of any plan.** Because every leg runs daily, these dates slide freely (the draggable ribbon in the presentation exists for exactly this).
@@ -128,7 +142,7 @@ Rent in Halifax for the initial 1-2 days there, return it before flying to NL (n
 ## Resolved
 - ~~Newfoundland rental car availability~~ — Turo confirmed available in St. John's.
 - ~~St. John's lodging~~ — VRBO availability good. (Saint-Pierre lodging is NOT resolved — see correction above.)
-- ~~Gander / Gros Morne side trips~~ — Gros Morne OUT in all plans; Gander fits **only in Plan C** (the 4½-day St. John's plan — with 2-3 St. John's days elsewhere, the 7-hr round-trip drive doesn't fit; Plan A skips Newfoundland entirely).
+- ~~Gander / Gros Morne side trips~~ — Gros Morne OUT everywhere; **Gander no longer fits any shortlisted plan** (the maximalist that fit it was dropped 2026-07-02; reviving it = +2 St. John's days on Plan C).
 - ~~PEI length~~ — trimmed to **5 nights in every plan** (Mike, 2026-07-02); Plan A splits it 3 + 2 around the Madeleines.
 - ~~Plan lettering~~ — Madeleine swap promoted to **Plan A (recommended)** 2026-07-02; SPM plans re-lettered B/C/D. Presentation ribbon is drag-editable on Plan A only.
 - ~~MCO→YHZ fare/date/tier~~ — Wed Jul 15, Economy, 1 checked bag: **$432 total for 2 passengers**.
@@ -158,3 +172,7 @@ Rent in Halifax for the initial 1-2 days there, return it before flying to NL (n
 - [Hôtel Robert](https://www.hotelrobert.com/en/) · [Auberge Saint-Pierre](https://www.aubergesaint-pierre.com/en/) · [Nuits Saint-Pierre](https://nuitssaintpierre.com/en/)
 - [CTMA Ferry — Souris ↔ Cap-aux-Meules schedule](https://traversierctma.ca/en/plan-your-trip/schedule) · [extra 2026 night sailings notice](https://www.traversierctma.ca/en/plan-your-trip/important-notices/375-additionnal-trip-summer)
 - [Pascan Aviation — Îles-de-la-Madeleine routes (QC/YUL/Bonaventure/Gaspé only — no Halifax)](https://www.pascan.com/en/flights/tickets/iles-de-la-madeleine/)
+- [Kayak — Halifax↔Saint-Pierre fares (~C$673–781 rt)](https://www.ca.kayak.com/flight-routes/Halifax-Intl-YHZ/St-Pierre-FSP) · [Skyscanner ASP fares](https://www.skyscanner.ca/airline/airline-air-saint-pierre-pj.html)
+- [CTMA published fares (adult C$59.10 / vehicle C$110.15 ow, high season)](https://www.traversierctma.ca/en/23-plan-your-trip/244-rates-2022)
+- [Northumberland Ferries fares (~C$86/vehicle, collected leaving PEI)](https://www.ferries.ca/ns-pei-ferry/fares)
+- [Kayak — Halifax↔St. John's fares (~C$155–221 ow)](https://www.ca.kayak.com/flight-routes/Halifax-Intl-YHZ/St-John-s-YYT)
