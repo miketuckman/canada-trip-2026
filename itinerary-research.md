@@ -69,11 +69,34 @@ Mike confirmed **Turo has cars available in St. John's** and found **plenty of V
 Flying was researched at Mike's request: **St. John's (YYT) → Deer Lake (YDF)** — the airport serving Gros Morne — runs **~15x/week, ~1h10m, from ~C$320** (PAL Airlines / Provincial Airlines is the nonstop operator; Air Canada also bookable). Confirmed we'd only ever fly to Deer Lake from St. John's, not elsewhere. **The blocker isn't the flight — it's the car:** Deer Lake is just an airport, so touring Gros Morne needs a *separate* rental there, on top of NL's island-wide car-supply crunch, plus +3–4 days. Net decision: skip Gros Morne this trip.
 
 ### Newfoundland ↔ Saint-Pierre (SPM)
-**Fly, don't take the Fortune ferry.** Fortune is roughly a 4-hour drive from St. John's each way — the ferry route (1.5h crossing, but only reachable via that long drive) effectively costs a full extra day versus a 45-minute flight.
+**Fly, don't take the Fortune ferry.** Fortune is roughly a 4-hour drive from St. John's each way — the ferry route (1.5h crossing, but only reachable via that long drive) effectively costs a full extra day versus a 45-minute flight. (The Fortune ferry remains the capacity fallback if ASP's small ATR-42s sell out.)
 
-- **St. John's (YYT) ↔ Saint-Pierre (FSP)**, Air Saint-Pierre, 45 min flight. July schedule: **Monday, Wednesday, Friday** (regular, roughly June 17–Sep 11 window) **plus Sunday** (seasonal, June 28–Aug 30) — so in mid/late July there are actually 4 weekly options, not fewer. Fares ~C$311 one-way / C$540 round-trip.
-- **Halifax (YHZ) ↔ Saint-Pierre (FSP)**, Air Saint-Pierre, 1h15m flight, same Mon/Wed/Fri (+seasonal Sun) pattern — lets you fly Saint-Pierre → Halifax directly on the way back, skipping a backtrack through St. John's.
-- **⚠️ No Air Saint-Pierre flights operate on July 14 (Bastille Day)** — confirmed on the airline's own schedule pages, applies to every route (YYT, YHZ, Montreal, Paris, Miquelon). If the date window lands on July 14, the NL→SPM leg has to be scheduled around it.
+**⚠️ CORRECTED 2026-07-01 (v2):** earlier research had the St. John's days wrong (it listed the Halifax pattern for both routes). Verified against Air Saint-Pierre's own timetable (Jan 12, 2026 update):
+
+- **St. John's (YYT) ↔ Saint-Pierre (FSP)** — PJ1127/PJ1128, 45 min, **Sundays & Wednesdays ONLY** (2x/week, year-round). Outbound YYT→FSP: Sun 15:00→16:15, Wed 17:00→18:15. Return FSP→YYT: Sun 14:00→14:15, Wed 16:00→16:15. (Times local at each end; SPM is 30 min ahead of NL.)
+- **Halifax (YHZ) ↔ Saint-Pierre (FSP)** — PJ1122/PJ1121, ~1h15–1h30, **Mon/Wed/Fri plus seasonal Sunday** (Jun 28–Aug 30). Outbound YHZ→FSP: Mon 15:30→17:45, Wed/Fri 13:00→15:15, Sun 18:30→20:45. Return FSP→YHZ: Mon 11:00→11:30, Wed/Fri 09:00→09:30, Sun 17:00→17:30. **The Fri 09:00 return landing Halifax 09:30 is the keystone of Plan A** — early enough for a same-day Wood Islands ferry to PEI.
+- **No ASP flights on July 14 (Bastille Day)** on any route — now moot, since the trip arrives Canada Jul 15.
+
+### ⚠️ CORRECTION: Saint-Pierre lodging is NOT plentiful
+Earlier note said "plenty of VRBO in both St. John's and Saint-Pierre" — **wrong for Saint-Pierre** (Mike corrected 2026-07-01): VRBO shows almost nothing for July. The island's inventory is a handful of small hotels + email-booked B&Bs:
+- **Hôtel Robert** (hotelrobert.com) — largest, ~40 rooms, waterfront, the Al Capone hotel
+- **Auberge Saint-Pierre** (aubergesaint-pierre.com) — the island's 3-star
+- **Nuits Saint-Pierre** (nuitssaintpierre.com) — 5-room boutique, book direct
+- B&B list on the official tourism site (en.spm-tourisme.fr) — several email-only
+Summer dinner reservations are near-mandatory too — book restaurants the same week as the room. **SPM lodging is now action item #1**; it decides which plan shape the trip takes.
+
+## Itinerary v2 — three plan shapes (2026-07-01)
+Anchored on the booked-plan MCO→YHZ arrival Wed Jul 15, targets revised to 2-3 days St. John's + 3 days SPM. The ASP schedule quantizes SPM windows; each viable window yields ~4 full French days. The presentation (trip-presentation.html) is now interactive — a plan switcher re-renders calendar, chapters, and map per plan.
+
+| | Plan A — "Islands in Order" (recommended) | Plan B — "Full Newfoundland" | Plan C — "France First" |
+|---|---|---|---|
+| Halifax | Jul 15–17 (2 nights) | Jul 15–17 (2n) | Jul 15–17 (2n) |
+| St. John's | Jul 17–19 (2n, no Gander) | Jul 17–22 (5n, **Gander fits** Sun Jul 19) | Jul 22–25 (3n, after SPM) |
+| Saint-Pierre | **Sun Jul 19 → Fri Jul 24** (5n) | **Wed Jul 22 → Mon Jul 27** (5n) | **Fri Jul 17 → Wed Jul 22** (5n, direct YHZ→FSP 13:00 Fri) |
+| PEI | Jul 24–30 (6n; Fri 09:30 YHZ landing → same-day ferry) | Jul 27–Aug 1 (5n; Mon 11:30 landing → same-day ferry) | Jul 25–30 (5n; daily YYT→YHZ flights → most rebookable) |
+| Home | Thu Jul 30 (16 days) | Sat Aug 1 (18 days) | Thu Jul 30 (16 days) |
+
+**The play:** query all SPM hotels for all three windows; whichever window has rooms picks the plan. Note all plans end past the original Jul 25 target (documented trade-off: going back inside Jul 25 would gut PEI or SPM).
 
 ### ⚠️ Correction: Halifax–Orlando is NOT nonstop in July
 Verified directly against Halifax Stanfield's own published route schedule: both Air Canada's and Porter's Halifax↔Orlando nonstop service are **winter/spring-only seasonal routes** (roughly late Oct 2026 – late March 2027). No nonstop Halifax–Orlando service exists in July.
@@ -84,19 +107,22 @@ Practical effect: the flight home in July requires a connection (most likely via
 Rent in Halifax for the initial 1-2 days there, return it before flying to NL (no reason to pay for it sitting at the airport for ~4-5 days while you're in NL/SPM), then pick up a fresh rental in Halifax on return for the PEI leg (drive it onto the Wood Islands ferry), and drop off in Halifax at the very end. One-way Halifax→Charlottetown drop-off is available through Enterprise/National if needed, but isn't necessary since the loop ends back in Halifax anyway.
 
 ## Open Items / Next Steps
-1. Confirm which July date(s) avoid July 14 for the NL→SPM leg, and align with the Mon/Wed/Fri/Sun Air Saint-Pierre schedule. (Jul 15 as the Halifax arrival date already clears this.)
-2. Price JAX/Daytona/Sanford → Halifax for July to confirm MCO is genuinely the best gateway, not just the most obvious one.
-3. Check whether Mike's United travel credit applies to Basic Economy fares (informational — booking decision is Economy regardless).
-4. Build a day-by-day skeleton now that the gateway leg (Jul 15, MCO→YHZ) is priced.
-5. Confirm headcount/vehicle needs for the NL leg now that PEI friends are joining (1 or 2 rental vehicles?).
-6. Lodging research for Halifax and PEI (Newfoundland and Saint-Pierre VRBO options already confirmed available).
-7. Book the Turo rental in St. John's once dates are set — availability confirmed but the island-wide shortage means it's worth locking in early.
+1. **#1 — Saint-Pierre lodging, this week:** query Hôtel Robert / Auberge Saint-Pierre / Nuits Saint-Pierre + tourism-office B&Bs for all three windows (Jul 19–24, Jul 17–22, Jul 22–27). The window that has rooms picks Plan A/B/C.
+2. Book MCO→YHZ Jul 15 (Economy + bag, $432 for two) — verify the United credit's fare-class rules at checkout.
+3. Book both Air Saint-Pierre legs the same day the hotel confirms (small ATR-42s, July fills).
+4. Then in one sitting: Halifax→St. John's flights, St. John's Turo, St. John's VRBO.
+5. Price/book the return YHZ→MCO on the trip's last day (Jul 30 for A/C, Aug 1 for B).
+6. Rental cars #1 and #2 + Wood Islands ferry vehicle reservations.
+7. Confirm headcount/vehicle needs for the NL/SPM legs with the PEI friends (1 or 2 vehicles?).
+8. (Informational) JAX/Daytona/Sanford → Halifax comparison never done — MCO assumed on size + the priced fare.
 
 ## Resolved
 - ~~Newfoundland rental car availability~~ — Turo confirmed available in St. John's.
-- ~~Newfoundland/Saint-Pierre lodging~~ — plenty of VRBO options in both St. John's and Saint-Pierre.
-- ~~Gander / Gros Morne side trips~~ — Gander IN as a day trip from St. John's; Gros Morne OUT (too far / needs separate Deer Lake rental).
+- ~~St. John's lodging~~ — VRBO availability good. (Saint-Pierre lodging is NOT resolved — see correction above.)
+- ~~Gander / Gros Morne side trips~~ — Gros Morne OUT in all plans; Gander fits **only in Plan B** (with 2 St. John's days in Plans A/C, the 7-hr round-trip drive doesn't fit).
 - ~~MCO→YHZ fare/date/tier~~ — Wed Jul 15, Economy, 1 checked bag: **$432 total for 2 passengers**.
+- ~~July 14 Bastille Day blackout~~ — moot; every plan arrives Canada Jul 15 and first possible SPM leg is Jul 17.
+- ~~Presentation redesign~~ — rebuilt 2026-07-01 as an interactive story page (plan switcher A/B/C re-renders calendar, map, chapters; magazine-style design, Fraunces/Inter, chapter colors).
 
 ## Sources
 - [Air Saint-Pierre — St. John's schedule](https://www.airsaintpierre.com/flight-schedules/st-johns)
@@ -116,3 +142,6 @@ Rent in Halifax for the initial 1-2 days there, return it before flying to NL (n
 - [St. John's → Deer Lake nonstop flights — FlightsFrom.com](https://www.flightsfrom.com/YYT-YDF)
 - [North Atlantic Aviation Museum — Gander](https://northatlanticaviationmuseum.com/)
 - [Google Flights — MCO→YHZ, Wed Jul 15 2026, one-way, 2 pax](https://www.google.com/travel/flights/search?tfs=EAAaHhIKMjAyNi0wNy0xNWoHCAESA01DT3IHCAESA1lIWkACSAGYAQI&curr=USD&hl=en) (live search snapshot 2026-07-01; fares fluctuate — re-check before booking)
+- [Air Saint-Pierre — St. John's timetable, PJ1127/1128 Sun & Wed only](https://www.airsaintpierre.com/flight-schedules/st-johns) (fetched 2026-07-01, "last update Jan 12, 2026")
+- [Tourism Saint-Pierre & Miquelon — hotels & B&Bs](https://en.spm-tourisme.fr/stay/sleep/hotels-en/)
+- [Hôtel Robert](https://www.hotelrobert.com/en/) · [Auberge Saint-Pierre](https://www.aubergesaint-pierre.com/en/) · [Nuits Saint-Pierre](https://nuitssaintpierre.com/en/)

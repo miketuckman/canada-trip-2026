@@ -3,582 +3,822 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Atlantic Canada 2026 — Halifax · PEI · Newfoundland · Saint-Pierre</title>
+<title>Two Countries, Four Islands — Atlantic Canada &amp; Saint-Pierre, July 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <style>
   :root {
-    --navy: #0b3a52;
-    --navy-deep: #082a3d;
-    --teal: #1c7293;
-    --sand: #f6f1e7;
-    --sand-card: #ffffff;
-    --coral: #d9713c;
-    --amber: #c98a1f;
-    --amber-bg: #fdf3df;
-    --amber-border: #e3b25a;
-    --red: #b83b3b;
-    --red-bg: #fbe9e7;
-    --red-border: #e08a7d;
-    --green: #2f7a52;
-    --green-bg: #eaf5ee;
-    --green-border: #9bcbae;
-    --ink: #23313a;
-    --muted: #5c6b73;
+    --paper: #f8f4ec;
+    --card: #ffffff;
+    --ink: #20303c;
+    --muted: #64707a;
+    --line: #e6ded0;
+
+    --hfx: #14395a;
+    --stj: #0e7480;
+    --spm: #35479c;
+    --spm-red: #c8404a;
+    --pei: #2f7d50;
+    --travel: #b3a488;
+
+    --gold: #c9921f;
+    --gold-bg: #fdf4de;
+    --red-bg: #fceceb;
   }
   * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
   body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-    background: var(--sand);
+    background: var(--paper);
     color: var(--ink);
-    line-height: 1.55;
-  }
-  header.hero {
-    background: linear-gradient(160deg, var(--navy-deep), var(--navy) 55%, var(--teal));
-    color: #fff;
-    padding: 72px 24px 56px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-  header.hero::after {
-    content: "";
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 10px;
-    background: repeating-linear-gradient(90deg, var(--coral) 0 24px, transparent 24px 48px);
-    opacity: 0.6;
-  }
-  header.hero .eyebrow {
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    font-size: 13px;
-    color: #cfe4ee;
-    margin-bottom: 14px;
-  }
-  header.hero h1 {
-    font-size: clamp(30px, 5vw, 52px);
-    margin: 0 0 14px;
-    font-weight: 700;
-  }
-  header.hero p.sub {
-    font-size: clamp(15px, 2vw, 19px);
-    color: #dce9ef;
-    max-width: 640px;
-    margin: 0 auto;
-  }
-  .stat-strip {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px;
-    margin-top: 34px;
-  }
-  .stat-pill {
-    background: rgba(255,255,255,0.12);
-    border: 1px solid rgba(255,255,255,0.25);
-    border-radius: 999px;
-    padding: 8px 18px;
-    font-size: 14px;
-    color: #fff;
-  }
-  main { max-width: 900px; margin: 0 auto; padding: 0 20px 80px; }
-  section { margin-top: 56px; }
-  h2.section-title {
-    font-size: 26px;
-    color: var(--navy-deep);
-    border-bottom: 3px solid var(--coral);
-    display: inline-block;
-    padding-bottom: 6px;
-    margin-bottom: 24px;
-  }
-  p.lead { color: var(--muted); font-size: 16px; margin-bottom: 24px; }
-
-  /* Route flow */
-  .route-flow {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 8px;
-    justify-content: center;
-    padding: 20px;
-    background: var(--sand-card);
-    border-radius: 16px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-  }
-  .route-node {
-    background: var(--navy);
-    color: #fff;
-    padding: 12px 18px;
-    border-radius: 12px;
-    font-weight: 600;
-    font-size: 14px;
-    text-align: center;
-    min-width: 110px;
-  }
-  .route-node .days {
-    display: block;
-    font-weight: 400;
-    font-size: 12px;
-    color: #cfe4ee;
-    margin-top: 3px;
-  }
-  .route-arrow {
-    color: var(--coral);
-    font-size: 20px;
-    font-weight: 700;
-    padding: 0 2px;
-  }
-  .route-mode {
-    font-size: 11px;
-    color: var(--muted);
-    text-align: center;
-    min-width: 60px;
-  }
-
-  /* Map */
-  #trip-map {
-    height: 480px;
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-    background: #dce9ef;
-  }
-  .map-legend {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-    margin-top: 14px;
-    font-size: 13px;
-    color: var(--muted);
-  }
-  .map-legend span.swatch {
-    display: inline-block;
-    width: 12px;
-    height: 12px;
-    border-radius: 3px;
-    margin-right: 6px;
-    vertical-align: middle;
-  }
-
-  /* Timeline */
-  .timeline-scroll { overflow-x: auto; padding-bottom: 10px; }
-  .timeline {
-    display: grid;
-    grid-template-columns: repeat(14, minmax(64px, 1fr));
-    gap: 6px;
-    min-width: 840px;
-  }
-  .tl-day {
-    border-radius: 10px;
-    padding: 12px 8px;
-    color: #fff;
-    font-size: 12.5px;
-    font-weight: 700;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-height: 64px;
-  }
-  .tl-day span {
-    display: block;
-    font-weight: 400;
-    font-size: 11px;
-    margin-top: 4px;
-    opacity: 0.92;
-  }
-  .tl-halifax { background: var(--navy); }
-  .tl-nl { background: var(--teal); }
-  .tl-gander { background: #6a4c93; }
-  .tl-spm { background: var(--coral); }
-  .tl-pei { background: var(--green); }
-  .tl-travel { background: #cabfa4; color: #3a3226; }
-  .timeline-note {
-    font-size: 13.5px;
-    color: var(--amber);
-    background: var(--amber-bg);
-    border: 1px solid var(--amber-border);
-    border-radius: 10px;
-    padding: 12px 16px;
-    margin-top: 16px;
-  }
-
-  /* Cards */
-  .card {
-    background: var(--sand-card);
-    border-radius: 14px;
-    padding: 22px 24px;
-    margin-bottom: 18px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    border-left: 6px solid var(--teal);
-  }
-  .card h3 {
-    margin: 0 0 8px;
-    font-size: 18px;
-    color: var(--navy-deep);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .card p { margin: 6px 0; color: var(--ink); font-size: 15px; }
-  .card .meta {
-    font-size: 13px;
-    color: var(--muted);
-    margin-top: 10px;
-  }
-  .badge {
-    display: inline-block;
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    padding: 3px 10px;
-    border-radius: 999px;
-    margin-left: 6px;
-  }
-  .badge.confirmed { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
-  .badge.open { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-border); }
-
-  /* Fare tables */
-  .fare-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 12px 0;
-    font-size: 13.5px;
-  }
-  .fare-table th, .fare-table td {
-    text-align: left;
-    padding: 7px 10px;
-    border-bottom: 1px solid #e7e0d0;
-  }
-  .fare-table th {
-    color: var(--navy-deep);
-    font-size: 11.5px;
-    text-transform: uppercase;
-    letter-spacing: 0.4px;
-  }
-  .fare-table tr.highlight td { background: var(--green-bg); font-weight: 700; }
-  .fare-table td.num { text-align: right; font-variant-numeric: tabular-nums; }
-
-  /* Alert boxes */
-  .alert {
-    border-radius: 14px;
-    padding: 20px 24px;
-    margin: 22px 0;
-    border: 1px solid;
-  }
-  .alert.warn { background: var(--amber-bg); border-color: var(--amber-border); }
-  .alert.critical { background: var(--red-bg); border-color: var(--red-border); }
-  .alert.good { background: var(--green-bg); border-color: var(--green-border); }
-  .alert h3 {
-    margin: 0 0 8px;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.62;
     font-size: 16px;
   }
-  .alert.warn h3 { color: var(--amber); }
-  .alert.critical h3 { color: var(--red); }
-  .alert.good h3 { color: var(--green); }
-  .alert p { margin: 4px 0; font-size: 14.5px; }
+  h1, h2, h3, .serif { font-family: "Fraunces", Georgia, serif; }
 
-  /* Day allocation bars */
-  .day-bars { display: flex; flex-direction: column; gap: 14px; }
-  .day-bar-row { display: flex; align-items: center; gap: 14px; }
-  .day-bar-label { width: 130px; font-size: 14px; font-weight: 600; color: var(--navy-deep); text-align: right; }
-  .day-bar-track { flex: 1; background: #e7e0d0; border-radius: 8px; height: 22px; overflow: hidden; }
-  .day-bar-fill { height: 100%; background: linear-gradient(90deg, var(--teal), var(--navy)); border-radius: 8px; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; color: #fff; font-size: 12px; font-weight: 600; }
-
-  /* Checklist */
-  .checklist { list-style: none; padding: 0; margin: 0; }
-  .checklist li {
-    background: var(--sand-card);
-    border-radius: 10px;
-    padding: 14px 18px;
-    margin-bottom: 10px;
-    font-size: 15px;
-    display: flex;
-    gap: 12px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
-  }
-  .checklist li .num {
-    background: var(--coral);
+  /* ---------- HERO ---------- */
+  .hero {
+    background:
+      radial-gradient(1100px 500px at 85% -10%, rgba(200,64,74,0.28), transparent 60%),
+      radial-gradient(900px 600px at 10% 110%, rgba(14,116,128,0.45), transparent 55%),
+      linear-gradient(155deg, #0c2438 0%, #14395a 55%, #0e7480 130%);
     color: #fff;
-    border-radius: 50%;
-    width: 24px;
-    height: 24px;
-    flex: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 13px;
+    padding: 84px 24px 64px;
+    text-align: center;
+  }
+  .hero .kicker {
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #a9cbd6;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-size: clamp(38px, 6.5vw, 74px);
+    line-height: 1.05;
+    margin: 0 auto 18px;
+    max-width: 800px;
     font-weight: 700;
   }
-  .checklist li.done .num { background: var(--green); }
-  .checklist li.done { opacity: 0.75; }
-
-  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-  @media (max-width: 640px) {
-    .two-col { grid-template-columns: 1fr; }
-    .day-bar-label { width: 96px; font-size: 12.5px; }
+  .hero h1 em { font-style: italic; color: #ffd9a8; }
+  .hero .dek {
+    font-size: clamp(16px, 2.2vw, 20px);
+    color: #d7e5ea;
+    max-width: 660px;
+    margin: 0 auto 10px;
+  }
+  .hero .dates {
+    font-family: "Fraunces", serif;
+    font-size: clamp(17px, 2.4vw, 22px);
+    color: #ffd9a8;
+    margin-bottom: 30px;
+  }
+  .chips { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+  .chip {
+    border: 1px solid rgba(255,255,255,0.35);
+    background: rgba(255,255,255,0.08);
+    border-radius: 999px;
+    padding: 7px 16px;
+    font-size: 13.5px;
+    color: #eef5f7;
   }
 
-  footer {
-    text-align: center;
-    padding: 40px 20px 60px;
+  /* ---------- NAV ---------- */
+  .chapnav {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 6px;
+    padding: 14px 16px;
+    background: #fffdf8;
+    border-bottom: 1px solid var(--line);
+    position: sticky; top: 0; z-index: 1000;
+  }
+  .chapnav a {
+    text-decoration: none;
+    font-size: 13px; font-weight: 600;
+    padding: 6px 14px; border-radius: 999px;
     color: var(--muted);
-    font-size: 13px;
+    border: 1px solid transparent;
   }
-  footer a { color: var(--teal); }
+  .chapnav a:hover { border-color: var(--line); background: var(--paper); }
+  .chapnav a .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 7px; }
+
+  main { max-width: 980px; margin: 0 auto; padding: 0 20px 90px; }
+  section { margin-top: 74px; }
+  .sec-kicker {
+    text-transform: uppercase; letter-spacing: 3px; font-size: 11.5px;
+    font-weight: 700; color: var(--gold); margin-bottom: 8px;
+  }
+  .sec-title { font-size: clamp(26px, 4vw, 38px); margin: 0 0 14px; line-height: 1.15; }
+  .lead { color: var(--muted); font-size: 17px; max-width: 740px; margin: 0 0 26px; }
+  .lead strong { color: var(--ink); }
+
+  /* ---------- PLAN SWITCHER ---------- */
+  .switcher {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 16px; padding: 8px;
+    margin: 4px 0 24px;
+    box-shadow: 0 2px 10px rgba(20,40,60,0.07);
+  }
+  .switcher button {
+    flex: 1; min-width: 180px;
+    border: 1.5px solid transparent; border-radius: 11px;
+    background: transparent; cursor: pointer;
+    padding: 12px 14px; text-align: left;
+    font-family: "Inter", sans-serif;
+    transition: all .15s;
+  }
+  .switcher button .pl {
+    display: block; font-size: 10.5px; font-weight: 700;
+    letter-spacing: 1.2px; text-transform: uppercase; color: var(--muted);
+  }
+  .switcher button .pn {
+    display: block; font-family: "Fraunces", serif;
+    font-size: 17px; font-weight: 700; color: var(--ink); line-height: 1.3;
+  }
+  .switcher button .pd { display: block; font-size: 12px; color: var(--muted); }
+  .switcher button:hover { background: var(--paper); }
+  .switcher button.active { background: #f0f7f1; border-color: var(--pei); }
+  .switcher button.active .pl { color: var(--pei); }
+  .plan-note {
+    font-size: 13.5px; color: var(--muted); margin: -10px 0 20px;
+  }
+  .plan-note b { color: var(--pei); }
+
+  /* ---------- MAP ---------- */
+  #trip-map {
+    height: 500px; border-radius: 18px; overflow: hidden;
+    box-shadow: 0 3px 16px rgba(20,40,60,0.12);
+    border: 1px solid var(--line);
+  }
+  .map-legend { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 14px; font-size: 13px; color: var(--muted); }
+  .lg { display: flex; align-items: center; gap: 7px; }
+  .lg .sw { width: 13px; height: 13px; border-radius: 4px; }
+  .lg .ln { width: 26px; height: 0; border-top: 3px dashed; }
+
+  /* ---------- DATE RIBBON ---------- */
+  .ribbon-scroll { overflow-x: auto; padding-bottom: 8px; }
+  .ribbon { display: flex; gap: 5px; min-width: 900px; }
+  .rb {
+    flex: 1; min-width: 50px; border-radius: 10px;
+    padding: 10px 4px 8px; text-align: center; color: #fff;
+  }
+  .rb .dow { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.85; }
+  .rb .d { font-family: "Fraunces", serif; font-size: 20px; font-weight: 700; line-height: 1.2; }
+  .rb .what { font-size: 10.5px; margin-top: 3px; opacity: 0.95; }
+  .rb.hfx { background: var(--hfx); }
+  .rb.stj { background: var(--stj); }
+  .rb.spm { background: var(--spm); }
+  .rb.pei { background: var(--pei); }
+  .rb.home { background: var(--travel); color: #3c3323; }
+  .ribbon-caption { font-size: 13.5px; color: var(--muted); margin-top: 12px; }
+  .ribbon-caption b { color: var(--ink); }
+
+  /* ---------- CHAPTERS ---------- */
+  .chapter {
+    background: var(--card);
+    border-radius: 20px;
+    box-shadow: 0 2px 12px rgba(20,40,60,0.07);
+    overflow: hidden;
+    margin-top: 34px;
+  }
+  .chap-head {
+    padding: 26px 30px 22px;
+    color: #fff;
+    display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap;
+  }
+  .chap-head .num {
+    font-family: "Fraunces", serif; font-size: 46px; font-weight: 700;
+    opacity: 0.5; line-height: 1;
+  }
+  .chap-head h3 { margin: 0; font-size: clamp(24px, 3.4vw, 32px); }
+  .chap-head .when {
+    margin-left: auto; text-align: right; font-size: 14px; opacity: 0.95;
+  }
+  .chap-head .when b { font-size: 16px; display: block; font-family: "Fraunces", serif; }
+  .chapter.hfx .chap-head { background: linear-gradient(120deg, #0c2438, var(--hfx)); }
+  .chapter.stj .chap-head { background: linear-gradient(120deg, #0a5560, var(--stj)); }
+  .chapter.spm .chap-head { background: linear-gradient(120deg, #232f6e, var(--spm) 70%, #55418f); }
+  .chapter.pei .chap-head { background: linear-gradient(120deg, #1f5c39, var(--pei)); }
+  .chap-body { padding: 24px 30px 28px; }
+  .getting {
+    font-size: 14px; color: var(--muted);
+    border-left: 3px solid var(--line);
+    padding: 4px 0 4px 14px; margin-bottom: 18px;
+  }
+  .getting b { color: var(--ink); }
+  .hl { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 14px 26px; }
+  .hl li { display: flex; gap: 12px; font-size: 15px; }
+  .hl .ico { flex: none; font-size: 20px; line-height: 1.4; }
+  .hl b { display: block; }
+  .hl span.sub { color: var(--muted); font-size: 13.5px; line-height: 1.5; display: block; }
+  .stay {
+    margin-top: 20px; padding: 12px 16px; border-radius: 12px;
+    font-size: 14px; background: var(--paper); border: 1px solid var(--line);
+  }
+  @media (max-width: 640px) { .hl { grid-template-columns: 1fr; } .chap-head .when { margin-left: 0; text-align: left; } }
+
+  /* ---------- ALERTS ---------- */
+  .alert {
+    border-radius: 16px; padding: 22px 26px; margin: 26px 0;
+    border: 1.5px solid;
+  }
+  .alert.gold { background: var(--gold-bg); border-color: #e5c069; }
+  .alert.red { background: var(--red-bg); border-color: #e39c94; }
+  .alert h4 { margin: 0 0 8px; font-family: "Fraunces", serif; font-size: 19px; }
+  .alert.gold h4 { color: #8a6210; }
+  .alert.red h4 { color: #a33830; }
+  .alert p { margin: 6px 0; font-size: 14.5px; }
+
+  /* ---------- WINDOWS TABLE ---------- */
+  .wtable { width: 100%; border-collapse: collapse; margin: 14px 0 6px; font-size: 14px; background: var(--card); border-radius: 12px; overflow: hidden; box-shadow: 0 1px 6px rgba(20,40,60,0.06); }
+  .wtable th, .wtable td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .wtable th { background: #fffdf8; font-size: 11.5px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); }
+  .wtable tr.rec td { background: #f0f7f1; }
+  .wtable .tag { display: inline-block; font-size: 10.5px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; border-radius: 999px; padding: 2px 9px; margin-left: 6px; background: var(--pei); color: #fff; }
+  .wtable-scroll { overflow-x: auto; }
+
+  /* ---------- OPTION CARDS ---------- */
+  .opts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 22px; }
+  @media (max-width: 800px) { .opts { grid-template-columns: 1fr; } }
+  .opt {
+    background: var(--card); border-radius: 16px; padding: 22px;
+    border: 1.5px solid var(--line);
+    box-shadow: 0 2px 10px rgba(20,40,60,0.06);
+    display: flex; flex-direction: column;
+  }
+  .opt.active { border-color: var(--pei); box-shadow: 0 4px 18px rgba(47,125,80,0.18); }
+  .opt .badge {
+    align-self: flex-start; font-size: 10.5px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; border-radius: 999px; padding: 3px 11px; margin-bottom: 10px;
+    background: var(--paper); color: var(--muted); border: 1px solid var(--line);
+  }
+  .opt.active .badge { background: var(--pei); color: #fff; border-color: var(--pei); }
+  .opt h4 { font-family: "Fraunces", serif; margin: 0 0 6px; font-size: 20px; }
+  .opt .strip { display: flex; gap: 3px; margin: 10px 0 14px; }
+  .opt .strip i { height: 9px; border-radius: 3px; font-style: normal; }
+  .opt ul { margin: 0; padding: 0 0 0 2px; list-style: none; font-size: 13.5px; }
+  .opt li { padding: 4px 0; border-bottom: 1px dashed var(--line); }
+  .opt li:last-child { border-bottom: none; }
+  .opt li b.good { color: var(--pei); }
+  .opt li b.bad { color: var(--spm-red); }
+  .opt .foot { margin-top: auto; padding-top: 12px; font-size: 12.5px; color: var(--muted); }
+  .opt .view {
+    margin-top: 12px;
+    border: 1.5px solid var(--pei); background: transparent; color: var(--pei);
+    font: 600 13px "Inter", sans-serif; border-radius: 999px; padding: 8px 16px;
+    cursor: pointer; transition: all .15s;
+  }
+  .opt .view:hover, .opt.active .view { background: var(--pei); color: #fff; }
+
+  /* ---------- DETAILS / RECEIPTS ---------- */
+  details {
+    background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+    padding: 0; margin-bottom: 12px; overflow: hidden;
+  }
+  details summary {
+    cursor: pointer; padding: 16px 20px; font-weight: 600; font-size: 15px;
+    list-style: none; display: flex; align-items: center; gap: 10px;
+  }
+  details summary::-webkit-details-marker { display: none; }
+  details summary::before { content: "▸"; color: var(--gold); transition: transform 0.15s; }
+  details[open] summary::before { transform: rotate(90deg); }
+  details .din { padding: 0 20px 18px; font-size: 14.5px; color: #37444e; }
+  details table { width: 100%; border-collapse: collapse; font-size: 13.5px; margin: 10px 0; }
+  details th, details td { padding: 7px 10px; border-bottom: 1px solid var(--line); text-align: left; }
+  details tr.hi td { background: #f0f7f1; font-weight: 600; }
+
+  /* ---------- CHECKLIST ---------- */
+  .todo { list-style: none; margin: 0; padding: 0; }
+  .todo li {
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 14px 18px; margin-bottom: 10px; font-size: 15px;
+    display: flex; gap: 13px; align-items: flex-start;
+  }
+  .todo .n {
+    flex: none; width: 26px; height: 26px; border-radius: 50%;
+    background: var(--spm-red); color: #fff; font-weight: 700; font-size: 13px;
+    display: flex; align-items: center; justify-content: center; margin-top: 1px;
+  }
+  .todo li.done { opacity: 0.62; }
+  .todo li.done .n { background: var(--pei); }
+  .todo li.hot { border-color: var(--spm-red); box-shadow: 0 2px 12px rgba(200,64,74,0.14); }
+
+  footer { text-align: center; padding: 46px 20px 64px; color: var(--muted); font-size: 13px; }
+  footer .flag { font-size: 18px; letter-spacing: 4px; margin-bottom: 8px; }
 </style>
 </head>
 <body>
 
 <header class="hero">
-  <div class="eyebrow">A Maritime Canada Adventure</div>
-  <h1>Halifax · PEI · Newfoundland · Saint-Pierre</h1>
-  <p class="sub">Planning notes and research so far for a July 2026 trip — shared for feedback before we lock dates and bookings.</p>
-  <div class="stat-strip">
-    <div class="stat-pill">🗓️ Window: July 10–25, 2026</div>
-    <div class="stat-pill">📍 4 destinations</div>
-    <div class="stat-pill">⏱️ ~10-11 days on the ground</div>
-    <div class="stat-pill">🎯 Priority: time over money</div>
+  <div class="kicker">A proposal for July 2026 · for review by the travel committee 🗳️</div>
+  <h1>Two countries.<br>Four islands. <em>One July.</em></h1>
+  <p class="dek">Nova Scotia → Newfoundland → a little piece of actual France floating off the Canadian coast → Prince Edward Island. With friends on both ends.</p>
+  <p class="dates" id="hero-dates">July 15 – 30, 2026 <span style="opacity:.7;font-size:.75em">(Plan A · nothing booked yet)</span></p>
+  <div class="chips">
+    <span class="chip">🛬 <span id="chip-days">16 days · 15 nights</span></span>
+    <span class="chip">🇨🇦 🇫🇷 2 countries</span>
+    <span class="chip">✈️ 6 flights · ⛴️ 3 ferries</span>
+    <span class="chip">🧭 easternmost point of North America</span>
+    <span class="chip">🥐 croissants priced in euros</span>
   </div>
 </header>
 
+<nav class="chapnav">
+  <a href="#route"><span class="dot" style="background:var(--gold)"></span>The Route</a>
+  <a href="#ch1"><span class="dot" style="background:var(--hfx)"></span>Halifax</a>
+  <a href="#ch2"><span class="dot" style="background:var(--stj)"></span>St. John's</a>
+  <a href="#ch3"><span class="dot" style="background:var(--spm)"></span>Saint-Pierre</a>
+  <a href="#ch4"><span class="dot" style="background:var(--pei)"></span>PEI</a>
+  <a href="#options"><span class="dot" style="background:var(--spm-red)"></span>Compare Plans</a>
+  <a href="#receipts"><span class="dot" style="background:var(--travel)"></span>Fine Print</a>
+</nav>
+
 <main>
 
-  <section>
-    <h2 class="section-title">The Route</h2>
-    <p class="lead">Both friend groups join for the Newfoundland / Saint-Pierre leg — Halifax friends visited first, PEI friends travel up to Halifax to meet us before we all fly north together. No leg gets repeated.</p>
-    <div class="route-flow">
-      <div class="route-node">Home<span class="days">JAX area</span></div>
-      <div class="route-arrow">→</div>
-      <div class="route-mode">✈️ flight<br>(connection)</div>
-      <div class="route-arrow">→</div>
-      <div class="route-node">Halifax<span class="days">1–2 days</span></div>
-      <div class="route-arrow">→</div>
-      <div class="route-mode">✈️ 1h55m<br>direct</div>
-      <div class="route-arrow">→</div>
-      <div class="route-node">St. John's, NL<span class="days">~2 days</span></div>
-      <div class="route-arrow">→</div>
-      <div class="route-mode">✈️ 45m<br>direct</div>
-      <div class="route-arrow">→</div>
-      <div class="route-node">Saint-Pierre<span class="days">~2 days</span></div>
-      <div class="route-arrow">→</div>
-      <div class="route-mode">✈️ 1h15m<br>direct</div>
-      <div class="route-arrow">→</div>
-      <div class="route-node">Halifax<span class="days">passthrough</span></div>
-      <div class="route-arrow">→</div>
-      <div class="route-mode">⛴️ 1h15m<br>ferry + car</div>
-      <div class="route-arrow">→</div>
-      <div class="route-node">PEI<span class="days">5 days</span></div>
-      <div class="route-arrow">→</div>
-      <div class="route-mode">🚗⛴️ back<br>to Halifax</div>
-      <div class="route-arrow">→</div>
-      <div class="route-node">Home<span class="days">✈️ connection</span></div>
-    </div>
-  </section>
+  <!-- ================= ROUTE + SWITCHER ================= -->
+  <section id="route">
+    <div class="sec-kicker">The Big Picture</div>
+    <h2 class="sec-title">One clean loop — pick your version of it</h2>
+    <p class="lead">We fly into <strong>Halifax</strong> and out of Halifax, and everything in between chains together. Saint-Pierre's tiny airline only connects St. John's on <strong>Sundays &amp; Wednesdays</strong> and Halifax on <strong>Mon / Wed / Fri</strong> — so there are exactly three sensible shapes for this trip. <strong>This page is interactive:</strong> switch plans below and the calendar, map, and chapters all update.</p>
 
-  <section>
-    <h2 class="section-title">Map</h2>
-    <p class="lead">Navy pins and the coral line are the confirmed loop — all flights except the Halifax↔PEI ferry. The purple pin and dashed purple line are the Gander day trip: a drive out and back from St. John's, not a separate leg. Drag/scroll to explore.</p>
+    <div class="switcher" id="switcher">
+      <button data-plan="A" class="active">
+        <span class="pl">Plan A · Recommended</span>
+        <span class="pn">Islands in Order</span>
+        <span class="pd">SPM Jul 19–24 · home Jul 30</span>
+      </button>
+      <button data-plan="B">
+        <span class="pl">Plan B</span>
+        <span class="pn">Full Newfoundland</span>
+        <span class="pd">Gander fits · SPM Jul 22–27 · home Aug 1</span>
+      </button>
+      <button data-plan="C">
+        <span class="pl">Plan C</span>
+        <span class="pn">France First</span>
+        <span class="pd">SPM Jul 17–22 direct · home Jul 30</span>
+      </button>
+    </div>
+    <p class="plan-note" id="plan-note"></p>
+
     <div id="trip-map"></div>
     <div class="map-legend">
-      <div><span class="swatch" style="background:#0b3a52;"></span>Confirmed stops</div>
-      <div><span class="swatch" style="background:#d9713c;"></span>Confirmed route (flights + ferry)</div>
-      <div><span class="swatch" style="background:#6a4c93;"></span>Gander — day trip by car from St. John's</div>
+      <div class="lg"><span class="sw" style="background:var(--hfx)"></span>Numbered stops, in order</div>
+      <div class="lg"><span class="ln" style="border-color:var(--gold)"></span>Flights</div>
+      <div class="lg"><span class="ln" style="border-color:var(--pei); border-top-style: dotted;"></span>Drive + car ferry to PEI</div>
+      <div class="lg" id="lg-gander"><span class="sw" style="background:#fff; border:2px solid var(--stj)"></span>Gander day trip (Plan B only)</div>
     </div>
   </section>
 
-  <section>
-    <h2 class="section-title">Timeline</h2>
-    <p class="lead">Anchored to the Jul 15 Halifax flight we priced (below dates assume that start — not yet booked). Sequence and leg lengths hold regardless.</p>
-    <div class="timeline-scroll">
-      <div class="timeline">
-        <div class="tl-day tl-halifax" style="grid-column: span 2;">Jul 15–16<span>Halifax</span></div>
-        <div class="tl-day tl-travel">Jul 17<span>✈️ to St. John's</span></div>
-        <div class="tl-day tl-nl">Jul 18<span>St. John's / Avalon</span></div>
-        <div class="tl-day tl-gander">Jul 19<span>🚗 Gander day trip</span></div>
-        <div class="tl-day tl-travel">Jul 20<span>✈️ to Saint-Pierre</span></div>
-        <div class="tl-day tl-spm">Jul 21<span>Saint-Pierre</span></div>
-        <div class="tl-day tl-travel">Jul 22<span>✈️ + ⛴️ to PEI</span></div>
-        <div class="tl-day tl-pei" style="grid-column: span 5;">Jul 23–27<span>PEI</span></div>
-        <div class="tl-day tl-travel">Jul 28<span>⛴️ + ✈️ home</span></div>
+  <!-- ================= RIBBON ================= -->
+  <section id="calendar">
+    <div class="sec-kicker">Day by Day</div>
+    <h2 class="sec-title" id="ribbon-title">Sixteen days, color-coded</h2>
+    <p class="lead">Each square is a night. The airplane days do double duty — every travel leg is a morning or afternoon hop, not a lost day.</p>
+    <div class="ribbon-scroll"><div class="ribbon" id="ribbon"></div></div>
+    <p class="ribbon-caption" id="ribbon-caption"></p>
+  </section>
+
+  <!-- ================= CHAPTERS ================= -->
+  <div id="chapters">
+
+  <section id="ch1" data-chap="hfx">
+    <div class="chapter hfx">
+      <div class="chap-head">
+        <span class="num">01</span>
+        <h3>Halifax, Nova Scotia</h3>
+        <div class="when"></div>
       </div>
-    </div>
-    <div class="timeline-note">✅ Jul 15 start clears the <strong>July 14</strong> Air Saint-Pierre blackout (Bastille Day) automatically — the NL→Saint-Pierre flight lands on Jul 20, a regular Monday departure.</div>
-    <div class="timeline-note" style="background:var(--red-bg); border-color:var(--red-border); color:var(--red);">⚠️ This full 14-day run ends <strong>Jul 28</strong> — 3 days past the original July 25 target. Worth confirming that's fine, or trimming a day or two (e.g. 1 Halifax day instead of 2, or 4 PEI days) to land back inside the window.</div>
-
-    <div class="alert warn" style="margin-top:26px;">
-      <h3>🚗 Gander — kept as a day trip from St. John's</h3>
-      <p>Gander is ~3.5 hrs drive each way on the Trans-Canada Highway (~7 hrs round trip). Worth it for the transatlantic aviation history — the North Atlantic Aviation Museum, the "Come From Away" 9/11 story, and the Silent Witness memorial. It fits as a full-day loop from a St. John's base, no need to relocate lodging.</p>
-    </div>
-
-    <div class="alert critical" style="margin-top:18px;">
-      <h3>❌ Gros Morne National Park — leaning against it</h3>
-      <p>Gros Morne is on the far west coast — a ~7–8 hr / 700 km drive from St. John's, so it can't be reached by car within the Newfoundland budget. Flying is possible: <strong>St. John's → Deer Lake (YDF)</strong> runs ~15x/week on PAL Airlines / Air Canada, ~1h10m, from ~C$320. But Deer Lake is only the airport — you'd still need a <em>separate rental car</em> there to reach and tour the park, on top of the +3–4 days it would add. Given the Newfoundland car-supply crunch and the time cost, the call is to skip it this trip.</p>
+      <div class="chap-body">
+        <div class="getting"></div>
+        <ul class="hl">
+          <li><span class="ico">🌆</span><div><b>Land with the evening free</b><span class="sub">3:58 PM arrival means dinner with the Halifax crew on night one — waterfront boardwalk if the weather plays along.</span></div></li>
+          <li><span class="ico">🗼</span><div><b>Peggy's Cove</b><span class="sub">The lighthouse day. An hour out, granite coves, and the most photographed spot in Atlantic Canada.</span></div></li>
+          <li><span class="ico">🚗</span><div><b>Rental car #1 — short and cheap</b><span class="sub">Two days only, returned at the airport before we fly onward. No car sits idle while we're in Newfoundland and France.</span></div></li>
+          <li><span class="ico">🤝</span><div><b>The rendezvous</b><span class="sub">Our PEI friends meet us here — from Halifax onward, we travel as four.</span></div></li>
+        </ul>
+        <div class="stay">🛏️ <b>Stay:</b> hotel or friends' spare room — Halifax has deep inventory, zero concern. Book last.</div>
+      </div>
     </div>
   </section>
 
-  <section>
-    <h2 class="section-title">Days on the Ground</h2>
-    <div class="day-bars">
-      <div class="day-bar-row">
-        <div class="day-bar-label">Halifax</div>
-        <div class="day-bar-track"><div class="day-bar-fill" style="width: 20%;">1–2 days</div></div>
+  <section id="ch2" data-chap="stj">
+    <div class="chapter stj">
+      <div class="chap-head">
+        <span class="num">02</span>
+        <h3>St. John's, Newfoundland</h3>
+        <div class="when"></div>
       </div>
-      <div class="day-bar-row">
-        <div class="day-bar-label">Newfoundland</div>
-        <div class="day-bar-track"><div class="day-bar-fill" style="width: 30%;">~2 days (Avalon + Gander)</div></div>
-      </div>
-      <div class="day-bar-row">
-        <div class="day-bar-label">Saint-Pierre</div>
-        <div class="day-bar-track"><div class="day-bar-fill" style="width: 26%;">~2 days</div></div>
-      </div>
-      <div class="day-bar-row">
-        <div class="day-bar-label">PEI</div>
-        <div class="day-bar-track"><div class="day-bar-fill" style="width: 62%;">5 days</div></div>
+      <div class="chap-body">
+        <div class="getting"></div>
+        <ul class="hl">
+          <li><span class="ico">🌅</span><div><b>Cape Spear</b><span class="sub">The easternmost point in North America. Stand there before breakfast and you're ahead of everyone on the continent.</span></div></li>
+          <li><span class="ico">🐧</span><div><b>Witless Bay puffin cruise</b><span class="sub">North America's largest Atlantic puffin colony — hundreds of thousands — and mid-July is peak humpback season on the same boat.</span></div></li>
+          <li><span class="ico">🏘️</span><div><b>Signal Hill &amp; Jellybean Row</b><span class="sub">Marconi's first transatlantic signal, then the crayon-colored row houses downtown.</span></div></li>
+          <li><span class="ico">🍻</span><div><b>George Street &amp; a screech-in</b><span class="sub">Kiss the cod, drink the rum, leave an honorary Newfoundlander. The friends will not be exempt.</span></div></li>
+        </ul>
+        <div class="stay">🛏️ <b>Stay:</b> VRBO — good availability confirmed. 🚗 <b>Car:</b> Turo (confirmed available) — traditional agencies sell out of July months ahead, so this gets booked the moment dates lock.</div>
+        <div class="alert gold" style="margin:20px 0 0" id="gander-note"></div>
       </div>
     </div>
-    <p class="lead" style="margin-top:18px;">~10-11 destination days plus travel days — fits comfortably inside the July 10–25 window with room to flex exact dates. Newfoundland now includes an Avalon day plus a Gander day trip; Gros Morne is set aside (see Timeline above).</p>
   </section>
 
-  <section>
-    <h2 class="section-title">Leg by Leg</h2>
-
-    <div class="card">
-      <h3>✈️ Getting There <span class="badge confirmed">MCO priced</span> <span class="badge open">other gateways open</span></h3>
-      <p>Jacksonville, Orlando, Daytona, and Sanford were all considered as gateway airports. We initially favored Orlando for a nonstop to Halifax — <strong>but that route doesn't run in July</strong> (it's a winter/spring-only seasonal service). In July, every candidate airport requires a connection, most likely through Toronto or Montreal.</p>
-      <p>Priced live: <strong>MCO → YHZ</strong> across the week around Jul 15 (2 passengers, base fare):</p>
-      <table class="fare-table">
-        <tr><th>Date</th><th>Cheapest</th><th>Routing</th><th>Duration</th></tr>
-        <tr><td>Sun Jul 12</td><td class="num">$470</td><td>United/AC via Chicago</td><td>7h49m</td></tr>
-        <tr><td>Mon Jul 13</td><td class="num">$468</td><td>Air Canada via Montreal</td><td>8h7m</td></tr>
-        <tr><td>Tue Jul 14</td><td class="num">$468</td><td>Air Canada via Montreal</td><td>8h7m</td></tr>
-        <tr class="highlight"><td>Wed Jul 15</td><td class="num">$274</td><td>United/AC via Chicago</td><td>7h49m</td></tr>
-        <tr><td>Thu Jul 16</td><td class="num">$427</td><td>WestJet/Delta</td><td>11h8m</td></tr>
-        <tr><td>Fri Jul 17</td><td class="num">$511</td><td>Delta</td><td>15h18m</td></tr>
-        <tr><td>Sat Jul 18</td><td class="num">$274</td><td>Delta (8h17m) or United (15h15m)</td><td>varies</td></tr>
-      </table>
-      <p><strong>Jul 15 is the cheapest fare of the entire week, on any airline</strong> — likely a fare-sale blip worth locking in. It's also the cheapest United fare of the week specifically, which matters since we have a United travel credit to use — no conflict between "cheapest" and "use the credit" here.</p>
-      <p><strong>Booking Economy, not Basic</strong> — checked-bag fees ($50/pax) apply in every United fare tier, so the real gap is Basic all-in ($374 with 2 checked bags) vs Economy all-in ($482) — about $108 total for a free carry-on each, free seat selection (sitting together), and free changes. Worth it given how many downstream connections this trip has to protect (Jul 14 blackout, an Air Saint-Pierre leg that only flies 4x/week). Assuming <strong>1 checked bag total</strong>: <strong>Economy $382 + $50 bag = $432 for both passengers (~$216/person)</strong>.</p>
-      <p class="meta">Still open: live pricing from JAX/Daytona/Sanford to confirm MCO is genuinely the best gateway. Also worth checking whether the United credit applies to Basic Economy (informational only — Economy is the plan regardless).</p>
+  <section id="ch3" data-chap="spm">
+    <div class="chapter spm">
+      <div class="chap-head">
+        <span class="num">03</span>
+        <h3>Saint-Pierre <span style="font-size:.6em">🇫🇷</span></h3>
+        <div class="when"></div>
+      </div>
+      <div class="chap-body">
+        <div class="getting"></div>
+        <ul class="hl">
+          <li><span class="ico">🥖</span><div><b>The town itself</b><span class="sub">6,000 people, pastel houses, Pointe aux Canons lighthouse, Basque pelota courts, and bakeries that would hold their own in Paris.</span></div></li>
+          <li><span class="ico">⛵</span><div><b>Île aux Marins</b><span class="sub">A ten-minute zodiac to an abandoned fishing village — church, schoolhouse and lighthouse frozen in the 1960s.</span></div></li>
+          <li><span class="ico">🐎</span><div><b>Miquelon day trip</b><span class="sub">The wilder sister island: wild horses, a seal colony in the Grand Barachois lagoon, and a 12-km sand isthmus.</span></div></li>
+          <li><span class="ico">🥃</span><div><b>Prohibition lore</b><span class="sub">This tiny island moved millions of cases of liquor in the 1920s. Al Capone stayed at the Hôtel Robert — his straw hat is still on display.</span></div></li>
+        </ul>
+        <div class="alert red" style="margin:22px 0 0">
+          <h4>🚨 The one thing we must book NOW: a room</h4>
+          <p><b>July lodging on Saint-Pierre is nearly gone.</b> VRBO shows almost nothing (earlier optimism was wrong — corrected). The island has only a handful of hotels, and they're small:</p>
+          <p style="margin-top:10px">
+            🏨 <b><a href="https://www.hotelrobert.com/en/">Hôtel Robert</a></b> — the big one (~40 rooms), waterfront, the Al Capone place<br>
+            🏨 <b><a href="https://www.aubergesaint-pierre.com/en/">Auberge Saint-Pierre</a></b> — the island's 3-star<br>
+            🏨 <b><a href="https://nuitssaintpierre.com/en/">Nuits Saint-Pierre</a></b> — 5-room boutique, book direct<br>
+            🛏️ Plus a short list of B&amp;Bs on the <a href="https://en.spm-tourisme.fr/stay/sleep/">official tourism site</a> — several only take bookings by email.
+          </p>
+          <p style="margin-top:10px"><b>The play:</b> email/check all of them for the three date windows below, take whichever answers yes, and the rest of the trip snaps around it (that's literally what the plan switcher on this page is for). Summer dinner reservations are also near-mandatory — restaurants get booked the same week as the room.</p>
+        </div>
+        <div class="wtable-scroll">
+        <table class="wtable">
+          <tr><th>Saint-Pierre window</th><th>Full days</th><th>What it does to the rest</th></tr>
+          <tr data-win="A"><td><b>Sun Jul 19 → Fri Jul 24</b> <span class="tag">Plan A</span></td><td>4</td><td>St. John's gets 2 days · the 9:00a Friday exit lands Halifax 9:30a → <b>same-day ferry to PEI</b> · home Jul 30</td></tr>
+          <tr data-win="C"><td><b>Fri Jul 17 → Wed Jul 22</b> <span class="tag" style="background:var(--muted)">Plan C</span></td><td>4</td><td>France first, direct from Halifax · St. John's afterward gets 2½ days with a flexible daily exit · home Jul 30</td></tr>
+          <tr data-win="B"><td><b>Wed Jul 22 → Mon Jul 27</b> <span class="tag" style="background:var(--muted)">Plan B</span></td><td>4</td><td>St. John's stretches to 4½ days (Gander fits!) · Monday 11:30a landing → same-day ferry · home Aug 1</td></tr>
+        </table>
+        </div>
+        <p style="font-size:13px;color:var(--muted);margin-top:8px">Why these exact dates? Air Saint-Pierre only connects St. John's on <b>Sundays and Wednesdays</b>, and Halifax on <b>Mon/Wed/Fri (+Sun)</b> — the calendar is quantized for us. Every viable window gives ~4 full French days, which conveniently exceeds the 3 we wanted.</p>
+      </div>
     </div>
-
-    <div class="card">
-      <h3>🏙️ Halifax <span class="badge confirmed">confirmed plan</span></h3>
-      <p>1–2 days visiting Halifax friends. Rent a car here for local touring (e.g. Peggy's Cove), then return it before flying north — no reason to pay for it to sit at the airport while we're away.</p>
-    </div>
-
-    <div class="card">
-      <h3>✈️ Halifax → Newfoundland <span class="badge confirmed">confirmed plan</span></h3>
-      <p>Fly, don't drive-ferry. The Marine Atlantic car ferry runs 6–7 hours (Port aux Basques, then still a 9–10 hour drive across the island) or a seasonal 14–15 hour overnight to Argentia — either would burn a full day or more against just a ~2-day NL budget. The direct Halifax↔St. John's flight is under 2 hours.</p>
-    </div>
-
-    <div class="alert good">
-      <h3>✅ Newfoundland lodging &amp; car — looking better than feared</h3>
-      <p><strong>Lodging:</strong> plenty of VRBO options found in both St. John's and Saint-Pierre — no longer a concern.</p>
-      <p><strong>Rental car:</strong> Turo listings confirmed available in St. John's. The island-wide shortage is real (see below), so this is still worth booking early rather than waiting, but it's no longer a hard blocker.</p>
-    </div>
-
-    <div class="alert critical">
-      <h3>⚠️ Background: why Newfoundland rental cars are tight</h3>
-      <p>St. John's has had a severe, well-documented rental car shortage every summer since COVID — traditional agency fleets on the island never rebuilt. May/June/July vehicles have reportedly sold out months in advance; when available through the major brands, weekly rates have run <strong>$1,300–$2,900</strong>. Turo (peer-to-peer) has been the reliable workaround — book it as soon as dates are set rather than waiting.</p>
-    </div>
-
-    <div class="card">
-      <h3>✈️ Newfoundland → Saint-Pierre <span class="badge confirmed">confirmed plan</span></h3>
-      <p>Fly instead of the Fortune ferry — Fortune is a ~4 hour drive each way from St. John's, so the ferry route effectively costs a full extra day versus a 45-minute flight. Air Saint-Pierre flies St. John's↔Saint-Pierre on <strong>Mon / Wed / Fri</strong>, plus a seasonal <strong>Sunday</strong> add (late June–August) — 4 weekly options in our window.</p>
-    </div>
-
-    <div class="alert warn">
-      <h3>⚠️ Bastille Day blackout — July 14</h3>
-      <p>Air Saint-Pierre runs <strong>no flights on July 14</strong> on any route (St. John's, Halifax, Montreal, Paris, Miquelon) — the island shuts down to celebrate. Whatever dates we land on, the Newfoundland → Saint-Pierre leg needs to be scheduled around this.</p>
-    </div>
-
-    <div class="card">
-      <h3>✈️ Saint-Pierre → Halifax <span class="badge confirmed">confirmed plan</span></h3>
-      <p>Air Saint-Pierre also flies direct Saint-Pierre↔Halifax (1h15m, same Mon/Wed/Fri/seasonal-Sun pattern) — this skips backtracking through St. John's on the way to PEI.</p>
-    </div>
-
-    <div class="card">
-      <h3>⛴️ Halifax → PEI <span class="badge confirmed">confirmed plan</span></h3>
-      <p>Skip the long drive around through New Brunswick to the Confederation Bridge — take the <strong>Wood Islands–Caribou ferry</strong> instead (Northumberland Ferries). About 1h15m, up to 8x/day in summer, and it carries the car. Pick up a fresh rental in Halifax on return from Saint-Pierre and drive it straight onto the ferry.</p>
-    </div>
-
-    <div class="card">
-      <h3>🏝️ PEI <span class="badge confirmed">confirmed plan</span></h3>
-      <p>5 days with our PEI friends, back on their home turf. Car comes with us via the ferry.</p>
-    </div>
-
-    <div class="card">
-      <h3>✈️ PEI → Home <span class="badge open">open item</span></h3>
-      <p>We loop back to Halifax (rather than flying out of tiny Charlottetown) for the trip home — Halifax is a much larger airport with far more frequent Toronto/Montreal connections. Charlottetown only reaches Orlando via Toronto/Montreal or a Boston connection on JetBlue, with less frequency. Needs a live fare check closer to booking.</p>
-    </div>
-
   </section>
 
+  <section id="ch4" data-chap="pei">
+    <div class="chapter pei">
+      <div class="chap-head">
+        <span class="num">04</span>
+        <h3>Prince Edward Island</h3>
+        <div class="when"></div>
+      </div>
+      <div class="chap-body">
+        <div class="getting"></div>
+        <ul class="hl">
+          <li><span class="ico">🏡</span><div><b>Unhurried days</b><span class="sub">After ferries and turboprops, PEI is the exhale — our hosts know every beach and back road.</span></div></li>
+          <li><span class="ico">🦞</span><div><b>Lobster supper</b><span class="sub">The classic church-hall kind. Non-negotiable.</span></div></li>
+          <li><span class="ico">🏖️</span><div><b>Red cliffs &amp; Cavendish</b><span class="sub">The warmest salt water north of the Carolinas, allegedly. We'll verify.</span></div></li>
+          <li><span class="ico">📚</span><div><b>Green Gables</b><span class="sub">Obligatory Anne pilgrimage. COWS ice cream after.</span></div></li>
+        </ul>
+        <div class="stay">🛏️ <b>Stay:</b> with friends / their picks — they're the hosts here. 🚗 Rental #2 rides the ferry with us and goes back to Halifax airport on departure day (morning ferry, afternoon/evening flight home — we book the flight around the boat).</div>
+      </div>
+    </div>
+  </section>
+
+  </div><!-- /chapters -->
+
+  <!-- ================= OPTIONS ================= -->
+  <section id="options">
+    <div class="sec-kicker">Side by Side</div>
+    <h2 class="sec-title">Three shapes, same trip</h2>
+    <p class="lead">The Saint-Pierre hotel is the scarce resource, so each plan is really a different <strong>Saint-Pierre window</strong> with the rest of the trip re-folded around it. All three start with the same $432 Orlando→Halifax flight on July 15. Tap <em>view</em> to preview one above.</p>
+    <div class="opts">
+      <div class="opt" data-opt="A">
+        <span class="badge">Plan A · Recommended</span>
+        <h4>Islands in Order</h4>
+        <div class="strip">
+          <i style="background:var(--hfx);flex:2" title="Halifax 2n"></i><i style="background:var(--stj);flex:2" title="St. John's 2n"></i><i style="background:var(--spm);flex:5" title="Saint-Pierre 5n"></i><i style="background:var(--pei);flex:6" title="PEI 6n"></i><i style="background:var(--travel);flex:1" title="home"></i>
+        </div>
+        <ul>
+          <li>Halifax 2 · St. John's 2 · <b>SPM Jul 19–24</b> · PEI 5½</li>
+          <li><b class="good">✓</b> Friday 9:30a landing → same-day ferry, zero wasted days</li>
+          <li><b class="good">✓</b> France as the exotic mid-trip crescendo</li>
+          <li><b class="bad">✗</b> No Gander · St. John's is tight at 2 days</li>
+        </ul>
+        <div class="foot">Home Thu Jul 30 · 16 days</div>
+        <button class="view" data-plan="A">View this plan ↑</button>
+      </div>
+      <div class="opt" data-opt="B">
+        <span class="badge">Plan B</span>
+        <h4>Full Newfoundland</h4>
+        <div class="strip">
+          <i style="background:var(--hfx);flex:2" title="Halifax 2n"></i><i style="background:var(--stj);flex:5" title="St. John's 5n"></i><i style="background:var(--spm);flex:5" title="Saint-Pierre 5n"></i><i style="background:var(--pei);flex:5" title="PEI 5n"></i><i style="background:var(--travel);flex:1" title="home"></i>
+        </div>
+        <ul>
+          <li>Halifax 2 · St. John's 4½ · <b>SPM Jul 22–27</b> · PEI 4½</li>
+          <li><b class="good">✓</b> Gander day trip fits · Avalon gets room to breathe</li>
+          <li><b class="good">✓</b> Monday 11:30a landing → still a same-day ferry</li>
+          <li><b class="bad">✗</b> Longest trip — home Aug 1 (or trim PEI to 4 days)</li>
+        </ul>
+        <div class="foot">Home Sat Aug 1 · 18 days</div>
+        <button class="view" data-plan="B">View this plan ↑</button>
+      </div>
+      <div class="opt" data-opt="C">
+        <span class="badge">Plan C</span>
+        <h4>France First</h4>
+        <div class="strip">
+          <i style="background:var(--hfx);flex:2" title="Halifax 2n"></i><i style="background:var(--spm);flex:5" title="Saint-Pierre 5n"></i><i style="background:var(--stj);flex:3" title="St. John's 3n"></i><i style="background:var(--pei);flex:5" title="PEI 5n"></i><i style="background:var(--travel);flex:1" title="home"></i>
+        </div>
+        <ul>
+          <li>Halifax 2 · <b>SPM Jul 17–22</b> · St. John's 2½ · PEI 4½</li>
+          <li><b class="good">✓</b> Direct Halifax→Saint-Pierre flight, no connection</li>
+          <li><b class="good">✓</b> Exit from St. John's uses <i>daily</i> flights — most rebookable</li>
+          <li><b class="bad">✗</b> Weekend in SPM = busiest lodging window of the three</li>
+        </ul>
+        <div class="foot">Home Thu Jul 30 · 16 days</div>
+        <button class="view" data-plan="C">View this plan ↑</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= RECEIPTS ================= -->
+  <section id="receipts">
+    <div class="sec-kicker">For the skeptics</div>
+    <h2 class="sec-title">The fine print</h2>
+    <p class="lead">Every routing above survived a research pass — here's the reasoning, collapsed so it doesn't get in the way of the pretty pictures.</p>
+
+    <details>
+      <summary>✈️ Why the Orlando flight costs $432 and not $274</summary>
+      <div class="din">
+        <p>Google Flights' headline price for Wed Jul 15 is $274 for two — but that's Basic Economy: no carry-on, no seat selection, no changes. Checked bags cost $50/person in <em>every</em> tier, so the honest comparison is $374 (Basic + 2 bags) vs $482 (Economy + 2 bags). We're taking <b>Economy + 1 checked bag = $432 for two</b>: free carry-ons, we sit together, and — critical on a trip with five more flights — free changes. Jul 15 was the cheapest day of the whole week we sampled (every other day: $427–$511), and it's also the cheapest <em>United</em> day, which matters because we're burning a United travel credit.</p>
+        <table>
+          <tr><th>Date</th><th>Cheapest (2 pax)</th><th>Routing</th><th>Duration</th></tr>
+          <tr><td>Sun Jul 12</td><td>$470</td><td>United/AC via ORD</td><td>7h49m</td></tr>
+          <tr><td>Mon Jul 13</td><td>$468</td><td>AC via YUL</td><td>8h07m</td></tr>
+          <tr><td>Tue Jul 14</td><td>$468</td><td>AC via YUL</td><td>8h07m</td></tr>
+          <tr class="hi"><td>Wed Jul 15</td><td>$274 basic / $382 econ</td><td>United/AC via ORD</td><td>7h49m</td></tr>
+          <tr><td>Thu Jul 16</td><td>$427</td><td>WestJet/Delta</td><td>11h08m</td></tr>
+          <tr><td>Fri Jul 17</td><td>$511</td><td>Delta</td><td>15h18m</td></tr>
+          <tr><td>Sat Jul 18</td><td>$274</td><td>Delta</td><td>8h17m</td></tr>
+        </table>
+        <p style="color:var(--muted);font-size:13px">Snapshot from a live search July 1 — fares move; re-verify at booking. There is no nonstop Florida→Halifax in July (it's a winter-only route), so a connection is unavoidable from any Florida airport.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>🛩️ The Air Saint-Pierre schedule that shapes everything</summary>
+      <div class="din">
+        <p>Verified against the airline's own timetable (Jan 2026 update). <b>St. John's ↔ Saint-Pierre runs only Sundays &amp; Wednesdays</b> (PJ1127/1128, 45 min: Sun 3:00p out / Wed 5:00p out; returns Sun 2:00p / Wed 4:00p). <b>Halifax ↔ Saint-Pierre runs Mon/Wed/Fri plus summer Sundays</b> (PJ1121/1122, ~1h15–1h30: outbound Mon 3:30p, Wed/Fri 1:00p, Sun 6:30p; returns Mon 11:00a, Wed/Fri 9:00a, Sun 5:00p). The Friday 9:00a Saint-Pierre→Halifax departure is the keystone of Plan A. <b>Correction:</b> an earlier draft of this plan had the St. John's days wrong — this is the airline's own table. No flights anywhere on July 14 (Bastille Day), which we now dodge entirely by arriving the 15th. The Fortune, NL ferry (~1h30 crossing) exists as a capacity fallback but sits a 4-hour drive from St. John's.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>⛴️ Why we fly to Newfoundland instead of taking the car ferry</summary>
+      <div class="din">
+        <p>Marine Atlantic's Port aux Basques ferry is 6–7 hours — followed by a 9–10 hour drive across the island to St. John's. The Argentia route is a 15-hour overnight sailing, seasonal, roughly 3x/week. Either burns 1–2 full days each way against a 2–4 day stay. The Halifax→St. John's flight is under 2 hours with several departures daily. Same logic kills Gros Morne in every plan: it's an 8-hour drive from St. John's, and while a St. John's→Deer Lake flight exists (~1h10, ~C$320), we'd need a second rental car in a province where rentals are the scarcest commodity going.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>🚗 The two-rental-car strategy &amp; the Newfoundland car crunch</summary>
+      <div class="din">
+        <p><b>Rental #1:</b> Halifax, 2 days, returned before we fly east — no car pays airport parking while we're in Newfoundland and France. <b>Rental #2:</b> picked up at Halifax airport the day we land from Saint-Pierre (or St. John's, in Plan C); it rides the Wood Islands ferry to PEI and comes back to the airport on departure day. <b>St. John's:</b> Turo (peer-to-peer) — confirmed cars available. The traditional agencies in Newfoundland never rebuilt their fleets after COVID; July weeks have run $1,300–$2,900 <em>when available at all</em>. Turo gets booked the same day the Saint-Pierre hotel confirms.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>🗓️ What happened to "back by July 25"?</summary>
+      <div class="din">
+        <p>The original target window was July 10–25. Anchoring on the July 15 fare and adding the requested extra days in St. John's and Saint-Pierre pushes the return to <b>July 30</b> (Plans A &amp; C). Getting back inside July 25 would mean gutting either PEI or Saint-Pierre — the two legs with people and scarce rooms waiting. Recommendation: accept the 30th. Plan B pushes to Aug 1; if that's too far, its PEI leg trims from 4½ days to 4.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ================= TODO ================= -->
   <section>
-    <h2 class="section-title">What's Still Open</h2>
-    <ol class="checklist">
-      <li class="done"><span class="num">✓</span> Newfoundland lodging (VRBO — plenty in St. John's &amp; Saint-Pierre) and rental cars (Turo confirmed available) — no longer blockers, but book early.</li>
-      <li class="done"><span class="num">✓</span> Gander is in as a day trip from St. John's; Gros Morne is set aside (too far — ~7-8 hr drive, and flying into Deer Lake still needs a separate rental there).</li>
-      <li class="done"><span class="num">✓</span> MCO→YHZ priced: Wed Jul 15, Economy, 1 checked bag — $432 total for 2 passengers, cheapest fare of the week and clear of the July 14 blackout.</li>
-      <li><span class="num">1</span> Price JAX/Daytona/Sanford → Halifax to confirm MCO is genuinely the best gateway.</li>
-      <li><span class="num">2</span> Build a day-by-day skeleton now that the gateway leg is priced and dated.</li>
-      <li><span class="num">3</span> Confirm headcount / vehicle needs for the Newfoundland leg now that our PEI friends are joining.</li>
-      <li><span class="num">4</span> Lodging research for Halifax and PEI.</li>
+    <div class="sec-kicker">Action Items</div>
+    <h2 class="sec-title">What we book, in order</h2>
+    <ol class="todo">
+      <li class="hot"><span class="n">1</span><div><b>Saint-Pierre lodging — this week.</b> Query Hôtel Robert, Auberge Saint-Pierre, Nuits Saint-Pierre + the tourism-office B&amp;B list for all three windows (Jul 19–24 · Jul 17–22 · Jul 22–27). Whichever answers yes picks our plan.</div></li>
+      <li><span class="n">2</span><div><b>Orlando→Halifax, Jul 15</b> — Economy + bag, $432 for two, apply the United credit (verify the credit's fare-class rules at checkout).</div></li>
+      <li><span class="n">3</span><div><b>Air Saint-Pierre legs</b> — book both hops the same day the hotel confirms (ATR-42s are small; July fills).</div></li>
+      <li><span class="n">4</span><div><b>Halifax→St. John's + St. John's Turo + VRBO</b> — all three in one sitting once the plan letter is chosen.</div></li>
+      <li><span class="n">5</span><div><b>Return flight home</b> — YHZ→MCO on the trip's last day, afternoon/evening departure (unpriced; connection via Toronto or Montreal).</div></li>
+      <li><span class="n">6</span><div><b>Rental cars #1 and #2 + Wood Islands ferry</b> — ferry reservations recommended in July for vehicles.</div></li>
+      <li class="done"><span class="n">✓</span><div>Gateway airport, fare tier, NL-by-air, Gros Morne out, ferry-not-bridge — all decided (see fine print).</div></li>
     </ol>
   </section>
 
 </main>
 
 <footer>
-  Working document — last updated 2026-07-01. Details (schedules, fares, availability) subject to change; verify close to booking.
+  <div class="flag">🇨🇦 · 🇫🇷 · 🇨🇦</div>
+  Built for the family travel committee · research snapshot July 1, 2026 · fares &amp; schedules move — everything re-verified at booking<br>
+  <span style="opacity:.7" id="foot-route">Halifax → St. John's → Saint-Pierre → PEI → home</span>
 </footer>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
+  /* ============ PLAN DATA ============ */
+  const DOW = { 12:'Sun',13:'Mon',14:'Tue',15:'Wed',16:'Thu',17:'Fri',18:'Sat',19:'Sun',20:'Mon',21:'Tue',22:'Wed',23:'Thu',24:'Fri',25:'Sat',26:'Sun',27:'Mon',28:'Tue',29:'Wed',30:'Thu',31:'Fri',32:'Sat' };
+  const dlabel = d => d <= 31 ? String(d) : 'Aug ' + (d - 31);
+
+  const PLANS = {
+    A: {
+      name: 'Plan A · Islands in Order',
+      heroDates: 'July 15 – 30, 2026',
+      chipDays: '16 days · 15 nights',
+      note: '<b>Plan A (recommended):</b> the classic loop. Saint-Pierre sits mid-trip, and its Friday 9:00 AM exit flight lands in Halifax early enough to catch the PEI ferry the same day — the smoothest transfer of any option.',
+      title: 'Sixteen days, color-coded',
+      caption: 'Squares show where we sleep. <b>Halifax 2 · St. John\'s 2 · Saint-Pierre 5 · PEI 6.</b> Trip ends Thursday July 30.',
+      footRoute: 'Halifax → St. John\'s → Saint-Pierre → PEI → home',
+      order: ['ch1','ch2','ch3','ch4'],
+      ribbon: [
+        {d:15,c:'hfx',w:'🛬 land 3:58p'},{d:16,c:'hfx',w:'Peggy\'s Cove'},
+        {d:17,c:'stj',w:'✈️ to St. John\'s'},{d:18,c:'stj',w:'puffins 🐧'},
+        {d:19,c:'spm',w:'✈️ 3p → France'},{d:20,c:'spm',w:'Saint-Pierre'},{d:21,c:'spm',w:'Île aux Marins'},{d:22,c:'spm',w:'Miquelon'},{d:23,c:'spm',w:'flâner 🇫🇷'},
+        {d:24,c:'pei',w:'✈️ 9a + ⛴️ → PEI'},{d:25,c:'pei',w:'PEI'},{d:26,c:'pei',w:'PEI'},{d:27,c:'pei',w:'PEI'},{d:28,c:'pei',w:'PEI'},{d:29,c:'pei',w:'PEI'},
+        {d:30,c:'home',w:'⛴️ + 🛫 home'}
+      ],
+      chap: {
+        hfx: { when: '<b>Wed Jul 15 → Fri Jul 17</b>2 nights · with our Halifax friends',
+               get: '<b>Getting there:</b> Orlando → Halifax, Wed Jul 15, United/Air Canada via Chicago · 7:09a → 3:58p · Economy + 1 checked bag ≈ <b>$432 total for two</b> (cheapest fare of the entire week we sampled — and it works with the United credit).' },
+        stj: { when: '<b>Fri Jul 17 → Sun Jul 19</b>2 nights · the edge of the continent',
+               get: '<b>Getting there:</b> Halifax → St. John\'s, Fri Jul 17 morning · ~2 hrs, multiple daily flights (Air Canada / Porter / WestJet) · and yes, Newfoundland runs on its own half-hour time zone.' },
+        spm: { when: '<b>Sun Jul 19 → Fri Jul 24</b>5 nights · France, 45 minutes from Newfoundland',
+               get: '<b>Getting there:</b> Air Saint-Pierre PJ1127, Sun Jul 19, 3:00p → 4:15p · ATR-42 turboprop, 45 minutes · passports required — this is <b>actual France</b>: euros, EU plugs, boulangeries, two-hour lunches.' },
+        pei: { when: '<b>Fri Jul 24 → Thu Jul 30</b>6 nights · our friends\' home turf',
+               get: '<b>Getting there:</b> the slickest transfer of the trip — Saint-Pierre → Halifax lands <b>9:30 AM</b>, grab rental car #2, drive ~1¾ hrs to Caribou, roll onto the <b>Wood Islands ferry</b> (75 min, sails all afternoon in summer), and we\'re at our friends\' place in time for dinner.' }
+      },
+      gander: '<h4>✂️ What got cut: Gander</h4><p>With two days here, the 7-hour round-trip drive to Gander (the "Come From Away" airport town) doesn\'t fit — it would eat the entire puffin/Cape Spear day. It\'s back in <b>Plan B</b>, which gives St. John\'s four and a half days. Gros Morne stays out in every plan: 8-hour drive, opposite coast, second rental car we can\'t count on.</p>',
+      map: { seq: [['HFX',1,'hfx','Arrive Jul 15 · 2 nights · also the exit hub'],['YYT',2,'stj','Jul 17–19 · puffins, Cape Spear, screech-in'],['FSP',3,'spm','Jul 19–24 · actual France 🇫🇷'],['PEI',4,'pei','Jul 24–30 · friends\' home turf']],
+             flights: [['HFX','YYT'],['YYT','FSP'],['FSP','HFX']], gander: false }
+    },
+
+    B: {
+      name: 'Plan B · Full Newfoundland',
+      heroDates: 'July 15 – August 1, 2026',
+      chipDays: '18 days · 17 nights',
+      note: '<b>Plan B:</b> the maximalist. St. John\'s stretches to 4½ days so the Gander pilgrimage fits, Saint-Pierre shifts later, and the trip runs to August 1 (trim PEI by a day to land July 31).',
+      title: 'Eighteen days, color-coded',
+      caption: 'Squares show where we sleep. <b>Halifax 2 · St. John\'s 5 · Saint-Pierre 5 · PEI 5.</b> Trip ends Saturday August 1.',
+      footRoute: 'Halifax → St. John\'s (+ Gander) → Saint-Pierre → PEI → home',
+      order: ['ch1','ch2','ch3','ch4'],
+      ribbon: [
+        {d:15,c:'hfx',w:'🛬 land 3:58p'},{d:16,c:'hfx',w:'Peggy\'s Cove'},
+        {d:17,c:'stj',w:'✈️ to St. John\'s'},{d:18,c:'stj',w:'puffins 🐧'},{d:19,c:'stj',w:'🚗 Gander'},{d:20,c:'stj',w:'Irish Loop'},{d:21,c:'stj',w:'Quidi Vidi'},
+        {d:22,c:'spm',w:'✈️ 5p → France'},{d:23,c:'spm',w:'Saint-Pierre'},{d:24,c:'spm',w:'Île aux Marins'},{d:25,c:'spm',w:'Miquelon'},{d:26,c:'spm',w:'flâner 🇫🇷'},
+        {d:27,c:'pei',w:'✈️ 11a + ⛴️ → PEI'},{d:28,c:'pei',w:'PEI'},{d:29,c:'pei',w:'PEI'},{d:30,c:'pei',w:'PEI'},{d:31,c:'pei',w:'PEI'},
+        {d:32,c:'home',w:'⛴️ + 🛫 home'}
+      ],
+      chap: {
+        hfx: { when: '<b>Wed Jul 15 → Fri Jul 17</b>2 nights · with our Halifax friends',
+               get: '<b>Getting there:</b> Orlando → Halifax, Wed Jul 15, United/Air Canada via Chicago · 7:09a → 3:58p · Economy + 1 checked bag ≈ <b>$432 total for two</b> (cheapest fare of the entire week we sampled — and it works with the United credit).' },
+        stj: { when: '<b>Fri Jul 17 → Wed Jul 22</b>5 nights · the full Avalon + Gander',
+               get: '<b>Getting there:</b> Halifax → St. John\'s, Fri Jul 17 morning · ~2 hrs, multiple daily flights · five nights means puffins, Cape Spear, the Irish Loop AND the Gander run without rushing any of them.' },
+        spm: { when: '<b>Wed Jul 22 → Mon Jul 27</b>5 nights · France, 45 minutes from Newfoundland',
+               get: '<b>Getting there:</b> Air Saint-Pierre PJ1127, Wed Jul 22, 5:00p → 6:15p · ATR-42 turboprop, 45 minutes · passports required — this is <b>actual France</b>: euros, EU plugs, boulangeries, two-hour lunches.' },
+        pei: { when: '<b>Mon Jul 27 → Sat Aug 1</b>5 nights · our friends\' home turf',
+               get: '<b>Getting there:</b> Saint-Pierre → Halifax lands <b>11:30 AM Monday</b>, grab rental car #2, drive ~1¾ hrs to Caribou, and an afternoon <b>Wood Islands ferry</b> still puts us at our friends\' place by dinner.' }
+      },
+      gander: '<h4>🛬 Gander is IN — Sunday Jul 19</h4><p>The "Come From Away" pilgrimage: the North Atlantic Aviation Museum, the town that took in 6,600 stranded passengers on 9/11, and the Silent Witness memorial. It\'s ~3.5 hrs each way on the Trans-Canada — a real day trip, which is exactly why it only fits in this plan. Gros Morne still doesn\'t make the cut (8-hr drive, opposite coast, second rental car we can\'t count on).</p>',
+      map: { seq: [['HFX',1,'hfx','Arrive Jul 15 · 2 nights · also the exit hub'],['YYT',2,'stj','Jul 17–22 · Avalon + the Gander run'],['FSP',3,'spm','Jul 22–27 · actual France 🇫🇷'],['PEI',4,'pei','Jul 27–Aug 1 · friends\' home turf']],
+             flights: [['HFX','YYT'],['YYT','FSP'],['FSP','HFX']], gander: true }
+    },
+
+    C: {
+      name: 'Plan C · France First',
+      heroDates: 'July 15 – 30, 2026',
+      chipDays: '16 days · 15 nights',
+      note: '<b>Plan C:</b> the contrarian. Fly to Saint-Pierre <b>direct from Halifax</b> (no St. John\'s connection), do France over the weekend, then Newfoundland — whose daily flights back to Halifax make the tail end of the trip the most rebookable.',
+      title: 'Sixteen days, color-coded',
+      caption: 'Squares show where we sleep. <b>Halifax 2 · Saint-Pierre 5 · St. John\'s 3 · PEI 5.</b> Trip ends Thursday July 30.',
+      footRoute: 'Halifax → Saint-Pierre → St. John\'s → PEI → home',
+      order: ['ch1','ch3','ch2','ch4'],
+      ribbon: [
+        {d:15,c:'hfx',w:'🛬 land 3:58p'},{d:16,c:'hfx',w:'Peggy\'s Cove'},
+        {d:17,c:'spm',w:'✈️ 1p → France'},{d:18,c:'spm',w:'Saint-Pierre'},{d:19,c:'spm',w:'Île aux Marins'},{d:20,c:'spm',w:'Miquelon'},{d:21,c:'spm',w:'flâner 🇫🇷'},
+        {d:22,c:'stj',w:'✈️ 4p → St. John\'s'},{d:23,c:'stj',w:'puffins 🐧'},{d:24,c:'stj',w:'Cape Spear'},
+        {d:25,c:'pei',w:'✈️ am + ⛴️ → PEI'},{d:26,c:'pei',w:'PEI'},{d:27,c:'pei',w:'PEI'},{d:28,c:'pei',w:'PEI'},{d:29,c:'pei',w:'PEI'},
+        {d:30,c:'home',w:'⛴️ + 🛫 home'}
+      ],
+      chap: {
+        hfx: { when: '<b>Wed Jul 15 → Fri Jul 17</b>2 nights · with our Halifax friends',
+               get: '<b>Getting there:</b> Orlando → Halifax, Wed Jul 15, United/Air Canada via Chicago · 7:09a → 3:58p · Economy + 1 checked bag ≈ <b>$432 total for two</b> (cheapest fare of the entire week we sampled — and it works with the United credit).' },
+        spm: { when: '<b>Fri Jul 17 → Wed Jul 22</b>5 nights · France, direct from Halifax',
+               get: '<b>Getting there:</b> Air Saint-Pierre PJ1122 <b>direct from Halifax</b>, Fri Jul 17, 1:00p → 3:15p · ~1¼ hrs · passports required — this is <b>actual France</b>: euros, EU plugs, boulangeries, two-hour lunches.' },
+        stj: { when: '<b>Wed Jul 22 → Sat Jul 25</b>3 nights · the edge of the continent',
+               get: '<b>Getting there:</b> Air Saint-Pierre PJ1128, Wed Jul 22, 4:00p → 4:15p · a 45-minute hop puts us in St. John\'s for supper — and the exit leg back to Halifax runs <b>daily</b>, the most flexible connection of the whole trip.' },
+        pei: { when: '<b>Sat Jul 25 → Thu Jul 30</b>5 nights · our friends\' home turf',
+               get: '<b>Getting there:</b> St. John\'s → Halifax on a Saturday-morning flight (several to choose from), grab rental car #2, drive ~1¾ hrs to Caribou, and an afternoon <b>Wood Islands ferry</b> lands us on PEI in time for dinner.' }
+      },
+      gander: '<h4>✂️ What got cut: Gander</h4><p>Three nights here is enough for Cape Spear, the puffins and downtown — but not the 7-hour round-trip Gander drive. If Gander matters most, <b>Plan B</b> is the one that fits it. Gros Morne stays out in every plan: 8-hour drive, opposite coast, second rental car we can\'t count on.</p>',
+      map: { seq: [['HFX',1,'hfx','Arrive Jul 15 · 2 nights · also the exit hub'],['FSP',2,'spm','Jul 17–22 · actual France 🇫🇷, direct from Halifax'],['YYT',3,'stj','Jul 22–25 · puffins, Cape Spear, screech-in'],['PEI',4,'pei','Jul 25–30 · friends\' home turf']],
+             flights: [['HFX','FSP'],['FSP','YYT'],['YYT','HFX']], gander: false }
+    }
+  };
+
+  /* ============ MAP ============ */
   const map = L.map('trip-map', { scrollWheelZoom: false });
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap contributors',
-    maxZoom: 10
+    attribution: '&copy; OpenStreetMap contributors', maxZoom: 10
   }).addTo(map);
 
-  const NAVY = '#0b3a52', CORAL = '#d9713c', PURPLE = '#6a4c93';
+  const COLOR = { hfx:'#14395a', stj:'#0e7480', spm:'#35479c', pei:'#2f7d50', gold:'#c9921f' };
+  const PT = {
+    HFX:[44.6488,-63.5752], YYT:[47.5615,-52.7126], FSP:[46.7778,-56.1778],
+    PEI:[46.2382,-63.1311], GANDER:[48.9540,-54.6086],
+    CARIBOU:[45.7280,-62.6680], WOODISL:[45.9490,-62.7440]
+  };
+  const NAMES = { HFX:'Halifax', YYT:'St. John\'s', FSP:'Saint-Pierre 🇫🇷', PEI:'PEI' };
 
-  function pin(color) {
+  function numPin(n, color) {
     return L.divIcon({
       className: '',
-      html: '<div style="background:' + color + ';width:16px;height:16px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,0.4);"></div>',
-      iconSize: [16, 16],
-      iconAnchor: [8, 16]
+      html: `<div style="background:${color};color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font:700 13px Inter,sans-serif;border:2.5px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.35)">${n}</div>`,
+      iconSize: [28,28], iconAnchor: [14,14]
     });
   }
 
-  const confirmedStops = [
-    { name: "Halifax, NS", ll: [44.6488, -63.5752], note: "Start &amp; end — Halifax friends, gateway airport" },
-    { name: "St. John's, NL", ll: [47.5615, -52.7126], note: "Avalon Peninsula touring (~2 days)" },
-    { name: "Saint-Pierre (France)", ll: [46.7778, -56.1778], note: "French island, 45-min flight from St. John's" },
-    { name: "Charlottetown, PEI", ll: [46.2382, -63.1311], note: "5 days with PEI friends" }
-  ];
-  confirmedStops.forEach(function (s) {
-    L.marker(s.ll, { icon: pin(NAVY) }).addTo(map).bindPopup('<strong>' + s.name + '</strong><br>' + s.note);
-  });
+  let layer = L.layerGroup().addTo(map);
 
-  L.marker([48.9540, -54.6086], { icon: pin(PURPLE) }).addTo(map)
-    .bindPopup('<strong>Gander, NL</strong><br>Day trip by car from St. John\'s (~3.5 hrs each way) — transatlantic aviation history');
+  function drawMap(plan) {
+    layer.clearLayers();
+    const m = plan.map;
+    // numbered stops
+    m.seq.forEach(([key, n, ck, note]) => {
+      L.marker(PT[key], {icon: numPin(n, COLOR[ck])}).addTo(layer)
+        .bindPopup(`<b>${n} · ${NAMES[key]}</b><br>${note}`);
+    });
+    // flights
+    m.flights.forEach(([a,b]) =>
+      L.polyline([PT[a], PT[b]], {color: COLOR.gold, weight: 3, dashArray: '3,9', opacity: .95}).addTo(layer));
+    // drive + ferry to PEI
+    L.polyline([PT.HFX, PT.CARIBOU], {color: COLOR.pei, weight: 3, opacity: .9}).addTo(layer);
+    L.polyline([PT.CARIBOU, PT.WOODISL, PT.PEI], {color: COLOR.pei, weight: 3, dashArray: '1,7', opacity: .95}).addTo(layer);
+    // Gander
+    if (m.gander) {
+      L.marker(PT.GANDER, {icon: L.divIcon({className:'', html:`<div style="background:${COLOR.stj};width:16px;height:16px;border-radius:50%;border:3px solid #fff;box-shadow:0 1px 5px rgba(0,0,0,.3)"></div>`, iconSize:[16,16], iconAnchor:[8,8]})})
+        .addTo(layer).bindPopup('<b>Gander</b><br>Day trip Sun Jul 19 — Come From Away country');
+      L.polyline([PT.YYT, PT.GANDER], {color: COLOR.stj, weight: 3, dashArray: '2,8', opacity: .85}).addTo(layer);
+    } else {
+      L.marker(PT.GANDER, {icon: L.divIcon({className:'', html:`<div style="background:#fff;border:3px solid ${COLOR.stj};width:14px;height:14px;border-radius:50%;opacity:.75;box-shadow:0 1px 5px rgba(0,0,0,.2)"></div>`, iconSize:[14,14], iconAnchor:[7,7]})})
+        .addTo(layer).bindPopup('<b>Gander</b><br>Only visited in Plan B');
+      L.polyline([PT.YYT, PT.GANDER], {color: COLOR.stj, weight: 2, dashArray: '2,9', opacity: .35}).addTo(layer);
+    }
+  }
 
-  const coreRoute = [
-    [44.6488, -63.5752], [47.5615, -52.7126], [46.7778, -56.1778],
-    [44.6488, -63.5752], [46.2382, -63.1311], [44.6488, -63.5752]
-  ];
-  L.polyline(coreRoute, { color: CORAL, weight: 3, dashArray: '2,8' }).addTo(map);
+  /* ============ RENDER ============ */
+  function setPlan(key) {
+    const p = PLANS[key];
 
-  const ganderTrip = [ [47.5615, -52.7126], [48.9540, -54.6086] ];
-  L.polyline(ganderTrip, { color: PURPLE, weight: 3, dashArray: '6,6' }).addTo(map);
+    // switcher + option cards
+    document.querySelectorAll('#switcher button').forEach(b => b.classList.toggle('active', b.dataset.plan === key));
+    document.querySelectorAll('.opt').forEach(o => o.classList.toggle('active', o.dataset.opt === key));
+    document.querySelectorAll('.wtable tr[data-win]').forEach(r => r.classList.toggle('rec', r.dataset.win === key));
+    document.querySelectorAll('.wtable tr[data-win] .tag').forEach(t => {
+      const row = t.closest('tr');
+      t.style.background = row.dataset.win === key ? 'var(--pei)' : 'var(--muted)';
+    });
 
-  map.fitBounds(coreRoute.concat(ganderTrip), { padding: [30, 30] });
+    // hero + captions
+    document.getElementById('hero-dates').innerHTML = `${p.heroDates} <span style="opacity:.7;font-size:.75em">(${p.name.split(' · ')[0]} · nothing booked yet)</span>`;
+    document.getElementById('chip-days').textContent = p.chipDays;
+    document.getElementById('plan-note').innerHTML = p.note;
+    document.getElementById('ribbon-title').textContent = p.title;
+    document.getElementById('ribbon-caption').innerHTML = p.caption;
+    document.getElementById('foot-route').textContent = p.footRoute;
+
+    // ribbon
+    document.getElementById('ribbon').innerHTML = p.ribbon.map(r =>
+      `<div class="rb ${r.c}"><div class="dow">${DOW[r.d]}</div><div class="d">${dlabel(r.d)}</div><div class="what">${r.w}</div></div>`
+    ).join('');
+
+    // chapter order + numbering + copy
+    const wrap = document.getElementById('chapters');
+    p.order.forEach((id, i) => {
+      const sec = document.getElementById(id);
+      wrap.appendChild(sec);
+      const ck = sec.dataset.chap;
+      sec.querySelector('.num').textContent = '0' + (i + 1);
+      sec.querySelector('.when').innerHTML = p.chap[ck].when;
+      sec.querySelector('.getting').innerHTML = p.chap[ck].get;
+    });
+    document.getElementById('gander-note').innerHTML = p.gander;
+
+    // map
+    drawMap(p);
+  }
+
+  // wire up
+  document.querySelectorAll('#switcher button, .opt .view').forEach(b =>
+    b.addEventListener('click', () => {
+      setPlan(b.dataset.plan);
+      if (b.classList.contains('view')) document.getElementById('route').scrollIntoView({behavior:'smooth'});
+    }));
+
+  setPlan('A');
+  map.fitBounds([PT.HFX, PT.YYT, PT.FSP, PT.PEI, PT.GANDER], {padding: [36,36]});
 </script>
-
 </body>
 </html>
