@@ -4,13 +4,17 @@ Interactive, single-page trip presentations for a **July 2026 Atlantic Canada tr
 
 ## Live site
 
-Hosted on **Cloudflare** at **https://canada.tuckman.us** — three versions, all served by one Worker:
+Hosted on **Cloudflare** at **https://canada.tuckman.us**, all served by one Worker. The front door is a **landing page** of full-width plan boxes; each links to a standalone plan page:
 
 | URL | What it is |
 |-----|------------|
-| **https://canada.tuckman.us/** | Main 4-plan presentation (A–D), **direct** style |
-| **https://canada.tuckman.us/full** | Illustrated / travelogue version (kept as a backup) |
-| **https://canada.tuckman.us/stjohns** | Standalone **St. John's-by-air** alternative itinerary |
+| **https://canada.tuckman.us/** | **Landing page** — 5 full-width plan boxes (A–E), pick one |
+| **/stjohns** | **Plan A** — St. John's by air (simplest, all bookable) |
+| **/saint-pierre-townhouse** | **Plan B** — Saint-Pierre, booked townhouse |
+| **/saint-pierre-sunday** | **Plan C** — Saint-Pierre, Sunday window (more France) |
+| **/madeleines** | **Plan D** — Îles de la Madeleine (simplest travel) |
+| **/big-loop** | **Plan E** — France → Newfoundland → PEI (most ambitious) |
+| **/full** | Archived all-in-one switcher (old A–D labels, kept as backup) |
 
 ## Hosting & deployment
 
@@ -24,19 +28,24 @@ Hosted on **Cloudflare** at **https://canada.tuckman.us** — three versions, al
 
 | File | Role |
 |------|------|
-| `trip-presentation.html` | **Source** of the main presentation — edit this |
-| `index.html` | Deployed copy of the main page (served at `/`). Regenerate with `cp trip-presentation.html index.html` before committing |
-| `full.html` | Illustrated/travelogue version (`/full`) |
-| `stjohns.html` | St. John's-by-air alternative (`/stjohns`) |
+| `index.html` | **Landing page** (served at `/`) — the 5 plan boxes. Edit directly (not generated from anything) |
+| `stjohns.html` | Plan A — `/stjohns` |
+| `saint-pierre-townhouse.html` | Plan B — `/saint-pierre-townhouse` |
+| `saint-pierre-sunday.html` | Plan C — `/saint-pierre-sunday` |
+| `madeleines.html` | Plan D — `/madeleines` |
+| `big-loop.html` | Plan E — `/big-loop` |
+| `full.html` | Archived all-in-one switcher (`/full`) |
+| `trip-presentation.html` | Legacy switcher source (old A–D); no longer copied to `index.html` |
 | `itinerary-research.md` | Research notes & source of truth: plans, costs, flight/ferry/lodging data, sources (not served) |
 | `wrangler.jsonc`, `.assetsignore` | Cloudflare config |
 
+Each plan page is self-contained (hero, sticky nav, Leaflet map, split-timeline day ribbon, chapters, islands-only cost). They share a visual language but no shared CSS/JS file — edit each independently.
+
 ## Updating the site
 
-1. Edit `trip-presentation.html` (or `full.html` / `stjohns.html`).
-2. If you changed the main page: `cp trip-presentation.html index.html`.
-3. `git add … && git commit && git push` → Cloudflare deploys in ~1 minute.
-4. Verify at the URL (first load on the local LAN may lag — see **DNS note** below).
+1. Edit the relevant file — `index.html` for the landing boxes, or the specific plan page (e.g. `big-loop.html`).
+2. `git add … && git commit && git push` → Cloudflare deploys in ~1 minute.
+3. Verify at the URL (first load on the local LAN may lag — see **DNS note** below).
 
 ## Why not GitHub Pages? (the migration story)
 

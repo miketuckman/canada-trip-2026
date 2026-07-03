@@ -6,9 +6,17 @@ Static HTML trip-presentation pages. Full context is in `README.md`; this file i
 
 - **Hosting:** Cloudflare Workers (static assets) at `canada.tuckman.us`. **Do NOT re-enable GitHub Pages** — it was intentionally deleted on 2026-07-02 after repeated deploy failures (details in `README.md`).
 - **Deploy = `git push` to `main`.** Cloudflare's connected Git build auto-runs `npx wrangler deploy`. No dashboard/manual step.
-- **Main page source is `trip-presentation.html`.** After editing it, run `cp trip-presentation.html index.html` before committing — `/` serves `index.html`.
-- Standalone pages: `full.html` → `/full`, `stjohns.html` → `/stjohns`.
-- `itinerary-research.md` is the source of truth for plans/costs/sources — keep it in sync with the HTML.
+- **`/` = `index.html` = the landing page** — a directory of 5 full-width plan boxes; each links to a standalone plan page. Edit `index.html` directly (it is NO LONGER a copy of `trip-presentation.html`).
+- **One standalone page per plan** (each self-contained: hero, sticky nav, Leaflet map, split-timeline ribbon, chapters, islands-only cost). Plans are lettered A–E by landing order:
+  - `stjohns.html` → `/stjohns` = **Plan A** (St. John's by air)
+  - `saint-pierre-townhouse.html` → `/saint-pierre-townhouse` = **Plan B** (booked townhouse)
+  - `saint-pierre-sunday.html` → `/saint-pierre-sunday` = **Plan C** (Sunday window)
+  - `madeleines.html` → `/madeleines` = **Plan D** (Îles de la Madeleine)
+  - `big-loop.html` → `/big-loop` = **Plan E** (France → Newfoundland → PEI)
+- **Sticky-nav pattern** (all plan pages): a `.nav-sentinel` + IntersectionObserver toggles `nav.stuck`, which reveals the `.nav-title` (plan name) only when pinned; a `.backpill` (tinted to the plan `--accent`) links back to `/`; chip-styled links + a "Jump to:" hint. Keep this consistent when adding pages.
+- **Split-timeline travel days:** in each page's `days[]`, a `from:` key marks a travel day → the ribbon cell renders a diagonal `linear-gradient` split (morning place → night place).
+- `full.html` → `/full` = archived all-in-one switcher (old A–D labels; kept as backup). `trip-presentation.html` is the legacy switcher source behind `/full`-style content — **not** copied to `index.html` anymore.
+- `itinerary-research.md` is the source of truth for plans/costs/sources (still uses the old A–D letters — new landing order is A–E; St.John's=A, townhouse=B, Sunday=C, Madeleines=D, BigLoop=E). Keep it in sync with the HTML.
 - `.md` files and repo internals are excluded from the deployed site via `.assetsignore`; don't rely on them being publicly served.
 
 ## Style rules (Mike's preferences)

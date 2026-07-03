@@ -1,0 +1,6 @@
+# Local tooling & agent state — never deploy or commit
+.agents/
+.claude/
+.omc/
+.playwright-mcp/
+skills-lock.json

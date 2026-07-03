@@ -24,9 +24,17 @@
   .chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 16px; }
   .chip { background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.25); border-radius: 999px; padding: 5px 13px; font-size: 13px; font-weight: 600; }
 
-  nav { position: sticky; top: 0; z-index: 500; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; padding: 12px 14px; background: #fffdf8; border-bottom: 1px solid var(--line); }
-  nav a { text-decoration: none; font-size: 13px; font-weight: 600; padding: 6px 14px; border-radius: 999px; color: var(--muted); }
+  .nav-sentinel { height: 1px; }
+  nav { position: sticky; top: 0; z-index: 500; padding: 9px 14px; background: #fffdf8; border-bottom: 1px solid var(--line); box-shadow: 0 3px 12px rgba(20,40,60,0); transition: box-shadow .15s ease; }
+  nav.stuck { box-shadow: 0 3px 12px rgba(20,40,60,.10); }
+  .nav-title { display: none; font-size: 13px; font-weight: 700; color: var(--ink); text-align: center; padding-bottom: 7px; margin-bottom: 7px; border-bottom: 1px solid var(--line); }
+  nav.stuck .nav-title { display: block; }        /* plan title appears only while the header is stuck */
+  .nav-row { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 6px; }
+  .jumphint { font-size: 12px; font-weight: 600; color: var(--muted); margin-right: 1px; }
+  nav a { text-decoration: none; font-size: 13px; font-weight: 600; padding: 6px 13px; border-radius: 999px; color: var(--muted); background: #f4efe4; border: 1px solid var(--line); }
+  nav a:hover { background: #ece4d4; }
   nav a .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 7px; }
+  nav a.backpill { background: var(--stj); border-color: var(--stj); color: #fff; }
 
   main { max-width: 880px; margin: 0 auto; padding: 0 20px 80px; }
   section { margin-top: 60px; }
@@ -89,7 +97,7 @@
 </style>
 
 <header class="hero">
-  <div class="kicker">Alternative itinerary · Newfoundland by air · for the travel committee 🗳️</div>
+  <div class="kicker">Plan A · Newfoundland by air · the simplest option 🗳️</div>
   <h1>Halifax · PEI · St. John's</h1>
   <p class="dek">The simple Newfoundland trip — no France, no Madeleines. Two nights in Halifax, the Wood Islands ferry to PEI with our friends, a nonstop round-trip hop to St. John's, and home on the 24th.</p>
   <p class="dates">July 15 – 24, 2026 · 9 nights · all in Canada, one passport-free country</p>
@@ -101,14 +109,20 @@
   </div>
 </header>
 
-<nav>
-  <a href="#route"><span class="dot" style="background:var(--gold)"></span>Route</a>
-  <a href="#days"><span class="dot" style="background:var(--stj)"></span>Day by day</a>
-  <a href="#ch1"><span class="dot" style="background:var(--hfx)"></span>Halifax</a>
-  <a href="#ch2"><span class="dot" style="background:var(--pei)"></span>PEI</a>
-  <a href="#ch3"><span class="dot" style="background:var(--stj)"></span>St. John's</a>
-  <a href="#flights"><span class="dot" style="background:var(--gold)"></span>Flights</a>
-  <a href="#cost"><span class="dot" style="background:var(--gold)"></span>Cost</a>
+<div class="nav-sentinel"></div>
+<nav id="nav">
+  <div class="nav-title">Plan A · St. John's by Air</div>
+  <div class="nav-row">
+    <a class="backpill" href="/">← Plans</a>
+    <span class="jumphint">Jump to:</span>
+    <a href="#route"><span class="dot" style="background:var(--gold)"></span>Route</a>
+    <a href="#days"><span class="dot" style="background:var(--stj)"></span>Day by day</a>
+    <a href="#ch1"><span class="dot" style="background:var(--hfx)"></span>Halifax</a>
+    <a href="#ch2"><span class="dot" style="background:var(--pei)"></span>PEI</a>
+    <a href="#ch3"><span class="dot" style="background:var(--stj)"></span>St. John's</a>
+    <a href="#flights"><span class="dot" style="background:var(--gold)"></span>Flights</a>
+    <a href="#cost"><span class="dot" style="background:var(--gold)"></span>Cost</a>
+  </div>
 </nav>
 
 <main>
@@ -224,9 +238,8 @@
 
 <footer>
   <div class="verlinks">
-    Other versions:
-    <a href="/">Main — 4 plans (A–D)</a> ·
-    <a href="/full">Full illustrated version</a>
+    <a href="/">← All plans (A–E)</a> ·
+    <a href="/full">Full illustrated view</a>
   </div>
   A proposal for July 2026 · nothing booked yet · re-verify fares at booking.
 </footer>
@@ -272,4 +285,8 @@
   // nonstop flight Halifax⇄St. John's
   L.polyline([PT.HFX, PT.YYT], {color:'#c9921f', weight:3, dashArray:'3,9', opacity:.95}).addTo(map).bindPopup('✈️ Air Canada nonstop · Halifax ⇄ St. John\'s (~1h53 / 2h09)');
   map.fitBounds([PT.HFX, PT.YYT, PT.PEI], {padding:[40,40]});
+
+  // ---- sticky-nav "stuck" state → reveal the plan title only when pinned ----
+  const _nav = document.getElementById('nav'), _sent = document.querySelector('.nav-sentinel');
+  if (_nav && _sent) new IntersectionObserver(([e]) => _nav.classList.toggle('stuck', !e.isIntersecting), {threshold: 0}).observe(_sent);
 </script>

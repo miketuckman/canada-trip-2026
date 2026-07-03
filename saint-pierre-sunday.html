@@ -1,0 +1,275 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plan C — Halifax · Saint-Pierre (Sunday) · PEI, July 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+  :root {
+    --paper: #f8f4ec; --card: #fff; --ink: #20303c; --muted: #64707a; --line: #e6ded0;
+    --hfx: #14395a; --stj: #0e7480; --spm: #35479c; --pei: #2f7d50; --idm: #b0563a; --travel: #b3a488;
+    --accent: #35479c; --gold: #c9921f; --gold-bg: #fdf4de; --red-bg: #fceceb; --spm-red: #c8404a;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: "Inter", -apple-system, sans-serif; line-height: 1.62; font-size: 16px; }
+  a { color: var(--accent); }
+
+  .hero { background: linear-gradient(150deg, #232f6e, var(--spm) 60%, #55418f); color: #fff; padding: 46px 20px 40px; text-align: center; }
+  .hero .kicker { text-transform: uppercase; letter-spacing: 3px; font-size: 11.5px; font-weight: 700; color: #c9cff0; margin-bottom: 12px; }
+  .hero h1 { font-family: "Fraunces", serif; font-weight: 700; font-size: clamp(28px, 6vw, 50px); line-height: 1.05; margin: 0 0 14px; }
+  .hero .dek { max-width: 640px; margin: 0 auto 16px; font-size: 17px; color: #eaecfa; }
+  .hero .dates { font-weight: 700; font-size: 15px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 16px; }
+  .chip { background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.25); border-radius: 999px; padding: 5px 13px; font-size: 13px; font-weight: 600; }
+
+  .nav-sentinel { height: 1px; }
+  nav { position: sticky; top: 0; z-index: 500; padding: 9px 14px; background: #fffdf8; border-bottom: 1px solid var(--line); box-shadow: 0 3px 12px rgba(20,40,60,0); transition: box-shadow .15s ease; }
+  nav.stuck { box-shadow: 0 3px 12px rgba(20,40,60,.10); }
+  .nav-title { display: none; font-size: 13px; font-weight: 700; color: var(--ink); text-align: center; padding-bottom: 7px; margin-bottom: 7px; border-bottom: 1px solid var(--line); }
+  nav.stuck .nav-title { display: block; }
+  .nav-row { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 6px; }
+  .jumphint { font-size: 12px; font-weight: 600; color: var(--muted); margin-right: 1px; }
+  nav a { text-decoration: none; font-size: 13px; font-weight: 600; padding: 6px 13px; border-radius: 999px; color: var(--muted); background: #f4efe4; border: 1px solid var(--line); }
+  nav a:hover { background: #ece4d4; }
+  nav a .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 7px; }
+  nav a.backpill { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+  main { max-width: 880px; margin: 0 auto; padding: 0 20px 80px; }
+  section { margin-top: 60px; }
+  .kick { text-transform: uppercase; letter-spacing: 3px; font-size: 11.5px; font-weight: 700; color: var(--gold); margin-bottom: 8px; }
+  h2.title { font-family: "Fraunces", serif; font-size: clamp(24px, 4vw, 34px); margin: 0 0 12px; line-height: 1.15; }
+  .lead { color: var(--muted); font-size: 16.5px; margin: 0 0 22px; }
+  .lead strong { color: var(--ink); }
+
+  #map { height: 380px; border-radius: 16px; border: 1px solid var(--line); }
+  .legend { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 12px; font-size: 13px; color: var(--muted); }
+  .legend span.sw { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+  .legend span.ln { display: inline-block; width: 22px; border-top: 3px solid; margin-right: 6px; vertical-align: 4px; }
+
+  .ribbon-scroll { overflow-x: auto; padding-bottom: 6px; }
+  .ribbon { display: flex; gap: 5px; min-width: 760px; }
+  .rb { flex: 1; min-width: 52px; border-radius: 10px; padding: 9px 6px; color: #fff; }
+  .rb .dow { font-size: 10.5px; opacity: .85; text-transform: uppercase; letter-spacing: .5px; }
+  .rb .d { font-family: "Fraunces", serif; font-weight: 700; font-size: 19px; line-height: 1.1; }
+  .rb .what { font-size: 10.5px; margin-top: 5px; line-height: 1.25; min-height: 28px; }
+  .rb.hfx { background: var(--hfx); } .rb.spm { background: var(--spm); } .rb.pei { background: var(--pei); } .rb.home { background: var(--travel); color: #3c3323; }
+  .rb.split { color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.5); }
+  .rb.split .what { opacity: .96; }
+  .cap { font-size: 13px; color: var(--muted); margin-top: 10px; }
+
+  .chapter { background: var(--card); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; margin-top: 22px; box-shadow: 0 2px 12px rgba(20,40,60,.05); }
+  .chap-head { padding: 20px 24px; color: #fff; display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+  .chapter.hfx .chap-head { background: linear-gradient(120deg, #0c2438, var(--hfx)); }
+  .chapter.spm .chap-head { background: linear-gradient(120deg, #232f6e, var(--spm) 70%, #55418f); }
+  .chapter.pei .chap-head { background: linear-gradient(120deg, #1f5c39, var(--pei)); }
+  .chap-head .num { font-family: "Fraunces", serif; font-size: 40px; font-weight: 700; opacity: .5; }
+  .chap-head h3 { font-family: "Fraunces", serif; font-size: 26px; margin: 0; font-weight: 700; }
+  .chap-head .when { margin-left: auto; text-align: right; font-size: 14px; opacity: .95; }
+  .chap-head .when b { display: block; font-size: 16px; }
+  .chap-body { padding: 20px 24px 22px; }
+  .chap-body .get { margin: 0 0 12px; }
+  .stay { background: var(--paper); border-radius: 12px; padding: 12px 14px; font-size: 14.5px; margin-top: 14px; }
+
+  .alert { border: 1px solid var(--gold); background: var(--gold-bg); border-radius: 14px; padding: 15px 18px; margin-top: 14px; }
+  .alert.red { border-color: #e2b3b0; background: var(--red-bg); }
+  .alert h4 { margin: 0 0 8px; font-size: 15px; }
+  .alert p { margin: 8px 0 0; font-size: 14px; }
+
+  .tbl-scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; margin-top: 6px; min-width: 480px; }
+  th, td { text-align: left; padding: 9px 11px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { background: var(--paper); font-size: 12px; text-transform: uppercase; letter-spacing: .6px; color: var(--muted); }
+  td.amt { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; font-weight: 700; }
+
+  .cost { background: var(--gold-bg); border: 1px solid #e8c877; border-radius: 16px; padding: 18px 20px; margin-top: 14px; }
+  .cost h4 { margin: 0 0 4px; font-family: "Fraunces", serif; font-size: 18px; }
+  .cost .cx { font-size: 13px; color: #7a6420; margin: 0 0 12px; }
+  .cost tr.tot td { border-top: 1.5px solid #e0bd63; border-bottom: none; padding-top: 8px; font-weight: 800; font-size: 16px; }
+  .cost .excl { margin: 10px 0 0; font-size: 12.5px; color: #9a7d22; font-style: italic; }
+
+  footer { text-align: center; padding: 30px 20px 50px; color: var(--muted); font-size: 13px; }
+  footer a { font-weight: 600; }
+  .verlinks { margin-bottom: 10px; }
+  .verlinks a { display: inline-block; margin: 0 8px; }
+</style>
+
+<header class="hero">
+  <div class="kicker">Plan C · Saint-Pierre · the Sunday window 🗳️</div>
+  <h1>Halifax · Saint-Pierre 🇫🇷 · PEI</h1>
+  <p class="dek">The most France of any plan — five nights on Saint-Pierre. Four nights in Halifax, Air Saint-Pierre direct on the Sunday-evening flight, then home through PEI. The open question: no room is booked yet, and the island's small hotels are nearly full for July.</p>
+  <p class="dates">July 15 – 29, 2026 · 14 nights · 🇫🇷 passports required</p>
+  <div class="chips">
+    <span class="chip">🇨🇦🇫🇷 2 countries · passports for France</span>
+    <span class="chip">🇫🇷 5 nights — most France of any plan</span>
+    <span class="chip">⚠️ no room booked yet</span>
+    <span class="chip">✈️ direct Halifax → SPM (Sun 6:30p)</span>
+  </div>
+</header>
+
+<div class="nav-sentinel"></div>
+<nav id="nav">
+  <div class="nav-title">Plan C · Saint-Pierre · Sunday</div>
+  <div class="nav-row">
+    <a class="backpill" href="/">← Plans</a>
+    <span class="jumphint">Jump to:</span>
+    <a href="#route"><span class="dot" style="background:var(--gold)"></span>Route</a>
+    <a href="#days"><span class="dot" style="background:var(--spm)"></span>Day by day</a>
+    <a href="#ch1"><span class="dot" style="background:var(--hfx)"></span>Halifax</a>
+    <a href="#ch2"><span class="dot" style="background:var(--spm)"></span>Saint-Pierre</a>
+    <a href="#ch3"><span class="dot" style="background:var(--pei)"></span>PEI</a>
+    <a href="#cost"><span class="dot" style="background:var(--gold)"></span>Cost</a>
+  </div>
+</nav>
+
+<main>
+
+  <section id="route">
+    <div class="kick">The shape</div>
+    <h2 class="title">Halifax is the hinge — the long France stay</h2>
+    <p class="lead"><strong>Four nights in Halifax</strong> (Peggy's Cove, a Lunenburg day, the harbour), then <strong>Air Saint-Pierre direct</strong> to France on the <strong>Sunday-evening Jul 19</strong> flight — five nights, the most France of any plan. Friday morning we fly back to Halifax, pick up a car, and take the <strong>Wood Islands ferry to PEI</strong> for five nights with our friends before flying home out of Halifax on the 29th. Same shape as the townhouse plan, shifted a day earlier for more France — but the roof isn't found yet.</p>
+    <div id="map"></div>
+    <div class="legend">
+      <div><span class="sw" style="background:var(--spm)"></span>Numbered stops, in order</div>
+      <div><span class="ln" style="border-color:var(--gold); border-top-style:dashed"></span>Flight (Halifax ⇄ Saint-Pierre)</div>
+      <div><span class="ln" style="border-color:var(--pei); border-top-style:dotted"></span>Drive + Wood Islands ferry</div>
+    </div>
+  </section>
+
+  <section id="days">
+    <div class="kick">Day by day</div>
+    <h2 class="title">15 days, color-coded</h2>
+    <p class="lead">Halifax up front (4 nights), five nights in France on the Sunday window, then five nights on PEI to finish. Travel days are morning/afternoon hops, not lost days.</p>
+    <div class="ribbon-scroll"><div class="ribbon" id="ribbon"></div></div>
+    <p class="cap">Squares are nights; a <b>diagonal split</b> marks a travel day — morning in one place, night in the next. <b>Halifax 4 · Saint-Pierre 5 · PEI 5.</b> Home Wednesday July 29.</p>
+  </section>
+
+  <section id="ch1">
+    <div class="chapter hfx">
+      <div class="chap-head">
+        <span class="num">01</span>
+        <h3>Halifax, Nova Scotia</h3>
+        <div class="when"><b>Jul 15 → 19</b>4 nights</div>
+      </div>
+      <div class="chap-body">
+        <p class="get"><b>Getting there:</b> Orlando → Halifax, Wed Jul 15, United/Air Canada via Chicago · 7:09a → 3:58p · Economy + 1 checked bag ≈ <b>$432 total for two</b> (works with the United credit).</p>
+        <p class="get">Four nights here — enough for Peggy's Cove AND a Lunenburg day before the Sunday-evening flight to France.</p>
+        <div class="stay">🛏️ <b>Stay:</b> hotel or friends' spare room — deep inventory, book last.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="ch2">
+    <div class="chapter spm">
+      <div class="chap-head">
+        <span class="num">02</span>
+        <h3>Saint-Pierre <span style="font-size:.6em">🇫🇷</span></h3>
+        <div class="when"><b>Jul 19 → 24</b>5 nights · actual France</div>
+      </div>
+      <div class="chap-body">
+        <p class="get"><b>Getting there:</b> Air Saint-Pierre PJ1122 <b>direct from Halifax</b>, Sun Jul 19, 6:30p → 8:45p · ~1¼ hrs · the Fri Jul 17 flight is sold out — this Sunday-evening departure is the verified-seats option. Passports required — this is <b>actual France</b>: euros, EU plugs, boulangeries, two-hour lunches. All four of us on the same turboprop.</p>
+        <div class="alert red">
+          <h4>🏠 The open question — no room booked yet</h4>
+          <p><b>July lodging on Saint-Pierre is nearly gone.</b> This 5-night window still needs its roof. The island's small hotel bench:</p>
+          <p>🏨 <b><a href="https://www.hotelrobert.com/en/">Hôtel Robert</a></b> — the big one (~40 rooms), waterfront, the Al Capone place<br>
+          🏨 <b><a href="https://www.aubergesaint-pierre.com/en/">Auberge Saint-Pierre</a></b> — the island's 3-star<br>
+          🏨 <b><a href="https://nuitssaintpierre.com/en/">Nuits Saint-Pierre</a></b> — 5-room boutique, book direct<br>
+          🛏️ Plus B&amp;Bs on the <a href="https://en.spm-tourisme.fr/stay/sleep/">official tourism site</a> — several email-only.</p>
+          <p style="margin-top:8px"><b>If no room confirms, the booked townhouse (<a href="/saint-pierre-townhouse">Plan B</a>) is the fallback</b> — one day less France, but a guaranteed roof.</p>
+        </div>
+        <div class="stay">🍽️ <b>Good to know:</b> summer dinner reservations are near-mandatory — restaurants book up the same week as the rooms. Île aux Marins and a Miquelon day are the set pieces; the extra night buys a slower pace.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="ch3">
+    <div class="chapter pei">
+      <div class="chap-head">
+        <span class="num">03</span>
+        <h3>Prince Edward Island</h3>
+        <div class="when"><b>Jul 24 → 29</b>5 nights · our friends' home turf</div>
+      </div>
+      <div class="chap-body">
+        <p class="get"><b>Getting there:</b> the Friday-morning special — Saint-Pierre → Halifax lands <b>9:30a Jul 24</b> (seats verified), grab rental car #2, drive ~1¾ hrs to Caribou, roll onto the <b>Wood Islands ferry</b>, and dinner is at our friends' place.</p>
+        <div class="stay">🛏️ <b>Stay:</b> with friends / their picks — they're the hosts here (free). 🚗 The rental rides the ferry with us and goes back to Halifax airport on departure day — morning ferry, afternoon/evening flight home (we book the flight around the boat).</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cost">
+    <div class="kick">What it costs</div>
+    <h2 class="title">Cost — islands only, per couple</h2>
+    <p class="lead">Same rule as every plan: the <strong>Saint-Pierre leg only</strong>, per couple. Excludes the Florida⇄Halifax flights, the Halifax rental car, and Halifax/PEI lodging — those are separate.</p>
+    <div class="cost">
+      <h4>🏝️ Saint-Pierre leg — per couple</h4>
+      <p class="cx">Room not booked yet — this uses the island's small-hotel rates.</p>
+      <div class="tbl-scroll">
+      <table>
+        <tr><td>Air Saint-Pierre · Halifax ⇄ SPM round trip · 2 seats</td><td class="amt">$1,140</td></tr>
+        <tr><td>Saint-Pierre hotel · 5 nights (room still to book)</td><td class="amt">$1,000</td></tr>
+        <tr class="tot"><td>Saint-Pierre leg · per couple</td><td class="amt">$2,140</td></tr>
+      </table>
+      </div>
+      <p class="excl">Separate (ours, not the friends'): Florida ⇄ Halifax flights ≈ $432/two · the Halifax rental car · Halifax hotel nights · PEI lodging is free (friends host).</p>
+    </div>
+    <p class="lead" style="margin-top:18px">The <strong>most France</strong> of any plan — a full five nights — but the <strong>priciest of the France options</strong> and the least settled, because hotel nights cost more than the split townhouse and no room is locked. If a room confirms, this is the one; if not, the townhouse (Plan B) wins.</p>
+  </section>
+
+</main>
+
+<footer>
+  <div class="verlinks">
+    <a href="/">← All plans (A–E)</a> ·
+    <a href="/full">Full illustrated view</a>
+  </div>
+  A proposal for July 2026 · nothing booked yet · re-verify fares at booking.
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  // ---- day-by-day ribbon ----
+  const DOW = ['Wed','Thu','Fri','Sat','Sun','Mon','Tue']; // Jul 15 2026 = Wednesday
+  const days = [
+    {d:15,c:'hfx',w:'🛬 land 3:58p'},
+    {d:16,c:'hfx',w:'Peggy\'s Cove'},
+    {d:17,c:'hfx',w:'Lunenburg day'},
+    {d:18,c:'hfx',w:'harbour + friends'},
+    {d:19,c:'spm',from:'hfx',w:'✈️ 6:30p → France'},
+    {d:20,c:'spm',w:'Saint-Pierre'},
+    {d:21,c:'spm',w:'Île aux Marins'},
+    {d:22,c:'spm',w:'Miquelon'},
+    {d:23,c:'spm',w:'flâner 🇫🇷'},
+    {d:24,c:'pei',from:'spm',w:'✈️ 9a + ⛴️ → PEI'},
+    {d:25,c:'pei',w:'PEI'},
+    {d:26,c:'pei',w:'PEI'},
+    {d:27,c:'pei',w:'PEI'},
+    {d:28,c:'pei',w:'PEI'},
+    {d:29,c:'home',from:'pei',w:'🛫 home'}
+  ];
+  const CV = { hfx:'var(--hfx)', spm:'var(--spm)', pei:'var(--pei)', home:'var(--travel)' };
+  document.getElementById('ribbon').innerHTML = days.map(x => {
+    const dow = DOW[(x.d - 15) % 7];
+    let cls = 'rb ' + x.c, style = '';
+    if (x.from) { cls += ' split'; style = ` style="background: linear-gradient(122deg, ${CV[x.from]} 0 47.5%, rgba(255,255,255,.9) 47.5% 52.5%, ${CV[x.c]} 52.5% 100%)"`; }
+    return `<div class="${cls}"${style}><div class="dow">${dow}</div><div class="d">${x.d}</div><div class="what">${x.w}</div></div>`;
+  }).join('');
+
+  // ---- map ----
+  const PT = { HFX:[44.6488,-63.5752], FSP:[46.7778,-56.1778], PEI:[46.2382,-63.1311], CARIBOU:[45.7280,-62.6680], WOODISL:[45.9490,-62.7440] };
+  const map = L.map('map', { scrollWheelZoom: false });
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; OpenStreetMap contributors', maxZoom: 10 }).addTo(map);
+  const pin = (n, color) => L.divIcon({ className:'', html:`<div style="background:${color};color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font:700 13px Inter,sans-serif;border:2.5px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.35)">${n}</div>`, iconSize:[28,28], iconAnchor:[14,14] });
+  const stops = [['HFX',1,'#14395a','Halifax — 4 nights · the hinge both ways'],['FSP',2,'#35479c','Saint-Pierre 🇫🇷 — Jul 19–24, the Sunday window'],['PEI',3,'#2f7d50','PEI — 5 nights with friends']];
+  stops.forEach(([k,n,c,note]) => L.marker(PT[k], {icon: pin(n,c)}).addTo(map).bindPopup(`<b>${n} · ${note}</b>`));
+  // direct flight Halifax⇄Saint-Pierre
+  L.polyline([PT.HFX, PT.FSP], {color:'#c9921f', weight:3, dashArray:'3,9', opacity:.95}).addTo(map).bindPopup('✈️ Air Saint-Pierre · direct Halifax ⇄ Saint-Pierre (~1¼ hrs)');
+  // drive + Wood Islands ferry (Halifax→PEI on the way home)
+  L.polyline([PT.HFX, PT.CARIBOU], {color:'#2f7d50', weight:3, opacity:.9}).addTo(map);
+  L.polyline([PT.CARIBOU, PT.WOODISL, PT.PEI], {color:'#2f7d50', weight:3, dashArray:'1,7', opacity:.95}).addTo(map);
+  map.fitBounds([PT.HFX, PT.FSP, PT.PEI], {padding:[40,40]});
+
+  // ---- sticky-nav "stuck" state → reveal the plan title only when pinned ----
+  const _nav = document.getElementById('nav'), _sent = document.querySelector('.nav-sentinel');
+  if (_nav && _sent) new IntersectionObserver(([e]) => _nav.classList.toggle('stuck', !e.isIntersecting), {threshold: 0}).observe(_sent);
+</script>

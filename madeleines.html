@@ -1,0 +1,281 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plan D — Halifax · PEI · Îles de la Madeleine, July 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+  :root {
+    --paper: #f8f4ec; --card: #fff; --ink: #20303c; --muted: #64707a; --line: #e6ded0;
+    --hfx: #14395a; --stj: #0e7480; --spm: #35479c; --pei: #2f7d50; --idm: #b0563a; --travel: #b3a488;
+    --accent: #b0563a; --gold: #c9921f; --gold-bg: #fdf4de; --red-bg: #fceceb; --spm-red: #c8404a;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: "Inter", -apple-system, sans-serif; line-height: 1.62; font-size: 16px; }
+  a { color: var(--accent); }
+
+  .hero { background: linear-gradient(150deg, #7e3a24, var(--idm) 58%, #14395a); color: #fff; padding: 46px 20px 40px; text-align: center; }
+  .hero .kicker { text-transform: uppercase; letter-spacing: 3px; font-size: 11.5px; font-weight: 700; color: #f0cdbe; margin-bottom: 12px; }
+  .hero h1 { font-family: "Fraunces", serif; font-weight: 700; font-size: clamp(28px, 6vw, 50px); line-height: 1.05; margin: 0 0 14px; }
+  .hero .dek { max-width: 640px; margin: 0 auto 16px; font-size: 17px; color: #f7ebe6; }
+  .hero .dates { font-weight: 700; font-size: 15px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 16px; }
+  .chip { background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.25); border-radius: 999px; padding: 5px 13px; font-size: 13px; font-weight: 600; }
+
+  .nav-sentinel { height: 1px; }
+  nav { position: sticky; top: 0; z-index: 500; padding: 9px 14px; background: #fffdf8; border-bottom: 1px solid var(--line); box-shadow: 0 3px 12px rgba(20,40,60,0); transition: box-shadow .15s ease; }
+  nav.stuck { box-shadow: 0 3px 12px rgba(20,40,60,.10); }
+  .nav-title { display: none; font-size: 13px; font-weight: 700; color: var(--ink); text-align: center; padding-bottom: 7px; margin-bottom: 7px; border-bottom: 1px solid var(--line); }
+  nav.stuck .nav-title { display: block; }
+  .nav-row { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 6px; }
+  .jumphint { font-size: 12px; font-weight: 600; color: var(--muted); margin-right: 1px; }
+  nav a { text-decoration: none; font-size: 13px; font-weight: 600; padding: 6px 13px; border-radius: 999px; color: var(--muted); background: #f4efe4; border: 1px solid var(--line); }
+  nav a:hover { background: #ece4d4; }
+  nav a .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 7px; }
+  nav a.backpill { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+  main { max-width: 880px; margin: 0 auto; padding: 0 20px 80px; }
+  section { margin-top: 60px; }
+  .kick { text-transform: uppercase; letter-spacing: 3px; font-size: 11.5px; font-weight: 700; color: var(--gold); margin-bottom: 8px; }
+  h2.title { font-family: "Fraunces", serif; font-size: clamp(24px, 4vw, 34px); margin: 0 0 12px; line-height: 1.15; }
+  .lead { color: var(--muted); font-size: 16.5px; margin: 0 0 22px; }
+  .lead strong { color: var(--ink); }
+
+  #map { height: 380px; border-radius: 16px; border: 1px solid var(--line); }
+  .legend { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 12px; font-size: 13px; color: var(--muted); }
+  .legend span.sw { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+  .legend span.ln { display: inline-block; width: 22px; border-top: 3px solid; margin-right: 6px; vertical-align: 4px; }
+
+  .ribbon-scroll { overflow-x: auto; padding-bottom: 6px; }
+  .ribbon { display: flex; gap: 5px; min-width: 660px; }
+  .rb { flex: 1; min-width: 56px; border-radius: 10px; padding: 9px 7px; color: #fff; }
+  .rb .dow { font-size: 10.5px; opacity: .85; text-transform: uppercase; letter-spacing: .5px; }
+  .rb .d { font-family: "Fraunces", serif; font-weight: 700; font-size: 19px; line-height: 1.1; }
+  .rb .what { font-size: 11px; margin-top: 5px; line-height: 1.25; min-height: 28px; }
+  .rb.hfx { background: var(--hfx); } .rb.pei { background: var(--pei); } .rb.idm { background: var(--idm); } .rb.home { background: var(--travel); color: #3c3323; }
+  .rb.split { color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.5); }
+  .rb.split .what { opacity: .96; }
+  .cap { font-size: 13px; color: var(--muted); margin-top: 10px; }
+
+  .chapter { background: var(--card); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; margin-top: 22px; box-shadow: 0 2px 12px rgba(20,40,60,.05); }
+  .chap-head { padding: 20px 24px; color: #fff; display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+  .chapter.hfx .chap-head { background: linear-gradient(120deg, #0c2438, var(--hfx)); }
+  .chapter.pei .chap-head { background: linear-gradient(120deg, #1f5c39, var(--pei)); }
+  .chapter.idm .chap-head { background: linear-gradient(120deg, #7e3a24, var(--idm) 70%, #c47a4f); }
+  .chap-head .num { font-family: "Fraunces", serif; font-size: 40px; font-weight: 700; opacity: .5; }
+  .chap-head h3 { font-family: "Fraunces", serif; font-size: 26px; margin: 0; font-weight: 700; }
+  .chap-head .when { margin-left: auto; text-align: right; font-size: 14px; opacity: .95; }
+  .chap-head .when b { display: block; font-size: 16px; }
+  .chap-body { padding: 20px 24px 22px; }
+  .chap-body .get { margin: 0 0 12px; }
+  .stay { background: var(--paper); border-radius: 12px; padding: 12px 14px; font-size: 14.5px; margin-top: 14px; }
+
+  .alert { border: 1px solid var(--gold); background: var(--gold-bg); border-radius: 14px; padding: 15px 18px; margin-top: 14px; }
+  .alert.red { border-color: #e2b3b0; background: var(--red-bg); }
+  .alert h4 { margin: 0 0 8px; font-size: 15px; }
+  .alert p { margin: 8px 0 0; font-size: 14px; }
+  .update { border: 1px solid #8ec6a2; background: #eaf6ee; border-radius: 12px; padding: 12px 15px; margin-top: 14px; font-size: 14.5px; }
+  .update b { color: #1f6b3d; }
+
+  .tbl-scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; margin-top: 6px; min-width: 480px; }
+  th, td { text-align: left; padding: 9px 11px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { background: var(--paper); font-size: 12px; text-transform: uppercase; letter-spacing: .6px; color: var(--muted); }
+  td.amt { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; font-weight: 700; }
+
+  .cost { background: var(--gold-bg); border: 1px solid #e8c877; border-radius: 16px; padding: 18px 20px; margin-top: 14px; }
+  .cost h4 { margin: 0 0 4px; font-family: "Fraunces", serif; font-size: 18px; }
+  .cost .cx { font-size: 13px; color: #7a6420; margin: 0 0 12px; }
+  .cost tr.tot td { border-top: 1.5px solid #e0bd63; border-bottom: none; padding-top: 8px; font-weight: 800; font-size: 16px; }
+  .cost .excl { margin: 10px 0 0; font-size: 12.5px; color: #9a7d22; font-style: italic; }
+
+  footer { text-align: center; padding: 30px 20px 50px; color: var(--muted); font-size: 13px; }
+  footer a { font-weight: 600; }
+  .verlinks { margin-bottom: 10px; }
+  .verlinks a { display: inline-block; margin: 0 8px; }
+</style>
+
+<header class="hero">
+  <div class="kicker">Plan D · Madeleines · the simplest travel 🗳️</div>
+  <h1>Halifax · PEI · Îles de la Madeleine</h1>
+  <p class="dek">The all-Canada island run — no France, no passports. Halifax, a few days on PEI with our friends, then the CTMA ferry across the Gulf to Québec's Îles de la Madeleine, and back through PEI. The catch: the ferry's car decks are sold out, so it's walk-on only and an island rental car is still to confirm.</p>
+  <p class="dates">July 15 – 26, 2026 · 11 nights · all in Canada, no passports</p>
+  <div class="chips">
+    <span class="chip">🇨🇦 3 provinces · no passports</span>
+    <span class="chip">⛴️ 5-hr Gulf crossing each way</span>
+    <span class="chip">⚠️ walk-on only — car decks sold out</span>
+    <span class="chip">🚗 island rental TBD</span>
+  </div>
+</header>
+
+<div class="nav-sentinel"></div>
+<nav id="nav">
+  <div class="nav-title">Plan D · The Madeleine Swap</div>
+  <div class="nav-row">
+    <a class="backpill" href="/">← Plans</a>
+    <span class="jumphint">Jump to:</span>
+    <a href="#route"><span class="dot" style="background:var(--gold)"></span>Route</a>
+    <a href="#days"><span class="dot" style="background:var(--idm)"></span>Day by day</a>
+    <a href="#ch1"><span class="dot" style="background:var(--hfx)"></span>Halifax</a>
+    <a href="#ch2"><span class="dot" style="background:var(--pei)"></span>PEI</a>
+    <a href="#ch3"><span class="dot" style="background:var(--idm)"></span>Madeleines</a>
+    <a href="#cost"><span class="dot" style="background:var(--gold)"></span>Cost</a>
+  </div>
+</nav>
+
+<main>
+
+  <section id="route">
+    <div class="kick">The shape</div>
+    <h2 class="title">Out to the Gulf and back — no border crossing</h2>
+    <p class="lead"><strong>Two nights in Halifax</strong> (arrival + a Peggy's Cove day), the <strong>Wood Islands ferry to PEI on the 17th</strong> for a few days with our friends, then the <strong>CTMA ferry from Souris</strong> — 40 minutes from their place — five hours across the Gulf to <strong>Québec's Îles de la Madeleine</strong> for four nights. Back to PEI on the morning boat, a last couple of days, and home out of Halifax on the 26th. Simplest travel of any plan — one country, one time zone, every leg a daily ferry — but it hinges on two open questions: walk-on seats and a car on the island.</p>
+    <div id="map"></div>
+    <div class="legend">
+      <div><span class="sw" style="background:var(--idm)"></span>Numbered stops, in order</div>
+      <div><span class="ln" style="border-color:var(--idm); border-top-style:dashed"></span>CTMA ferry (Souris ⇄ Cap-aux-Meules)</div>
+      <div><span class="ln" style="border-color:var(--pei); border-top-style:dotted"></span>Drive + Wood Islands ferry</div>
+    </div>
+  </section>
+
+  <section id="days">
+    <div class="kick">Day by day</div>
+    <h2 class="title">12 days, color-coded</h2>
+    <p class="lead">Halifax up front (2 nights), PEI in two acts around the islands (3 nights, then 2 to finish), and four nights on the Madeleines in the middle. Every crossing is a daily boat, so these dates can slide.</p>
+    <div class="ribbon-scroll"><div class="ribbon" id="ribbon"></div></div>
+    <p class="cap">Squares are nights; a <b>diagonal split</b> marks a travel day — morning in one place, night in the next. <b>Halifax 2 · PEI 3 · Madeleines 4 · PEI 2.</b> Home Sunday July 26.</p>
+  </section>
+
+  <section id="ch1">
+    <div class="chapter hfx">
+      <div class="chap-head">
+        <span class="num">01</span>
+        <h3>Halifax, Nova Scotia</h3>
+        <div class="when"><b>Jul 15 → 17</b>2 nights up front</div>
+      </div>
+      <div class="chap-body">
+        <p class="get"><b>Getting there:</b> Orlando → Halifax, Wed Jul 15, United/Air Canada via Chicago · 7:09a → 3:58p · Economy + 1 checked bag ≈ <b>$432 total for two</b> (cheapest fare of the week we sampled — and it works with the United credit). Pick up one rental car for the whole trip at the airport.</p>
+        <p class="get">Land, settle in, and give the 16th to Halifax — the harbour plus a Peggy's Cove run (~1 hr out). Then on <b>Fri Jul 17</b> drive ~1¾ hrs to Caribou and take the Wood Islands ferry to PEI.</p>
+        <div class="stay">🛏️ <b>Stay:</b> 2 nights in/near Halifax — deep hotel inventory, book last.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="ch2">
+    <div class="chapter pei">
+      <div class="chap-head">
+        <span class="num">02</span>
+        <h3>Prince Edward Island</h3>
+        <div class="when"><b>Jul 17 → 20 &amp; Jul 24 → 26</b>in two acts · our friends' home turf</div>
+      </div>
+      <div class="chap-body">
+        <p class="get"><b>Getting there:</b> the <b>Wood Islands ferry on Fri Jul 17</b> (75 min, 8 daily sailings, toll-free toward PEI) lands us at our friends' end of the island. Act one is the warm-up; act two is everything we didn't get to, after the Madeleines.</p>
+        <div class="alert">
+          <h4>⛴️ Wood Islands ferry — Caribou, NS → Wood Islands, PEI</h4>
+          <p><b>8 sailings a day, 75-min crossing.</b> Departures from Caribou: <b>7:00 · 8:30 · 10:00 · 11:45 · 1:30 · 3:15 · 5:00 · 6:30</b>. No vehicle reservations — first-come, arrive ~45–60 min early on a summer Friday — and it's toll-free heading to PEI (you only pay leaving the island).</p>
+        </div>
+        <div class="stay">🛏️ <b>Stay:</b> with friends / their picks — they're the hosts, so lodging here is effectively free. 🚗 The rental parks at the Souris terminal for the four days we're on the Madeleines.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="ch3">
+    <div class="chapter idm">
+      <div class="chap-head">
+        <span class="num">03</span>
+        <h3>Îles de la Madeleine <span style="font-size:.6em">⚜️</span></h3>
+        <div class="when"><b>Jul 20 → 24</b>4 nights · Québec, 5 hrs into the Gulf</div>
+      </div>
+      <div class="chap-body">
+        <p class="get"><b>Getting there:</b> CTMA ferry from Souris — 40 minutes east of our friends' place — sails <b>~1:00p Mon Jul 20</b>, docks at Cap-aux-Meules ~6:15p; the return sails <b>~7:00a Fri Jul 24</b> and has us back on PEI for lunch. Both boats run daily, so these dates can slide.</p>
+        <div class="update">
+          <b>🚗 Update (Jul 3):</b> Rental car may be an option after all — checking with the island operator now. <b>Update later today.</b>
+        </div>
+        <div class="alert red">
+          <h4>⛔ The open question (Jul 2): car decks are SOLD OUT — walk-on or bust</h4>
+          <p>CTMA's booking engine shows <b>no vehicle space on the ferry for our entire window</b>, either direction. Bringing the rental is (currently) dead. The plan survives as <b>walk-on passengers</b>, which needs two confirmations:</p>
+          <p>1️⃣ <b>Passenger seats</b> on our two sailings — out Souris→Cap-aux-Meules Mon Jul 20 (~1:00p), back CaM→Souris Fri Jul 24 (7:00a) — foot-passenger space usually outlasts the car deck. Verify and book: 1-888-986-3278 / traversierctma.ca.</p>
+          <p>2️⃣ <b>Wheels on the island</b> — <a href="https://agencedelocationdesiles.com/en/">Agence de Location des Îles</a> (cars, scooters; town + airport offices · 1-888-818-4537). Our window sits inside <b>Québec's construction holiday (Jul 19–Aug 1)</b>, the islands' peak — scooters (~$90/day) are the fallback.</p>
+          <p style="margin-top:8px"><b>If either check fails, one of the Saint-Pierre plans becomes the plan.</b></p>
+        </div>
+        <div class="stay">🧭 <b>Good to know:</b> the Madeleines are the one corner of Québec on <b>Atlantic time</b> — no clock change from PEI. The crossing is ~5 hours each way; bring a book and watch for whales. 🛏️ Island lodging for 4 nights (tourismilesdelamadeleine.com · Château Madelinot · Auberge Madeli).</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cost">
+    <div class="kick">What it costs</div>
+    <h2 class="title">Cost — islands only, per couple</h2>
+    <p class="lead">Same rule as every plan: the <strong>Madeleines leg only</strong>, per couple. Excludes the Florida⇄Halifax flights, the Halifax rental car, and PEI lodging (we're hosted) — those are separate.</p>
+    <div class="cost">
+      <h4>🏝️ Îles de la Madeleine leg — per couple</h4>
+      <p class="cx">All four of us walk on and split the island car, so each couple pays about the same.</p>
+      <div class="tbl-scroll">
+      <table>
+        <tr><td>CTMA ferry · Souris ⇄ Cap-aux-Meules · 2 walk-on, round trip</td><td class="amt">$175</td></tr>
+        <tr><td>Îles de la Madeleine lodging · 4 nights</td><td class="amt">$700</td></tr>
+        <tr><td>Island rental car · share of one car · 4 days</td><td class="amt">$175</td></tr>
+        <tr class="tot"><td>Madeleines leg · per couple</td><td class="amt">$1,050</td></tr>
+      </table>
+      </div>
+      <p class="excl">Separate (ours, not the friends'): Florida ⇄ Halifax flights ≈ $432/two · the Halifax rental car · PEI lodging is free (friends host).</p>
+    </div>
+    <p class="lead" style="margin-top:18px">The <strong>cheapest and simplest-travel</strong> plan — no passports, no flights beyond Orlando⇄Halifax — but the one with the most open logistics. Confirm walk-on seats + an island car and it's a go.</p>
+  </section>
+
+</main>
+
+<footer>
+  <div class="verlinks">
+    <a href="/">← All plans (A–E)</a> ·
+    <a href="/full">Full illustrated view</a>
+  </div>
+  A proposal for July 2026 · nothing booked yet · re-verify fares &amp; schedules at booking.
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  // ---- day-by-day ribbon ----
+  const DOW = ['Wed','Thu','Fri','Sat','Sun','Mon','Tue']; // Jul 15 2026 = Wednesday
+  const days = [
+    {d:15,c:'hfx',w:'🛬 land 3:58p · Halifax'},
+    {d:16,c:'hfx',w:'Halifax · Peggy\'s Cove'},
+    {d:17,c:'pei',from:'hfx',w:'⛴️ Wood Islands → PEI'},
+    {d:18,c:'pei',w:'PEI · beach day'},
+    {d:19,c:'pei',w:'PEI · lobster supper'},
+    {d:20,c:'idm',from:'pei',w:'⛴️ 1p Souris → Îles'},
+    {d:21,c:'idm',w:'La Grave'},
+    {d:22,c:'idm',w:'dunes 🪁'},
+    {d:23,c:'idm',w:'cliffs + brewery'},
+    {d:24,c:'pei',from:'idm',w:'⛴️ 7a back to PEI'},
+    {d:25,c:'pei',w:'PEI'},
+    {d:26,c:'home',from:'pei',w:'🚗 ⛴️ + 🛫 home'}
+  ];
+  const CV = { hfx:'var(--hfx)', pei:'var(--pei)', idm:'var(--idm)', home:'var(--travel)' };
+  document.getElementById('ribbon').innerHTML = days.map(x => {
+    const dow = DOW[(x.d - 15) % 7];
+    let cls = 'rb ' + x.c, style = '';
+    if (x.from) { cls += ' split'; style = ` style="background: linear-gradient(122deg, ${CV[x.from]} 0 47.5%, rgba(255,255,255,.9) 47.5% 52.5%, ${CV[x.c]} 52.5% 100%)"`; }
+    return `<div class="${cls}"${style}><div class="dow">${dow}</div><div class="d">${x.d}</div><div class="what">${x.w}</div></div>`;
+  }).join('');
+
+  // ---- map ----
+  const PT = { HFX:[44.6488,-63.5752], PEI:[46.2382,-63.1311], CARIBOU:[45.7280,-62.6680], WOODISL:[45.9490,-62.7440], SOURIS:[46.3560,-62.2500], IDM:[47.3810,-61.8570] };
+  const map = L.map('map', { scrollWheelZoom: false });
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; OpenStreetMap contributors', maxZoom: 10 }).addTo(map);
+  const pin = (n, color) => L.divIcon({ className:'', html:`<div style="background:${color};color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font:700 13px Inter,sans-serif;border:2.5px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.35)">${n}</div>`, iconSize:[28,28], iconAnchor:[14,14] });
+  const stops = [['HFX',1,'#14395a','Halifax — arrive Jul 15 · 2 nights'],['PEI',2,'#2f7d50','PEI — friends\' home turf, in two acts'],['IDM',3,'#b0563a','Îles de la Madeleine — 4 nights, 5 hrs by ferry']];
+  stops.forEach(([k,n,c,note]) => L.marker(PT[k], {icon: pin(n,c)}).addTo(map).bindPopup(`<b>${n} · ${note}</b>`));
+  // drive + Wood Islands ferry (Halifax⇄PEI)
+  L.polyline([PT.HFX, PT.CARIBOU], {color:'#2f7d50', weight:3, opacity:.9}).addTo(map);
+  L.polyline([PT.CARIBOU, PT.WOODISL, PT.PEI], {color:'#2f7d50', weight:3, dashArray:'1,7', opacity:.95}).addTo(map);
+  // drive across PEI to Souris, then CTMA ferry to the Madeleines
+  L.polyline([PT.PEI, PT.SOURIS], {color:'#2f7d50', weight:3, opacity:.9}).addTo(map);
+  L.polyline([PT.SOURIS, PT.IDM], {color:'#b0563a', weight:3, dashArray:'3,9', opacity:.95}).addTo(map).bindPopup('⛴️ CTMA ferry · Souris ⇄ Cap-aux-Meules · ~5 hrs');
+  map.fitBounds([PT.HFX, PT.IDM, PT.PEI], {padding:[40,40]});
+
+  // ---- sticky-nav "stuck" state → reveal the plan title only when pinned ----
+  const _nav = document.getElementById('nav'), _sent = document.querySelector('.nav-sentinel');
+  if (_nav && _sent) new IntersectionObserver(([e]) => _nav.classList.toggle('stuck', !e.isIntersecting), {threshold: 0}).observe(_sent);
+</script>
