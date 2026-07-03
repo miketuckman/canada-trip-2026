@@ -4,6 +4,12 @@
   // just uploads the files in `assets.directory` and serves index.html at /.
   "name": "canada-trip-2026",
   "compatibility_date": "2025-06-01",
+  // Publish to a custom domain on the tuckman.us Cloudflare zone.
+  // custom_domain: true makes wrangler create the DNS record + route automatically,
+  // so no workers.dev subdomain registration is needed.
+  "routes": [
+    { "pattern": "canada.tuckman.us", "custom_domain": true }
+  ],
   "assets": {
     "directory": "."
   }
