@@ -1,0 +1,262 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alternative — Halifax · PEI · St. John's, July 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+  :root {
+    --paper: #f8f4ec; --card: #fff; --ink: #20303c; --muted: #64707a; --line: #e6ded0;
+    --hfx: #14395a; --stj: #0e7480; --pei: #2f7d50; --travel: #b3a488;
+    --gold: #c9921f; --gold-bg: #fdf4de; --red-bg: #fceceb; --spm-red: #c8404a;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: "Inter", -apple-system, sans-serif; line-height: 1.62; font-size: 16px; }
+  a { color: var(--stj); }
+
+  .hero { background: linear-gradient(150deg, #0a5560, var(--stj) 65%, #14395a); color: #fff; padding: 46px 20px 40px; text-align: center; }
+  .hero .kicker { text-transform: uppercase; letter-spacing: 3px; font-size: 11.5px; font-weight: 700; color: #bfe6e9; margin-bottom: 12px; }
+  .hero h1 { font-family: "Fraunces", serif; font-weight: 700; font-size: clamp(30px, 6vw, 52px); line-height: 1.05; margin: 0 0 14px; }
+  .hero .dek { max-width: 620px; margin: 0 auto 16px; font-size: 17px; color: #eaf5f6; }
+  .hero .dates { font-weight: 700; font-size: 15px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 16px; }
+  .chip { background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.25); border-radius: 999px; padding: 5px 13px; font-size: 13px; font-weight: 600; }
+
+  nav { position: sticky; top: 0; z-index: 500; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; padding: 12px 14px; background: #fffdf8; border-bottom: 1px solid var(--line); }
+  nav a { text-decoration: none; font-size: 13px; font-weight: 600; padding: 6px 14px; border-radius: 999px; color: var(--muted); }
+  nav a .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 7px; }
+
+  main { max-width: 880px; margin: 0 auto; padding: 0 20px 80px; }
+  section { margin-top: 60px; }
+  .kick { text-transform: uppercase; letter-spacing: 3px; font-size: 11.5px; font-weight: 700; color: var(--gold); margin-bottom: 8px; }
+  h2.title { font-family: "Fraunces", serif; font-size: clamp(24px, 4vw, 34px); margin: 0 0 12px; line-height: 1.15; }
+  .lead { color: var(--muted); font-size: 16.5px; margin: 0 0 22px; }
+  .lead strong { color: var(--ink); }
+
+  #map { height: 380px; border-radius: 16px; border: 1px solid var(--line); }
+  .legend { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 12px; font-size: 13px; color: var(--muted); }
+  .legend span.sw { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+  .legend span.ln { display: inline-block; width: 22px; border-top: 3px solid; margin-right: 6px; vertical-align: 4px; }
+
+  .ribbon-scroll { overflow-x: auto; padding-bottom: 6px; }
+  .ribbon { display: flex; gap: 5px; min-width: 620px; }
+  .rb { flex: 1; min-width: 58px; border-radius: 10px; padding: 9px 7px; color: #fff; }
+  .rb .dow { font-size: 10.5px; opacity: .85; text-transform: uppercase; letter-spacing: .5px; }
+  .rb .d { font-family: "Fraunces", serif; font-weight: 700; font-size: 19px; line-height: 1.1; }
+  .rb .what { font-size: 11px; margin-top: 5px; line-height: 1.25; min-height: 28px; }
+  .rb.hfx { background: var(--hfx); } .rb.pei { background: var(--pei); } .rb.stj { background: var(--stj); } .rb.home { background: var(--travel); color: #3c3323; }
+  .cap { font-size: 13px; color: var(--muted); margin-top: 10px; }
+
+  .chapter { background: var(--card); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; margin-top: 22px; box-shadow: 0 2px 12px rgba(20,40,60,.05); }
+  .chap-head { padding: 20px 24px; color: #fff; display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+  .chapter.hfx .chap-head { background: linear-gradient(120deg, #0c2438, var(--hfx)); }
+  .chapter.pei .chap-head { background: linear-gradient(120deg, #1f5c39, var(--pei)); }
+  .chapter.stj .chap-head { background: linear-gradient(120deg, #0a5560, var(--stj)); }
+  .chap-head .num { font-family: "Fraunces", serif; font-size: 40px; font-weight: 700; opacity: .5; }
+  .chap-head h3 { font-family: "Fraunces", serif; font-size: 26px; margin: 0; font-weight: 700; }
+  .chap-head .when { margin-left: auto; text-align: right; font-size: 14px; opacity: .95; }
+  .chap-head .when b { display: block; font-size: 16px; }
+  .chap-body { padding: 20px 24px 22px; }
+  .chap-body .get { margin: 0 0 12px; }
+  .stay { background: var(--paper); border-radius: 12px; padding: 12px 14px; font-size: 14.5px; margin-top: 14px; }
+
+  .alert { border: 1px solid var(--gold); background: var(--gold-bg); border-radius: 14px; padding: 15px 18px; margin-top: 14px; }
+  .alert.red { border-color: #e2b3b0; background: var(--red-bg); }
+  .alert h4 { margin: 0 0 8px; font-size: 15px; }
+  .alert p { margin: 8px 0 0; font-size: 14px; }
+
+  .tbl-scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; margin-top: 6px; min-width: 520px; }
+  th, td { text-align: left; padding: 9px 11px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { background: var(--paper); font-size: 12px; text-transform: uppercase; letter-spacing: .6px; color: var(--muted); }
+  td.amt { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; font-weight: 700; }
+  .tag { display: inline-block; background: var(--stj); color: #fff; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; }
+
+  .cost { background: var(--gold-bg); border: 1px solid #e8c877; border-radius: 16px; padding: 18px 20px; margin-top: 14px; }
+  .cost h4 { margin: 0 0 4px; font-family: "Fraunces", serif; font-size: 18px; }
+  .cost .cx { font-size: 13px; color: #7a6420; margin: 0 0 12px; }
+  .cost tr.tot td { border-top: 1.5px solid #e0bd63; border-bottom: none; padding-top: 8px; font-weight: 800; font-size: 16px; }
+  .cost .excl { margin: 10px 0 0; font-size: 12.5px; color: #9a7d22; font-style: italic; }
+
+  footer { text-align: center; padding: 30px 20px 50px; color: var(--muted); font-size: 13px; }
+  footer a { font-weight: 600; }
+  .verlinks { margin-bottom: 10px; }
+  .verlinks a { display: inline-block; margin: 0 8px; }
+</style>
+
+<header class="hero">
+  <div class="kicker">Alternative itinerary · Newfoundland by air · for the travel committee 🗳️</div>
+  <h1>Halifax · PEI · St. John's</h1>
+  <p class="dek">The simple Newfoundland trip — no France, no Madeleines. Fly into Halifax, PEI with our friends, a round-trip hop to St. John's, and home on the 24th.</p>
+  <p class="dates">July 15 – 24, 2026 · 9 nights · all in Canada, one passport-free country</p>
+  <div class="chips">
+    <span class="chip">🇨🇦 1 country · no passports for France</span>
+    <span class="chip">✈️ 4 flights · ⛴️ 2 PEI ferries</span>
+    <span class="chip">🛬 St. John's is a nonstop hop from Halifax</span>
+    <span class="chip">🏁 home Jul 24</span>
+  </div>
+</header>
+
+<nav>
+  <a href="#route"><span class="dot" style="background:var(--gold)"></span>Route</a>
+  <a href="#days"><span class="dot" style="background:var(--stj)"></span>Day by day</a>
+  <a href="#ch1"><span class="dot" style="background:var(--hfx)"></span>Halifax</a>
+  <a href="#ch2"><span class="dot" style="background:var(--pei)"></span>PEI</a>
+  <a href="#ch3"><span class="dot" style="background:var(--stj)"></span>St. John's</a>
+  <a href="#flights"><span class="dot" style="background:var(--gold)"></span>Flights</a>
+  <a href="#cost"><span class="dot" style="background:var(--gold)"></span>Cost</a>
+</nav>
+
+<main>
+
+  <section id="route">
+    <div class="kick">The shape</div>
+    <h2 class="title">One out-and-back, plus a hop to the Rock</h2>
+    <p class="lead">Fly into <strong>Halifax</strong>, drive and ferry to <strong>PEI</strong> for the bulk of the trip with our friends, then back to Halifax for a <strong>nonstop round-trip to St. John's</strong> (Air Canada, Jul 21 out / Jul 24 back). Home to Orlando the afternoon of the 24th. No France, no Madeleines, one passport-free country — the least moving parts of any version.</p>
+    <div id="map"></div>
+    <div class="legend">
+      <div><span class="sw" style="background:var(--stj)"></span>Numbered stops, in order</div>
+      <div><span class="ln" style="border-color:var(--gold); border-top-style:dashed"></span>Flights (YHZ⇄YYT nonstop)</div>
+      <div><span class="ln" style="border-color:var(--pei); border-top-style:dotted"></span>Drive + Wood Islands ferry</div>
+    </div>
+  </section>
+
+  <section id="days">
+    <div class="kick">Day by day</div>
+    <h2 class="title">10 days, color-coded</h2>
+    <p class="lead">PEI is the long, unhurried middle; St. John's is a tight, deliberate 3-night hit built entirely around the two nonstop flights.</p>
+    <div class="ribbon-scroll"><div class="ribbon" id="ribbon"></div></div>
+    <p class="cap">Squares are nights. <b>PEI 5 · Halifax 1 (pre-flight) · St. John's 3.</b> Trip ends Friday July 24.</p>
+  </section>
+
+  <section id="ch1">
+    <div class="chapter hfx">
+      <div class="chap-head">
+        <span class="num">01</span>
+        <h3>Halifax, Nova Scotia</h3>
+        <div class="when"><b>Jul 15 &amp; Jul 20</b>arrival + the pre-flight night</div>
+      </div>
+      <div class="chap-body">
+        <p class="get"><b>Getting there:</b> Orlando → Halifax, Wed Jul 15, United/Air Canada via Chicago · 7:09a → 3:58p · Economy + 1 checked bag ≈ <b>$432 total for two</b>. Pick up a rental car at the airport for the PEI leg.</p>
+        <p class="get">Halifax is a pure gateway here, used twice: <b>land Jul 15</b> and head to PEI, then <b>come back Jul 20</b> and overnight near the airport so we can catch the early St. John's flight. No sightseeing days budgeted — this is logistics.</p>
+        <div class="stay">🛏️ <b>Stay:</b> one night near YHZ airport on Jul 20 (deep hotel inventory, book last). 🚗 The PEI rental goes back at the airport before we fly to St. John's — no car idling while we're on the Rock.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="ch2">
+    <div class="chapter pei">
+      <div class="chap-head">
+        <span class="num">02</span>
+        <h3>Prince Edward Island</h3>
+        <div class="when"><b>Jul 15 → 20</b>5 nights · our friends' home turf</div>
+      </div>
+      <div class="chap-body">
+        <p class="get"><b>Getting there:</b> from Halifax airport, drive ~1¾ hrs to Caribou and take the <b>Wood Islands ferry</b> (75 min) to our friends' end of the island. On Jul 20 we reverse it — morning ferry back, drive to Halifax, overnight by the airport.</p>
+        <div class="stay">🛏️ <b>Stay:</b> with friends / their picks — they're the hosts, so lodging here is effectively free. The long, easy middle of the trip: beaches, lobster, back roads on their schedule.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="ch3">
+    <div class="chapter stj">
+      <div class="chap-head">
+        <span class="num">03</span>
+        <h3>St. John's, Newfoundland <span style="font-size:.6em">🇨🇦</span></h3>
+        <div class="when"><b>Jul 21 → 24</b>3 nights · nonstop from Halifax</div>
+      </div>
+      <div class="chap-body">
+        <p class="get"><b>Getting there:</b> Air Canada <b>nonstop both ways</b> — out <b>Tue Jul 21, 8:05a → 10:28a</b> (1h53), back <b>Fri Jul 24, 7:30a → 9:09a</b> (2h09). Pick up a rental car at St. John's airport (YYT) — cheap and plentiful. Hotels/Airbnbs here are easy, unlike the other plans' islands.</p>
+        <p class="get"><b>Worth the short days (no detours needed):</b> Signal Hill, Cape Spear (the easternmost point in North America), Quidi Vidi, and whales offshore in July. Gander or Bonavista only if you stretch the stay.</p>
+        <div class="alert">
+          <h4>⏱️ The tight bit — Jul 24 same-day connection</h4>
+          <p>We land back in Halifax at <b>9:09a</b> on Jul 24 and fly Halifax → Orlando the <b>same afternoon (2:50p)</b> — a comfortable ~5-hour buffer. The earlier/cheaper YHZ→MCO options leave at 6–7a and <b>don't work</b> with the morning arrival from St. John's, so the 2:50p departure is the realistic one.</p>
+        </div>
+        <div class="stay">🛏️ <b>Stay:</b> 3 nights in St. John's (hotel or Airbnb — real inventory, book when the flights lock). 🚗 Separate rental car at YYT for the Avalon.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="flights">
+    <div class="kick">The receipts</div>
+    <h2 class="title">Flights — real quotes (2 passengers)</h2>
+    <p class="lead">Sampled Jul 2026. Fares move; re-verify at booking. The two St. John's legs are <strong>nonstop</strong> — that's the whole appeal of this version.</p>
+    <div class="tbl-scroll">
+    <table>
+      <tr><th>Leg</th><th>When</th><th>Detail</th><th>Total, 2 pax</th></tr>
+      <tr><td><b>Orlando → Halifax</b></td><td>Wed Jul 15</td><td>United/Air Canada via Chicago · Economy + 1 bag</td><td class="amt">$432</td></tr>
+      <tr><td><b>Halifax ⇄ St. John's</b> <span class="tag">nonstop</span></td><td>Jul 21 / Jul 24</td><td>Air Canada · Basic <b>$734</b> · Standard $927 (adds carry-on) · Flex $1,104 · checked bag $64/pp on Basic/Standard</td><td class="amt">$734–1,104</td></tr>
+      <tr><td><b>Halifax → Orlando</b></td><td>Fri Jul 24</td><td>United via Newark · <b>2:50p</b> departure (works with the 9:09a arrival) · 1 stop · ~$760 (9h42) or $1,083 (6h06)</td><td class="amt">$760–1,083</td></tr>
+    </table>
+    </div>
+    <p class="cap">Note: the headline "$687" Halifax→Orlando is a 6:00a departure — unusable, since we don't land from St. John's until 9:09a. The 2:50p flight is the honest number.</p>
+  </section>
+
+  <section id="cost">
+    <div class="kick">What it costs</div>
+    <h2 class="title">Cost — the same island framing as the other version</h2>
+    <p class="lead">Same rule as the main page: the <strong>Newfoundland leg only</strong>, per couple. Excludes the Florida⇄Halifax flights, the Halifax rental car, and PEI lodging (we're hosted) — those are separate.</p>
+    <div class="cost">
+      <h4>🏝️ Newfoundland leg — per couple</h4>
+      <p class="cx">Both couples pay about the same; St. John's lodging and the car split evenly.</p>
+      <div class="tbl-scroll">
+      <table>
+        <tr><td>Air Canada · Halifax ⇄ St. John's · nonstop · 2 seats (Basic)</td><td class="amt">$734</td></tr>
+        <tr><td>St. John's lodging · 3 nights</td><td class="amt">$540</td></tr>
+        <tr><td>St. John's rental car · share · 3 days</td><td class="amt">$180</td></tr>
+        <tr class="tot"><td>Newfoundland leg · per couple</td><td class="amt">$1,454</td></tr>
+      </table>
+      </div>
+      <p class="excl">Separate (ours, not the friends'): Florida ⇄ Halifax flights ≈ $1,190/two · Halifax rental car for the PEI leg · PEI lodging is free (friends host).</p>
+    </div>
+    <p class="lead" style="margin-top:18px">Versus the France plans, this is the cheapest and simplest Newfoundland option — <strong>nonstop both ways, no ferry to the Rock, no passport, ~$1,450 per couple</strong> — and it still keeps the full PEI visit.</p>
+  </section>
+
+</main>
+
+<footer>
+  <div class="verlinks">
+    Other versions:
+    <a href="/">Main — 4 plans (A–D)</a> ·
+    <a href="/full">Full illustrated version</a>
+  </div>
+  A proposal for July 2026 · nothing booked yet · re-verify fares at booking.
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  // ---- day-by-day ribbon (static) ----
+  const DOW = ['Wed','Thu','Fri','Sat','Sun','Mon','Tue']; // Jul 15 2026 = Wednesday
+  const days = [
+    {d:15,c:'pei',w:'🛬 land 3:58p · ⛴️ to PEI'},
+    {d:16,c:'pei',w:'PEI'},
+    {d:17,c:'pei',w:'PEI'},
+    {d:18,c:'pei',w:'PEI'},
+    {d:19,c:'pei',w:'PEI'},
+    {d:20,c:'hfx',w:'🚗 ⛴️ back to Halifax · overnight by YHZ'},
+    {d:21,c:'stj',w:'✈️ 8:05a → St. John\'s'},
+    {d:22,c:'stj',w:'Signal Hill · Cape Spear'},
+    {d:23,c:'stj',w:'St. John\'s'},
+    {d:24,c:'home',w:'✈️ 7:30a → Hfx · 🛫 2:50p home'}
+  ];
+  document.getElementById('ribbon').innerHTML = days.map(x => {
+    const dow = DOW[(x.d - 15) % 7];
+    return `<div class="rb ${x.c}"><div class="dow">${dow}</div><div class="d">${x.d}</div><div class="what">${x.w}</div></div>`;
+  }).join('');
+
+  // ---- map ----
+  const PT = { HFX:[44.6488,-63.5752], YYT:[47.5615,-52.7126], PEI:[46.2382,-63.1311], CARIBOU:[45.7280,-62.6680], WOODISL:[45.9490,-62.7440] };
+  const map = L.map('map', { scrollWheelZoom: false });
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; OpenStreetMap contributors', maxZoom: 10 }).addTo(map);
+  const pin = (n, color) => L.divIcon({ className:'', html:`<div style="background:${color};color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font:700 13px Inter,sans-serif;border:2.5px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.35)">${n}</div>`, iconSize:[28,28], iconAnchor:[14,14] });
+  const stops = [['HFX',1,'#14395a','Halifax — gateway (Jul 15 & Jul 20)'],['PEI',2,'#2f7d50','PEI — 5 nights with friends'],['YYT',3,'#0e7480','St. John\'s — 3 nights, nonstop from Halifax']];
+  stops.forEach(([k,n,c,note]) => L.marker(PT[k], {icon: pin(n,c)}).addTo(map).bindPopup(`<b>${n} · ${note}</b>`));
+  // drive + Wood Islands ferry (Halifax⇄PEI)
+  L.polyline([PT.HFX, PT.CARIBOU], {color:'#2f7d50', weight:3, opacity:.9}).addTo(map);
+  L.polyline([PT.CARIBOU, PT.WOODISL, PT.PEI], {color:'#2f7d50', weight:3, dashArray:'1,7', opacity:.95}).addTo(map);
+  // nonstop flight Halifax⇄St. John's
+  L.polyline([PT.HFX, PT.YYT], {color:'#c9921f', weight:3, dashArray:'3,9', opacity:.95}).addTo(map).bindPopup('✈️ Air Canada nonstop · Halifax ⇄ St. John\'s (~1h53 / 2h09)');
+  map.fitBounds([PT.HFX, PT.YYT, PT.PEI], {padding:[40,40]});
+</script>

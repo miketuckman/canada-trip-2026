@@ -85,6 +85,13 @@ Earlier note said "plenty of VRBO in both St. John's and Saint-Pierre" — **wro
 - B&B list on the official tourism site (en.spm-tourisme.fr) — several email-only
 Summer dinner reservations are near-mandatory too — book restaurants the same week as the room. **SPM lodging is now action item #1**; it decides which plan shape the trip takes.
 
+## Separate version — "St. John's by air" (standalone page, 2026-07-02)
+A distinct, simpler itinerary Mike asked for, kept as its own page (`stjohns.html` → served at **canada.tuckman.us/stjohns**), NOT a plan in the A–D switcher. Route: **Halifax → PEI → (back to Halifax) → St. John's → Halifax → Orlando.** No Saint-Pierre, no Madeleines, one passport-free country.
+- **Dates:** MCO→YHZ Jul 15 (land 3:58p) → PEI Jul 15–20 (5n, with friends) → drive back, overnight Halifax Jul 20 → **YHZ→YYT Air Canada nonstop Tue Jul 21 8:05a–10:28a** → St. John's Jul 21–24 (3n) → **YYT→YHZ nonstop Fri Jul 24 7:30a–9:09a** → **YHZ→MCO 2:50p** (home late Jul 24). 9 nights.
+- **Real flight quotes (2 pax):** YHZ⇄YYT Air Canada nonstop = **$734 Basic / $927 Standard / $1,104 Flex** (checked bag $64/pp on Basic/Standard). YHZ→MCO Jul 24 = the "$687 best" is a 6:00a departure that does NOT work with the 9:09a arrival from St. John's; usable option is **2:50p United via EWR ~$760 (9h42) / $1,083 (6h06)**. MCO→YHZ Jul 15 ≈ $432.
+- **Islands-only cost (per couple):** YHZ⇄YYT $734 + St. John's lodging 3n $540 + StJ car $180 = **≈$1,454**. Cheapest/simplest NF option — nonstop both ways, no ferry to the Rock, keeps full PEI. Florida flights (~$1,190/two) + Halifax car tracked separately; PEI hosted (free).
+- Cross-links in footer to `/` (4-plan) and `/full` (illustrated).
+
 ## Itinerary v5 — NEWFOUNDLAND BACK via Plan D (Mike's call, 2026-07-02)
 Plan A (Madeleines) is faltering — **no rental cars turning up on the island** on top of the sold-out car decks. So Newfoundland returns as **Plan D**: take Plan C's booked France leg, then instead of flying back to Halifax, **sail the Thu Jul 23 SPM→Fortune ferry into Newfoundland**, a few days around St. John's, and loop home through PEI as always. Four plans now:
 
