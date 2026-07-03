@@ -273,3 +273,7 @@
   const _nav = document.getElementById('nav'), _sent = document.querySelector('.nav-sentinel');
   if (_nav && _sent) new IntersectionObserver(([e]) => _nav.classList.toggle('stuck', !e.isIntersecting), {threshold: 0}).observe(_sent);
 </script>
+
+<!-- Cloudflare Web Analytics -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "3ce2221668bb42558ec3f6f068fa956d"}'></script>
+<!-- End Cloudflare Web Analytics -->

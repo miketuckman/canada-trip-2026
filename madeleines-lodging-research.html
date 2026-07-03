@@ -1,0 +1,140 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Madeleines lodging research (local only — not deployed)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root { --paper:#f8f4ec; --card:#fff; --ink:#20303c; --muted:#64707a; --line:#e6ded0; --idm:#b0563a; --gold:#c9921f; --gold-bg:#fdf4de; --red-bg:#fceceb; --spm-red:#c8404a; --pei:#2f7d50; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--paper); color:var(--ink); font-family:"Inter",-apple-system,sans-serif; line-height:1.6; font-size:16px; }
+  header { background:linear-gradient(150deg,#7e3a24,var(--idm) 60%,#c47a4f); color:#fff; padding:34px 20px 30px; text-align:center; }
+  header .kicker { text-transform:uppercase; letter-spacing:3px; font-size:11px; font-weight:700; color:#f0cdbe; margin-bottom:10px; }
+  header h1 { font-family:"Fraunces",serif; font-weight:700; font-size:clamp(24px,5vw,36px); margin:0 0 10px; }
+  header p { max-width:640px; margin:0 auto; font-size:15px; color:#f7ebe6; }
+  .localnote { background:#fff3cd; border-bottom:2px solid #e8c877; text-align:center; padding:9px 16px; font-size:13.5px; font-weight:700; color:#7a5a10; }
+  main { max-width:880px; margin:0 auto; padding:26px 20px 70px; }
+  h2 { font-family:"Fraunces",serif; font-size:22px; margin:38px 0 6px; }
+  .lead { color:var(--muted); font-size:15px; margin:0 0 16px; }
+  .lead b { color:var(--ink); }
+  code { background:#eee3d3; padding:1px 6px; border-radius:5px; font-size:13px; }
+
+  .matrix { width:100%; border-collapse:collapse; font-size:13.5px; margin:14px 0 22px; background:var(--card); border-radius:12px; overflow:hidden; box-shadow:0 1px 6px rgba(20,40,60,.06); }
+  .matrix th, .matrix td { padding:8px 9px; border-bottom:1px solid var(--line); text-align:center; }
+  .matrix th { background:#fffdf8; font-size:11px; text-transform:uppercase; color:var(--muted); }
+  .matrix td:first-child, .matrix th:first-child { text-align:left; font-weight:600; }
+  .yes { color:#1f6b3d; font-weight:800; }
+  .no { color:#c8404a; opacity:.5; }
+
+  .card { background:var(--card); border:1.5px solid var(--line); border-radius:16px; padding:20px 22px; margin-top:16px; box-shadow:0 2px 10px rgba(20,40,60,.05); }
+  .card.top { border-color:var(--pei); box-shadow:0 4px 16px rgba(47,125,80,.14); }
+  .card .badge { display:inline-block; font-size:10.5px; font-weight:800; letter-spacing:.6px; text-transform:uppercase; padding:3px 10px; border-radius:999px; background:var(--pei); color:#fff; margin-bottom:8px; }
+  .card h3 { font-family:"Fraunces",serif; margin:0 0 4px; font-size:20px; }
+  .card .meta { font-size:13.5px; color:var(--muted); margin-bottom:10px; }
+  .card .meta b { color:var(--ink); }
+  .card .price { font-weight:800; color:var(--pei); }
+  .card .flag { background:var(--gold-bg); border:1px solid #e8c877; border-radius:10px; padding:9px 12px; font-size:13px; margin-top:10px; color:#7a6420; }
+  .card .flag.warn { background:var(--red-bg); border-color:#e2b3b0; color:#a33830; }
+  .card .links { margin-top:12px; font-size:13.5px; }
+  .card .links a { color:var(--idm); font-weight:700; text-decoration:none; }
+  .card .links a:hover { text-decoration:underline; }
+  .card .contact { font-size:13px; color:var(--muted); margin-top:6px; }
+
+  .excl { background:#f4efe4; border:1px dashed var(--line); border-radius:12px; padding:14px 18px; margin-top:10px; font-size:14px; }
+  .excl b { color:var(--ink); }
+  .excl .why { color:var(--spm-red); font-weight:600; }
+
+  footer { text-align:center; padding:30px 20px 50px; color:var(--muted); font-size:12.5px; }
+</style>
+
+<div class="localnote">🔒 LOCAL RESEARCH FILE — not linked from the site, not committed/pushed. For Mike's reference only.</div>
+
+<header>
+  <div class="kicker">Plan D research · Îles de la Madeleine lodging</div>
+  <h1>2-Bedroom Availability Search</h1>
+  <p>Live results from the official <a href="https://www.tourismeilesdelamadeleine.com/en/where-to-sleep/" style="color:#ffe4d6">Tourisme Îles de la Madeleine</a> directory, filtered by the site's own date + occupancy engine — not a hand-guess. Filters used: <b>Cottages, condos, housekeeping units</b> category (the one self-catered, multi-bedroom category), <b>4 travelers</b>, six different 4-night spans. No hostels, no campgrounds — cottages/condos/houses only.</p>
+</header>
+
+<main>
+
+  <h2>Method</h2>
+  <p class="lead">This directory isn't an instant-book platform — it's a curated list where <b>the site itself queries each property's real calendar and posted minimum-stay rules</b> for the dates you give it (it explicitly warns "many owners rent only for the week" and drops non-matching listings). I ran the filter across six 4-night spans in your flexible window and cross-checked every result's actual page for bedroom count, price, and any minimum-stay fine print the list view doesn't show.</p>
+  <p class="lead">Spans tested: <code>Jul 18–22</code> · <code>19–23</code> · <code>20–24</code> (your plan's default) · <code>21–25</code> · <code>22–26</code> · <code>23–27</code>.</p>
+
+  <h2>Which span, which property</h2>
+  <table class="matrix">
+    <tr><th>Property</th><th>18–22</th><th>19–23</th><th>20–24</th><th>21–25</th><th>22–26</th><th>23–27</th></tr>
+    <tr><td>Appartements Cyrco #1</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+    <tr><td>Chez Aurèle / Chez Raynald à Arsène</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="no">–</td><td class="no">–</td></tr>
+    <tr><td>La Maison Verte <span style="font-weight:400">(⚠️ see flag)</span></td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="no">–</td><td class="no">–</td></tr>
+    <tr><td>Chez Arthur à Azade (3BR)</td><td class="no">–</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="no">–</td></tr>
+  </table>
+
+  <h2>The candidates (2 bedrooms or more, sleeps ≥4)</h2>
+
+  <div class="card top">
+    <div class="badge">Best fit — most flexible</div>
+    <h3>Appartements Cyrco #1</h3>
+    <div class="meta">Cap-aux-Meules · seaside, upstairs, views of Entry Island &amp; the fishing port · <b>2 bedrooms</b> (2× queen-size beds) · sleeps 4 · 8 TripAdvisor reviews ("Awesome!!")</div>
+    <div class="meta">High season: <span class="price">$330/night</span> → <b>~$1,320 for 4 nights</b> · minimum stay is just <b>2 nights</b> — no weekly-block requirement</div>
+    <div class="meta">Matched <b>every one of the six spans tested</b> — the only property that did. Good sign for a mid-week or unusual-length stay.</div>
+    <div class="links">
+      <a href="https://www.tourismeilesdelamadeleine.com/en/appartement-cyrco/tourist-residences/">Listing page →</a>
+    </div>
+    <div class="contact">📞 418 986-3301 ext. 5 · 418 937-8514 &nbsp;·&nbsp; ✉️ pchevarie@gestionpc.ca</div>
+  </div>
+
+  <div class="card">
+    <div class="badge" style="background:var(--gold)">Same owner, 2 units</div>
+    <h3>Chez Aurèle à Arsène <span style="font-weight:400;font-size:.7em">/ Chez Raynald à Arsène</span></h3>
+    <div class="meta">Havre-aux-Maisons · across the street from Dune-du-Sud beach · <b>two separate 2-bedroom houses</b> at one address, book either — <b>Chez Aurèle</b>: 2BR (2×60" beds + sofa bed), sleeps 4; <b>Chez Raynald</b>: 2BR (54"+60" beds + sofa bed), sleeps 4</div>
+    <div class="meta">High season: Aurèle <span class="price">$380/night</span> (~$1,520/4n) · Raynald <span class="price">$325/night</span> (~$1,300/4n)</div>
+    <div class="meta">Matched Jul 18–22 through 21–25 — drops out for a Jul 22 or later start (likely booked or a Fri/Fri-style block from that point on).</div>
+    <div class="links">
+      <a href="https://www.tourismeilesdelamadeleine.com/en/chez-aurele-a-arsene/tourist-residences/">Listing page →</a>
+    </div>
+    <div class="contact">📞 514 830-0471 &nbsp;·&nbsp; ✉️ daisyjack12@hotmail.com</div>
+  </div>
+
+  <div class="card">
+    <div class="badge" style="background:var(--gold)">Roomier — 3rd bedroom</div>
+    <h3>Chez Arthur à Azade</h3>
+    <div class="meta">L'Étang-du-Nord · steps from the wharf, sea view from the living room · <b>3 bedrooms</b> · sleeps up to 7 · same owner as Chez Aurèle above</div>
+    <div class="meta">High season: <span class="price">$450/night</span> → <b>~$1,800 for 4 nights</b> (for 7; scales down if fewer than 7 aren't billed — confirm at booking)</div>
+    <div class="meta">Matched Jul 19–23 through 22–26. Pricier than Cyrco/Aurèle but more room if you want the extra bedroom for storage/overflow.</div>
+    <div class="links">
+      <a href="https://www.tourismeilesdelamadeleine.com/en/chez-arthur-a-azade/tourist-residences/">Listing page →</a>
+    </div>
+    <div class="contact">📞 514 830-0471 &nbsp;·&nbsp; ✉️ daisyjack12@hotmail.com</div>
+  </div>
+
+  <div class="card">
+    <div class="badge" style="background:#8a6410">Call before booking</div>
+    <h3>La Maison Verte</h3>
+    <div class="meta">Cap-aux-Meules (L'Étang-du-Nord) · renovated 100-year farmhouse, 4km from the ferry · <b>2 bedrooms</b>, explicitly described as "two ZEN bedrooms with Queen beds... suits 2 couples" — the listing itself frames it exactly for a trip like this</div>
+    <div class="meta">High season: <span class="price">$428/night</span> → <b>~$1,712 for 4 nights</b></div>
+    <div class="flag warn"><b>⚠️ Minimum stay note on the listing:</b> "2026: 1 week minimum / 2 weeks preferred in HIGH SEASON." The site's date filter still matched our 4-night spans, but that may not reflect this owner's real minimum-stay policy for July. <b>Call or email before counting on this one.</b></div>
+    <div class="links">
+      <a href="https://www.tourismeilesdelamadeleine.com/en/la-maison-verte/tourist-residences/">Listing page →</a>
+    </div>
+    <div class="contact">📞 418 752-4907 &nbsp;·&nbsp; ✉️ uteschule2010@gmail.com</div>
+  </div>
+
+  <h2>Ruled out</h2>
+  <div class="excl"><b>La Maison d'à Côté</b> (Fatima, 3BR, sleeps 4) — the site's filter matched it for several spans, but the listing states <span class="why">"July 3 to October 31, 2026: 14-night minimum"</span> — a 4-night stay isn't realistic here despite showing up in search.</div>
+  <div class="excl"><b>Havre sur Mer</b> (Bassin) — <span class="why">week-only rentals (7-night blocks)</span>, and it's an 8-bedroom, 18-person group lodge (~$1,350/night) — the wrong scale entirely for 2 couples.</div>
+  <div class="excl"><b>Appartement de la Grave</b> (Havre-Aubert) — <span class="why">1 bedroom, sleeps 2 max</span> — doesn't meet the 2-bedroom requirement.</div>
+  <div class="excl"><b>Resorts-accommodation &amp; Bed &amp; Breakfasts categories</b> — checked both; resorts returned only group/camp-style venues (nautical center, park lodge, auberge — dorm-adjacent, skipped per "no hostels"), and B&amp;Bs returned <span class="why">zero results for 4 people</span> in a single booking (B&B rooms there are sized for 1–2, and the site doesn't bundle multiple rooms into one search match).</div>
+
+  <h2>Bottom line</h2>
+  <p class="lead"><b>Appartements Cyrco #1</b> is the strongest option — it's the only property that cleared every span tested, has the loosest minimum-stay policy (2 nights), and has real guest reviews. <b>Chez Aurèle/Raynald à Arsène</b> is a strong second (same price range, 2 separate 2BR houses to choose from) if the Jul 20–24 window holds. <b>Chez Arthur à Azade</b> is the fallback if you want a 3rd bedroom. <b>La Maison Verte</b> reads perfectly on paper but needs a direct call given its stated 1–2 week minimum — worth asking since off-peak-adjacent 4-night exceptions do happen with small owner-operators.</p>
+  <p class="lead">Next step, if you want to move on this: call/email Cyrco and Aurèle in parallel to lock in whichever confirms first — both are ~$1,300–1,320 for the 4 nights, in line with the plan's existing $700 lodging estimate... actually <b>above</b> it, so if one of these books, the Plan D islands-only cost should be updated (current page assumes $700/4 nights ÷ shared across the group — these run $1,300+ before splitting). Flag that when you're ready to update the plan page.</p>
+</main>
+
+<footer>
+  Researched via tourismeilesdelamadeleine.com/en/where-to-sleep/ · fares/availability move — re-verify directly with each owner before booking.
+</footer>
+
+<!-- Cloudflare Web Analytics -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "3ce2221668bb42558ec3f6f068fa956d"}'></script>
+<!-- End Cloudflare Web Analytics -->
