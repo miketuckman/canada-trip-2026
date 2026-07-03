@@ -1,0 +1,10 @@
+{
+  // Static-site deploy for Cloudflare Workers (Workers Static Assets).
+  // No Worker script — `main` is intentionally omitted, so `wrangler deploy`
+  // just uploads the files in `assets.directory` and serves index.html at /.
+  "name": "canada-trip-2026",
+  "compatibility_date": "2025-06-01",
+  "assets": {
+    "directory": "."
+  }
+}

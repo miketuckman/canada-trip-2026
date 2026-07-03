@@ -1,0 +1,14 @@
+# Files in the repo that should NOT be published as part of the site.
+# gitignore-style syntax; keeps the deploy to just the presentation.
+.git
+.github
+.agents
+.claude
+.omc
+.playwright-mcp
+*.md
+skills-lock.json
+wrangler.jsonc
+.assetsignore
+.gitignore
+.nojekyll
