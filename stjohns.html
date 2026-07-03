@@ -47,6 +47,8 @@
   .rb .d { font-family: "Fraunces", serif; font-weight: 700; font-size: 19px; line-height: 1.1; }
   .rb .what { font-size: 11px; margin-top: 5px; line-height: 1.25; min-height: 28px; }
   .rb.hfx { background: var(--hfx); } .rb.pei { background: var(--pei); } .rb.stj { background: var(--stj); } .rb.home { background: var(--travel); color: #3c3323; }
+  .rb.split { color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.5); }   /* travel day — box splits from the morning's place to the night's place */
+  .rb.split .what { opacity: .96; }
   .cap { font-size: 13px; color: var(--muted); margin-top: 10px; }
 
   .chapter { background: var(--card); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; margin-top: 22px; box-shadow: 0 2px 12px rgba(20,40,60,.05); }
@@ -128,7 +130,7 @@
     <h2 class="title">10 days, color-coded</h2>
     <p class="lead">Halifax up front (2 nights — arrival + a Peggy's Cove day), PEI in the middle (3 nights with our friends), then a tight, deliberate 3-night St. John's run built entirely around the two nonstop flights.</p>
     <div class="ribbon-scroll"><div class="ribbon" id="ribbon"></div></div>
-    <p class="cap">Squares are nights. <b>Halifax 2 · PEI 3 · Halifax 1 (pre-flight) · St. John's 3.</b> Trip ends Friday July 24.</p>
+    <p class="cap">Squares are nights; a <b>diagonal split</b> marks a travel day — morning in one place, night in the next. <b>Halifax 2 · PEI 3 · Halifax 1 (pre-flight) · St. John's 3.</b> Trip ends Friday July 24.</p>
   </section>
 
   <section id="ch1">
@@ -233,21 +235,28 @@
 <script>
   // ---- day-by-day ribbon (static) ----
   const DOW = ['Wed','Thu','Fri','Sat','Sun','Mon','Tue']; // Jul 15 2026 = Wednesday
+  // c = where we sleep that night; from = where the day starts (present only on travel days → box splits diagonally)
   const days = [
     {d:15,c:'hfx',w:'🛬 land 3:58p · Halifax'},
     {d:16,c:'hfx',w:'Halifax · Peggy\'s Cove'},
-    {d:17,c:'pei',w:'⛴️ Wood Islands → PEI (aft. sailing)'},
+    {d:17,c:'pei',from:'hfx',w:'⛴️ Wood Islands → PEI (aft. sailing)'},
     {d:18,c:'pei',w:'PEI'},
     {d:19,c:'pei',w:'PEI'},
-    {d:20,c:'hfx',w:'🚗 ⛴️ back to Halifax · overnight by YHZ'},
-    {d:21,c:'stj',w:'✈️ 8:05a → St. John\'s'},
+    {d:20,c:'hfx',from:'pei',w:'🚗 ⛴️ back to Halifax · overnight by YHZ'},
+    {d:21,c:'stj',from:'hfx',w:'✈️ 8:05a → St. John\'s'},
     {d:22,c:'stj',w:'Signal Hill · Cape Spear'},
     {d:23,c:'stj',w:'St. John\'s'},
-    {d:24,c:'home',w:'✈️ 7:30a → Hfx · 🛫 2:50p home'}
+    {d:24,c:'home',from:'stj',w:'✈️ 7:30a → Hfx · 🛫 2:50p home'}
   ];
+  const CV = { hfx:'var(--hfx)', pei:'var(--pei)', stj:'var(--stj)', home:'var(--travel)' };
   document.getElementById('ribbon').innerHTML = days.map(x => {
     const dow = DOW[(x.d - 15) % 7];
-    return `<div class="rb ${x.c}"><div class="dow">${dow}</div><div class="d">${x.d}</div><div class="what">${x.w}</div></div>`;
+    let cls = 'rb ' + x.c, style = '';
+    if (x.from) {  // travel day → diagonal split: morning place (left) → night place (right), thin divider
+      cls += ' split';
+      style = ` style="background: linear-gradient(122deg, ${CV[x.from]} 0 47.5%, rgba(255,255,255,.9) 47.5% 52.5%, ${CV[x.c]} 52.5% 100%)"`;
+    }
+    return `<div class="${cls}"${style}><div class="dow">${dow}</div><div class="d">${x.d}</div><div class="what">${x.w}</div></div>`;
   }).join('');
 
   // ---- map ----
