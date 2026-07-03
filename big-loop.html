@@ -147,7 +147,7 @@
     <div class="kick">Day by day</div>
     <h2 class="title">12 nights, color-coded</h2>
     <p class="lead">Halifax (3) → Saint-Pierre (3) → St. John's (3) → PEI (3). The Thursday ferry <em>is</em> the exit from France — no bridge night to solve.</p>
-    <p class="enote">📌 Return dates based on flights — may return to Orlando direct from St. John's. (The hatched Halifax days are tentative.)</p>
+    <p class="enote">📌 Given the trip's length, the PEI finish is tentative — we may skip PEI and fly home direct from St. John's. The hatched PEI days are the ones in question.</p>
     <div class="ribbon-scroll"><div class="ribbon" id="ribbon"></div></div>
     <p class="cap">Squares are nights; a <b>diagonal split</b> marks a travel day — morning in one place, night in the next. <b>Halifax 3 · Saint-Pierre 3 · St. John's 3 · PEI 3.</b> Home Wednesday July 29.</p>
   </section>
@@ -257,18 +257,18 @@
   // ---- day-by-day ribbon ----
   const DOW = ['Wed','Thu','Fri','Sat','Sun','Mon','Tue']; // Jul 15 2026 = Wednesday
   const days = [
-    {d:17,c:'hfx',hatch:true,w:'🛬 arrive Halifax'},
-    {d:18,c:'hfx',hatch:true,w:'Halifax'},
-    {d:19,c:'hfx',hatch:true,w:'Halifax'},
+    {d:17,c:'hfx',w:'🛬 arrive Halifax'},
+    {d:18,c:'hfx',w:'Halifax'},
+    {d:19,c:'hfx',w:'Halifax'},
     {d:20,c:'spm',from:'hfx',w:'✈️ 3:30p → France'},
     {d:21,c:'spm',w:'Île aux Marins'},
     {d:22,c:'spm',w:'Miquelon'},
     {d:23,c:'stj',from:'spm',w:'⛴️ 10a → Fortune 🚐'},
     {d:24,c:'stj',w:'Signal Hill'},
     {d:25,c:'stj',w:'Cape Spear'},
-    {d:26,c:'pei',from:'stj',w:'✈️ YYT→Hfx + ⛴️'},
-    {d:27,c:'pei',w:'PEI'},
-    {d:28,c:'pei',w:'PEI'},
+    {d:26,c:'pei',from:'stj',hatch:true,w:'✈️ YYT→Hfx + ⛴️'},
+    {d:27,c:'pei',hatch:true,w:'PEI'},
+    {d:28,c:'pei',hatch:true,w:'PEI'},
     {d:29,c:'home',from:'pei',w:'🛫 home'}
   ];
   const CV = { hfx:'var(--hfx)', spm:'var(--spm)', stj:'var(--stj)', pei:'var(--pei)', home:'var(--travel)' };
@@ -276,7 +276,12 @@
     const dow = DOW[(x.d - 15) % 7];
     let cls = 'rb ' + x.c, style = '';
     if (x.hatch) cls += ' hatch';
-    if (x.from) { cls += ' split'; style = ` style="background: linear-gradient(122deg, ${CV[x.from]} 0 47.5%, rgba(255,255,255,.9) 47.5% 52.5%, ${CV[x.c]} 52.5% 100%)"`; }
+    if (x.from) {   // travel day → diagonal split; layer the hatch on top if this day is tentative
+      cls += ' split';
+      const grad = `linear-gradient(122deg, ${CV[x.from]} 0 47.5%, rgba(255,255,255,.9) 47.5% 52.5%, ${CV[x.c]} 52.5% 100%)`;
+      const hatchImg = 'repeating-linear-gradient(45deg, rgba(255,255,255,.30) 0 3px, rgba(255,255,255,0) 3px 8px)';
+      style = ` style="background: ${x.hatch ? hatchImg + ', ' + grad : grad}"`;
+    }
     return `<div class="${cls}"${style}><div class="dow">${dow}</div><div class="d">${x.d}</div><div class="what">${x.w}</div></div>`;
   }).join('');
 
