@@ -132,8 +132,11 @@
     #switcher { border-radius: 13px; padding: 5px; gap: 5px; }
     #switcher button { min-width: 132px; padding: 7px 9px; }
     #switcher button .pl { display: none; }          /* redundant micro-label — the name carries it */
+    #switcher button .pd { display: none; }          /* blocker moves to the note + cards below to keep the sticky tabs short */
     #switcher button .pn { font-size: 14px; line-height: 1.2; }
-    #switcher button .pd { font-size: 10.5px; margin-top: 2px; }
+    #switcher button .pcost { margin-top: 4px; font-size: 12.5px; }
+    #switcher button .pcost .io { display: none; }   /* the panel + intro already say "islands only" */
+    #switcher button .pcost .info { display: none; } /* ⓘ hover affordance is desktop-only */
   }
   .switcher button {
     flex: 1; min-width: 180px;
@@ -155,6 +158,40 @@
   .switcher button:hover { background: var(--paper); }
   .switcher button.active { background: #f0f7f1; border-color: var(--pei); }
   .switcher button.active .pl { color: var(--pei); }
+  .switcher button .pcost {
+    display: block; margin-top: 6px; font-size: 13px; font-weight: 800;
+    color: var(--pei); letter-spacing: .1px;
+  }
+  .switcher button .pcost .u { color: var(--muted); font-weight: 600; font-size: 11.5px; }
+  .switcher button .pcost .info { color: var(--gold); font-weight: 700; }
+
+  /* islands-only cost breakdown — panel under the switcher (always visible for the active plan) */
+  #cost-detail {
+    margin: 12px 0 0; background: var(--gold-bg); border: 1px solid #e8c877;
+    border-radius: 13px; padding: 13px 16px;
+  }
+  #cost-detail .ch { font-family: "Fraunces", serif; font-weight: 700; font-size: 15px; margin: 0 0 3px; }
+  #cost-detail .cx { font-size: 12.5px; color: #7a6420; margin: 0 0 10px; }
+  #cost-detail table { width: 100%; border-collapse: collapse; }
+  #cost-detail td { padding: 3px 0; font-size: 13.5px; vertical-align: top; }
+  #cost-detail td.amt { text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; padding-left: 14px; }
+  #cost-detail tr.tot td { border-top: 1.5px solid #e0bd63; padding-top: 7px; font-weight: 800; font-size: 15px; }
+  #cost-detail .cnote { margin: 9px 0 0; font-size: 12.5px; color: var(--muted); }
+  #cost-detail .excl { margin: 8px 0 0; font-size: 12px; color: #9a7d22; font-style: italic; }
+
+  /* desktop hover tip — peek another plan's breakdown without switching */
+  #cost-tip {
+    position: fixed; z-index: 2000; max-width: 320px; display: none;
+    background: #fffdf6; border: 1px solid #e0bd63; border-radius: 12px;
+    padding: 12px 14px; box-shadow: 0 10px 30px rgba(20,40,60,0.22); pointer-events: none;
+  }
+  #cost-tip.on { display: block; }
+  #cost-tip table { width: 100%; border-collapse: collapse; }
+  #cost-tip td { padding: 2px 0; font-size: 12.5px; }
+  #cost-tip td.amt { text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; padding-left: 12px; }
+  #cost-tip tr.tot td { border-top: 1px solid #e0bd63; padding-top: 6px; font-weight: 800; }
+  #cost-tip .ch { font-weight: 800; font-size: 13px; margin-bottom: 5px; }
+  @media (hover: none) { #cost-tip { display: none !important; } }
   .plan-note {
     font-size: 13.5px; color: var(--muted); margin: 12px 0 0;
   }
@@ -393,24 +430,30 @@
         <span class="pl">Plan A · Conditional</span>
         <span class="pn">The Madeleine Swap</span>
         <span class="pd">ÎdM Jul 20–24 · home Jul 26 · ⚠️ walk-on only</span>
+        <span class="pcost"></span>
       </button>
       <button data-plan="B">
         <span class="pl">Plan B</span>
         <span class="pn">Saint-Pierre · Sunday</span>
         <span class="pd">SPM Jul 19–24 · ⚠️ no room booked yet · home Jul 29</span>
+        <span class="pcost"></span>
       </button>
       <button data-plan="C">
         <span class="pl">Plan C</span>
         <span class="pn">Saint-Pierre · Townhouse</span>
         <span class="pd">✅ townhouse booked · ⚠️ short 1 night · home Jul 29</span>
+        <span class="pcost"></span>
       </button>
       <button data-plan="D">
         <span class="pl">Plan D · The Big Loop</span>
         <span class="pn">France → Newfoundland → PEI</span>
         <span class="pd">Townhouse + Thu ferry to St. John's · home ~Jul 31</span>
+        <span class="pcost"></span>
       </button>
     </div>
+  <div id="cost-detail"></div>
   <p class="plan-note" id="plan-note"></p>
+  <div id="cost-tip" aria-hidden="true"></div>
 
   <section style="margin-top: 26px">
     <div id="trip-map"></div>
@@ -575,7 +618,7 @@
   <section id="options">
     <div class="sec-kicker">Side by Side</div>
     <h2 class="sec-title">Four ways to cut it</h2>
-    <p class="lead"><strong>Plan A</strong> swaps the international islands for Québec's Madeleines — conditional on the walk-on checks (and rental cars are proving scarce). <strong>Plans B and C are the same France trip on different flight windows</strong> — B has more France but no lodging found; C has less France and a booked townhouse. <strong>Plan D</strong> takes C and keeps going: France, then the Thursday ferry into Newfoundland, then home through PEI — the fullest trip, and the longest. All plans start with the same $432 Orlando→Halifax flight on July 15. Cost lines cover flights + lodging + cars + ferries (no meals/activities) — <em>us two</em>, and the <em>friends' share</em> for the legs they join. Tap <em>view</em> to preview one above.</p>
+    <p class="lead"><strong>Plan A</strong> swaps the international islands for Québec's Madeleines — conditional on the walk-on checks (and rental cars are proving scarce). <strong>Plans B and C are the same France trip on different flight windows</strong> — B has more France but no lodging found; C has less France and a booked townhouse. <strong>Plan D</strong> takes C and keeps going: France, then the Thursday ferry into Newfoundland, then home through PEI — the fullest trip, and the longest. Every cost here is <strong>islands-only, per couple</strong> — just the ferries, flights, cars, and lodging for the Newfoundland / Saint-Pierre / Madeleine legs (no meals or activities). They <strong>exclude</strong> the Florida⇄Halifax flights, the Halifax rental car, and any Halifax or PEI lodging — those are ours to handle and tracked separately. Both couples pay about the same, since rooms and cars split evenly. Tap <em>view</em> to preview one above; hover any plan tab (or check the panel under the tabs) for the line-by-line breakdown.</p>
     <div class="opts">
       <div class="opt" data-opt="A">
         <span class="badge">Plan A · Recommended</span>
@@ -589,7 +632,7 @@
           <li><b class="good">✓</b> Home Jul 26 — one day past the original July 25 target</li>
           <li><b class="bad">⛔</b> Ferry car decks SOLD OUT all window — <b>walk-on + island rental only</b>, pending 2 checks</li>
         </ul>
-        <div class="cost">💰 Us two ≈ <b>$3,500</b> · PEI friends ≈ <b>$900</b> <span style="color:var(--muted)">(all four walk on; island car added)</span></div>
+        <div class="cost">🏝️ Islands only ≈ <b>$1,050</b> / couple <span style="color:var(--muted)">(CTMA ferry + Île lodging + shared car · same for both couples)</span></div>
         <div class="foot">Home Sun Jul 26 · 12 days</div>
         <button class="view" data-plan="A">View this plan ↑</button>
       </div>
@@ -605,7 +648,7 @@
           <li><b class="good">✓</b> Friday 9:30a landing → same-day ferry to PEI</li>
           <li><b class="bad">⚠️ The catch:</b> <b>no room booked yet</b> for the 5 nights — the island's tiny hotel bench is the whole gamble here, and it's why Plan C exists</li>
         </ul>
-        <div class="cost">💰 Us two ≈ <b>$4,400</b> · PEI friends ≈ <b>$2,050</b> <span style="color:var(--muted)">(real ASP quote · less if the Halifax friends host)</span></div>
+        <div class="cost">🏝️ Islands only ≈ <b>$2,140</b> / couple <span style="color:var(--muted)">(ASP round trip + 5 hotel nights — room still to book)</span></div>
         <div class="foot">Home Wed Jul 29 · 15 days</div>
         <button class="view" data-plan="B">View this plan ↑</button>
       </div>
@@ -621,7 +664,7 @@
           <li><b class="good">✓</b> Friday 9:30a landing → same-day ferry to PEI</li>
           <li><b class="bad">⚠️ The catch:</b> the townhouse runs Jul 20–23 but the flight home is Fri the 24th — <b>short exactly one night</b> (host extension / 1 hotel night / fly out Wed 22, or let Plan D's ferry solve it)</li>
         </ul>
-        <div class="cost">💰 Us two ≈ <b>$4,500</b> · PEI friends ≈ <b>$1,850</b> <span style="color:var(--muted)">(townhouse split two ways · less if Halifax friends host)</span></div>
+        <div class="cost">🏝️ Islands only ≈ <b>$1,700</b> / couple <span style="color:var(--muted)">(ASP round trip + townhouse share + 1 bridge night)</span></div>
         <div class="foot">Home Wed Jul 29 · 15 days</div>
         <button class="view" data-plan="C">View this plan ↑</button>
       </div>
@@ -637,7 +680,7 @@
           <li><b class="good">✓</b> Brings back the original <b>Newfoundland + France</b> vision — all four together, ends in PEI as always</li>
           <li><b class="bad">✗</b> The longest trip by far — <b>home ~Jul 31 (17 days)</b>; Fortune→St. John's is a 4¾-hr shuttle van</li>
         </ul>
-        <div class="cost">💰 Us two ≈ <b>$5,500</b> · PEI friends ≈ <b>$2,900</b> <span style="color:var(--muted)">(adds NF ferry, shuttle, car, lodging + the YYT→Halifax hop)</span></div>
+        <div class="cost">🏝️ Islands only ≈ <b>$2,280</b> / couple <span style="color:var(--muted)">(ASP one-way + townhouse + NF ferry/shuttle/car/lodging + YYT→Halifax)</span></div>
         <div class="foot">Home ~Fri Jul 31 · 17 days</div>
         <button class="view" data-plan="D">View this plan ↑</button>
       </div>
@@ -879,6 +922,51 @@
     }
   };
 
+  /* ============ ISLANDS-ONLY COSTS (per couple, USD) ============
+     Deliberately EXCLUDES: Florida⇄Halifax flights, the Halifax rental car,
+     and any Halifax / PEI lodging. Only the ferries, flights, cars and rooms
+     for the Newfoundland / Saint-Pierre / Madeleine legs are counted.
+     Split evenly, so each couple pays about the same — us and our PEI friends. */
+  const COSTS = {
+    A: { lines: [
+      ['CTMA ferry · Souris ⇄ Cap-aux-Meules · 2 walk-on, round trip', 175],
+      ['Îles de la Madeleine lodging · 4 nights', 700],
+      ['Island rental car · share of one car · 4 days', 175]
+    ], note: 'All four of us walk on and split the island car, so each couple pays about the same.' },
+    B: { lines: [
+      ['Air Saint-Pierre · Halifax ⇄ SPM round trip · 2 seats', 1140],
+      ['Saint-Pierre hotel · 5 nights (room still to book)', 1000]
+    ], note: 'Room not booked yet — this uses the island\'s small-hotel rates.' },
+    C: { lines: [
+      ['Air Saint-Pierre · Halifax ⇄ SPM round trip · 2 seats', 1140],
+      ['Townhouse · ½ of $840 all-in (sleeps 5) · 3 nights', 420],
+      ['Bridge night Jul 23 · 1 hotel night (skip if host extends)', 140]
+    ], note: 'Townhouse split two ways; drop the bridge night if the host can extend.' },
+    D: { lines: [
+      ['Air Saint-Pierre · one way Halifax → SPM · 2 seats', 580],
+      ['Townhouse · ½ of $840 · 3 nights', 420],
+      ['Ferry · Saint-Pierre → Fortune, NL · 2 pax', 110],
+      ['Shuttle van · Fortune → St. John\'s · 2 pax', 140],
+      ['St. John\'s rental car · share · 3 days', 90],
+      ['St. John\'s lodging · 3 nights', 540],
+      ['Flight home leg · St. John\'s → Halifax · 2 seats', 400]
+    ], note: 'Plan C\'s France plus the whole Newfoundland leg — the fullest, priciest trip.' }
+  };
+  const money = n => '$' + n.toLocaleString('en-US');
+  const costTotal = k => COSTS[k].lines.reduce((a, [, v]) => a + v, 0);
+  const costRows = k => COSTS[k].lines.map(([l, v]) => `<tr><td>${l}</td><td class="amt">${money(v)}</td></tr>`).join('')
+    + `<tr class="tot"><td>Islands only · per couple</td><td class="amt">${money(costTotal(k))}</td></tr>`;
+  const PLAN_SHORT = { A: 'Plan A · Madeleines', B: 'Plan B · Saint-Pierre (Sunday)', C: 'Plan C · Saint-Pierre (townhouse)', D: 'Plan D · The Big Loop' };
+
+  function renderCostDetail(k) {
+    document.getElementById('cost-detail').innerHTML =
+      `<p class="ch">🏝️ ${PLAN_SHORT[k]} — islands-only cost</p>` +
+      `<p class="cx">The same for each couple (us &amp; our PEI friends) — rooms and cars are split evenly.</p>` +
+      `<table><tbody>${costRows(k)}</tbody></table>` +
+      `<p class="cnote">${COSTS[k].note}</p>` +
+      `<p class="excl">Excludes the Florida ⇄ Halifax flights, the Halifax rental car, and any Halifax/PEI lodging — those are ours and tracked separately.</p>`;
+  }
+
   /* ============ MAP ============ */
   const map = L.map('trip-map', { scrollWheelZoom: false });
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -1100,6 +1188,7 @@
     });
     drawMap(p);
     renderRibbon();
+    renderCostDetail(key);
   }
 
   document.querySelectorAll('#switcher button, .opt .view').forEach(b =>
@@ -1116,6 +1205,30 @@
   // the nav wraps to a different number of rows as width / font-load changes — keep --navh exact
   if (window.ResizeObserver) new ResizeObserver(setNavH).observe(nav);
   setNavH();
+
+  // ---- islands-only cost: fill each tab's summary line + desktop hover breakdown ----
+  const tip = document.getElementById('cost-tip');
+  const canHover = window.matchMedia('(hover: hover)').matches;
+  document.querySelectorAll('#switcher button').forEach(b => {
+    const k = b.dataset.plan;
+    b.querySelector('.pcost').innerHTML =
+      `🏝️ ~${money(costTotal(k))} <span class="u">/ couple<span class="io"> · islands only</span></span>${canHover ? ' <span class="info">ⓘ</span>' : ''}`;
+    if (!canHover) return;
+    const show = () => {
+      tip.innerHTML = `<div class="ch">🏝️ ${PLAN_SHORT[k]} · islands only, per couple</div><table><tbody>${costRows(k)}</tbody></table>`;
+      tip.classList.add('on');
+      const r = b.getBoundingClientRect(), tw = tip.offsetWidth, th = tip.offsetHeight;
+      let left = r.left, top = r.bottom + 8;
+      if (left + tw > window.innerWidth - 10) left = window.innerWidth - tw - 10;
+      if (top + th > window.innerHeight - 10) top = r.top - th - 8;
+      tip.style.left = Math.max(10, left) + 'px';
+      tip.style.top = Math.max(10, top) + 'px';
+    };
+    b.addEventListener('mouseenter', show);
+    b.addEventListener('focus', show);
+    b.addEventListener('mouseleave', () => tip.classList.remove('on'));
+    b.addEventListener('blur', () => tip.classList.remove('on'));
+  });
 
   setPlan('A');
 </script>

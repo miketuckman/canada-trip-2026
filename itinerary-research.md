@@ -96,9 +96,11 @@ Plan A (Madeleines) is faltering — **no rental cars turning up on the island**
 | Lodging status | ÎdM lodging + island car TBD | **Not found yet** (the blocker) | **✅ BOOKED: Airbnb 3BR townhouse** ($840/3n, Jul 20–23) · ⚠️ short 1 night (checkout 23rd, flight 24th) | Townhouse (same) + easy St. John's hotels/Airbnbs — **ferry dissolves the bridge night** |
 | PEI | Jul 24–26 (2n; +3n act one) | Jul 24–29 (5n) | Jul 24–29 (5n) | Jul 26–31 (5n) — via YYT→YHZ flight + Wood Islands ferry |
 | Home | Sun Jul 26 (12 days) | Wed Jul 29 (15 days) | Wed Jul 29 (15 days) | ~Fri Jul 31 (17 days) |
-| Cost us / friends | ≈$3,500 / $900 | ≈$4,400 / $2,050 | ≈$4,500 / $1,850 | ≈$5,500 / $2,900 |
+| Islands-only cost (per couple) | ≈$1,050 | ≈$2,140 | ≈$1,700 | ≈$2,280 |
 
 Both SPM flight windows quoted refundable at the same **C$3,102.64 for all four**. Decision logic: **whichever roof confirms first picks the plan** — the townhouse (booked, free cancellation) anchors C; **D is C plus Newfoundland** for maximal appetite. B/C/D presented as separate plans specifically so different flight windows can be shown side by side.
+
+**Cost methodology (changed 2026-07-02, for sharing with the PEI friends):** the presentation now shows **islands-only cost, per couple** — only the ferries, flights, cars, and lodging for the Newfoundland / Saint-Pierre / Madeleine legs. It **excludes** the Florida⇄Halifax flights ($432/2), the Halifax rental car, and any Halifax or PEI lodging (those are ours and tracked separately). Both couples pay ~the same because rooms and cars split evenly. Per-plan breakdown lives in the `COSTS` object in trip-presentation.html (rendered into a panel under the plan tabs + a desktop hover tip). Line items — A: CTMA ferry $175 + Île lodging $700 + island car $175. B: ASP RT $1,140 + hotel 5n $1,000. C: ASP RT $1,140 + townhouse ½ $420 + bridge night $140. D: ASP one-way $580 + townhouse $420 + SPM→Fortune ferry $110 + shuttle $140 + StJ car $90 + StJ lodging $540 + YYT→YHZ flight $400.
 
 **Plan D — Newfoundland ferry loop (new 2026-07-02):**
 - **SPM Ferries schedule (2026, from the official PDF Mike supplied):** Saint-Pierre → Fortune sails most days, NOT Mondays — including **Thu Jul 23 at 10:00a** (~1h30 crossing). This corrects the earlier (wrong) note that "SPM Ferries runs Mon/Wed/Fri only" and that "nothing leaves SPM on a Thursday." It doesn't help Plan C (Fortune is the wrong direction for getting home via Halifax), but it IS the whole spine of Plan D.
