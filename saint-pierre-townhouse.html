@@ -58,6 +58,10 @@
   .rb.split { color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.5); }
   .rb.split .what { opacity: .96; }
   .cap { font-size: 13px; color: var(--muted); margin-top: 10px; }
+  .alt-block { margin-top: 30px; border-top: 2px dashed var(--line); padding-top: 22px; }
+  .alt-title { font-family: "Fraunces", serif; font-size: 20px; margin: 0 0 8px; color: var(--spm); }
+  .alt-lead { color: var(--muted); font-size: 15.5px; margin: 0 0 16px; }
+  .alt-lead b { color: var(--ink); }
 
   .chapter { background: var(--card); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; margin-top: 22px; box-shadow: 0 2px 12px rgba(20,40,60,.05); }
   .chap-head { padding: 20px 24px; color: #fff; display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
@@ -144,6 +148,18 @@
     <p class="lead">Halifax up front (3 nights), four nights in France on the townhouse window, then a few nights on PEI to finish. Travel days are morning/afternoon hops, not lost days.</p>
     <div class="ribbon-scroll"><div class="ribbon" id="ribbon"></div></div>
     <p class="cap">Squares are nights; a <b>diagonal split</b> marks a travel day — morning in one place, night in the next. <b>Halifax 3 · Saint-Pierre 4 · PEI 3.</b> Home Monday July 27.</p>
+
+    <div class="alt-block">
+      <h3 class="alt-title">Alternative exit — if the townhouse can't extend</h3>
+      <p class="alt-lead">Rather than solve the Thursday bridge night, <b>fly out on checkout day (Thu Jul 23) via Montréal</b> — Saint-Pierre → Montréal at noon, a few hours downtown (smoked meat 🥪), then a late Air Canada hop to Halifax. Trades <b>one night of France</b> for a clean exit and a Montréal evening — the flights cost more (below).</p>
+      <div class="ribbon-scroll"><div class="ribbon" id="ribbon2"></div></div>
+      <p class="cap">The Jul 23 box splits three ways — <b>Saint-Pierre → Montréal → Halifax</b> in one day. <b>Saint-Pierre 3 · Halifax 1 (arrive late) · PEI 3.</b> Same Monday July 27 finish.</p>
+      <div class="alert">
+        <h4>✈️ The Montréal exit — Thu Jul 23</h4>
+        <p><b>Saint-Pierre (FSP) → Montréal (YUL):</b> 12:00 → 13:25 · Air Saint-Pierre · non-refundable <b>€1,731.60</b>. Then <b>Montréal (YUL) → Halifax (YHZ):</b> 9:20p → 11:56p · Air Canada nonstop (1h36) · Standard <b>CA$609</b> for two. The 13:25–21:20 gap downtown is the point — dinner and a smoked-meat run before the late flight.</p>
+        <p style="margin-top:8px;font-size:13px;color:var(--muted)">💱 Heads up — <b>mixed currencies</b>: Air Saint-Pierre prices in <b>euros (€)</b>, Air Canada in <b>Canadian dollars (CA$)</b>. Rough USD: €1,731.60 ≈ $1,875 · CA$609 ≈ $445. Convert and re-verify at booking.</p>
+      </div>
+    </div>
   </section>
 
   <section id="ch1">
@@ -176,7 +192,7 @@
         </div>
         <div class="alert">
           <h4>⚠️ The one catch — Thursday Jul 23 night</h4>
-          <p>Checkout is the 23rd, the flight home is Friday the 24th at 9:00a, and no flight leaves Saint-Pierre toward Halifax on a Thursday — so <b>one night to bridge</b>. Best to worst: <b>1)</b> ask the host to extend to the 24th · <b>2)</b> one hotel night for the 23rd (a single night ×4 is an easy ask) · <b>3)</b> re-date the refundable return to the <b>Wed Jul 22 9:00a</b> flight (France drops to 2 full days, PEI gains two). If you'd rather turn that Thursday into a Newfoundland leg, that's <a href="/big-loop">Plan E</a>.</p>
+          <p>Checkout is the 23rd, the flight home is Friday the 24th at 9:00a, and no flight leaves Saint-Pierre toward Halifax on a Thursday — so <b>one night to bridge</b>. Best to worst: <b>1)</b> ask the host to extend to the 24th · <b>2)</b> one hotel night for the 23rd (a single night ×4 is an easy ask) · <b>3)</b> re-date the refundable return to the <b>Wed Jul 22 9:00a</b> flight (France drops to 2 full days, PEI gains two) · <b>4)</b> fly out Thursday <b>via Montréal</b> — noon SPM→YUL, a few hours downtown, late YUL→Halifax — which skips the bridge night entirely for a pricier ticket (see the alternative timeline above). If you'd rather turn that Thursday into a Newfoundland leg, that's <a href="/big-loop">Plan E</a>.</p>
         </div>
         <div class="stay">🍽️ <b>Good to know:</b> summer dinner reservations are near-mandatory — restaurants book up the same week as the rooms. Île aux Marins and a Miquelon day are the set pieces.</div>
       </div>
@@ -221,8 +237,7 @@
 
 <footer>
   <div class="verlinks">
-    <a href="/">← All plans (A–E)</a> ·
-    <a href="/full">Full illustrated view</a>
+    <a href="/">← All plans (A–E)</a>
   </div>
   A proposal for July 2026 · townhouse booked (free cancel until Jul 19) · re-verify fares at booking.
 </footer>
@@ -231,6 +246,21 @@
 <script>
   // ---- day-by-day ribbon ----
   const DOW = ['Wed','Thu','Fri','Sat','Sun','Mon','Tue']; // Jul 15 2026 = Wednesday
+  const CV = { hfx:'var(--hfx)', spm:'var(--spm)', pei:'var(--pei)', home:'var(--travel)', gold:'var(--gold)' };
+  function renderRibbon(arr, id) {
+    document.getElementById(id).innerHTML = arr.map(x => {
+      const dow = DOW[(x.d - 15) % 7];
+      let cls = 'rb ' + x.c, style = '';
+      if (x.via) {           // travel day via a mid-point (Montréal) → three-stop split
+        cls += ' split';
+        style = ` style="background: linear-gradient(122deg, ${CV[x.from]} 0 30%, rgba(255,255,255,.9) 30% 34%, ${CV[x.via]} 34% 63%, rgba(255,255,255,.9) 63% 67%, ${CV[x.c]} 67% 100%)"`;
+      } else if (x.from) {   // travel day → two-stop diagonal split
+        cls += ' split';
+        style = ` style="background: linear-gradient(122deg, ${CV[x.from]} 0 47.5%, rgba(255,255,255,.9) 47.5% 52.5%, ${CV[x.c]} 52.5% 100%)"`;
+      }
+      return `<div class="${cls}"${style}><div class="dow">${dow}</div><div class="d">${x.d}</div><div class="what">${x.w}</div></div>`;
+    }).join('');
+  }
   const days = [
     {d:17,c:'hfx',w:'🛬 arrive Halifax'},
     {d:18,c:'hfx',w:'Halifax'},
@@ -244,13 +274,21 @@
     {d:26,c:'pei',w:'PEI'},
     {d:27,c:'home',from:'pei',w:'🛫 home'}
   ];
-  const CV = { hfx:'var(--hfx)', spm:'var(--spm)', pei:'var(--pei)', home:'var(--travel)' };
-  document.getElementById('ribbon').innerHTML = days.map(x => {
-    const dow = DOW[(x.d - 15) % 7];
-    let cls = 'rb ' + x.c, style = '';
-    if (x.from) { cls += ' split'; style = ` style="background: linear-gradient(122deg, ${CV[x.from]} 0 47.5%, rgba(255,255,255,.9) 47.5% 52.5%, ${CV[x.c]} 52.5% 100%)"`; }
-    return `<div class="${cls}"${style}><div class="dow">${dow}</div><div class="d">${x.d}</div><div class="what">${x.w}</div></div>`;
-  }).join('');
+  const altDays = [
+    {d:17,c:'hfx',w:'🛬 arrive Halifax'},
+    {d:18,c:'hfx',w:'Halifax'},
+    {d:19,c:'hfx',w:'Halifax'},
+    {d:20,c:'spm',from:'hfx',w:'✈️ 3:30p → France'},
+    {d:21,c:'spm',w:'Île aux Marins'},
+    {d:22,c:'spm',w:'Miquelon'},
+    {d:23,c:'hfx',from:'spm',via:'gold',w:'✈️ SPM→Montréal 🥪→Hfx'},
+    {d:24,c:'pei',from:'hfx',w:'🚗 ⛴️ → PEI'},
+    {d:25,c:'pei',w:'PEI'},
+    {d:26,c:'pei',w:'PEI'},
+    {d:27,c:'home',from:'pei',w:'🛫 home'}
+  ];
+  renderRibbon(days, 'ribbon');
+  renderRibbon(altDays, 'ribbon2');
 
   // ---- map ----
   const PT = { HFX:[44.6488,-63.5752], FSP:[46.7778,-56.1778], PEI:[46.2382,-63.1311], CARIBOU:[45.7280,-62.6680], WOODISL:[45.9490,-62.7440] };
