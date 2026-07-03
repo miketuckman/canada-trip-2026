@@ -55,9 +55,11 @@
   .rb .d { font-family: "Fraunces", serif; font-weight: 700; font-size: 18px; line-height: 1.1; }
   .rb .what { font-size: 10px; margin-top: 5px; line-height: 1.22; min-height: 28px; }
   .rb.hfx { background: var(--hfx); } .rb.spm { background: var(--spm); } .rb.stj { background: var(--stj); } .rb.pei { background: var(--pei); } .rb.home { background: var(--travel); color: #3c3323; }
+  .rb.hatch { background-image: repeating-linear-gradient(45deg, rgba(255,255,255,.30) 0 3px, rgba(255,255,255,0) 3px 8px); }   /* tentative — flight-date dependent */
   .rb.split { color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.5); }
   .rb.split .what { opacity: .96; }
   .cap { font-size: 13px; color: var(--muted); margin-top: 10px; }
+  .enote { text-align: center; font-weight: 700; color: #8a6410; background: var(--gold-bg); border: 1px solid #e8c877; border-radius: 12px; padding: 10px 14px; font-size: 14px; margin: 0 0 14px; }
 
   .chapter { background: var(--card); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; margin-top: 22px; box-shadow: 0 2px 12px rgba(20,40,60,.05); }
   .chap-head { padding: 20px 24px; color: #fff; display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
@@ -100,12 +102,12 @@
 <header class="hero">
   <div class="kicker">Plan E · The Big Loop · the most ambitious 🗳️</div>
   <h1>France → Newfoundland → PEI</h1>
-  <p class="dek">Everything the townhouse plan has — the booked Saint-Pierre 3BR and the Monday flight — but instead of flying back to Halifax we <b>sail the Thursday ferry into Newfoundland</b>, spend a few days around St. John's, and loop home through PEI. The most stops of any plan, and the longest at ~17 days. Probably too much — but it's here if we want it all.</p>
-  <p class="dates">July 15 – 31, 2026 · ~16 nights · 🇫🇷 passports required</p>
+  <p class="dek">Everything the townhouse plan has — the booked Saint-Pierre 3BR and the Monday flight — but instead of flying back to Halifax we <b>sail the Thursday ferry into Newfoundland</b>, spend a few days around St. John's, and loop home through PEI. The most stops of any plan, packed into ~12 days. Ambitious — but it's here if we want it all.</p>
+  <p class="dates">July 17 – 29, 2026 · 12 nights · 🇫🇷 passports required</p>
   <div class="chips">
     <span class="chip">🇨🇦🇫🇷 4 stops · France + the Rock</span>
     <span class="chip">✈️ 4 flights · ⛴️ 3 ferries · 🚐 shuttle</span>
-    <span class="chip">⚠️ longest trip · ~17 days</span>
+    <span class="chip">⚠️ most stops · tight pace</span>
     <span class="chip">✅ dissolves the bridge-night problem</span>
   </div>
 </header>
@@ -131,7 +133,7 @@
   <section id="route">
     <div class="kick">The shape</div>
     <h2 class="title">The maximal loop — France, then the Rock, then home</h2>
-    <p class="lead">Five nights in <strong>Halifax</strong>, fly Air Saint-Pierre to <strong>France</strong> on Mon Jul 20 (the booked townhouse), then <strong>instead of flying back</strong> we take the <strong>10:00a Thursday Jul 23 ferry to Fortune, NL</strong> — which neatly dissolves the townhouse's bridge-night problem. A shuttle up the Burin Peninsula to <strong>St. John's</strong>, a few days on the Avalon with a rental car, then fly St. John's → Halifax, collect our friends' car, and finish on <strong>PEI</strong> before flying home out of Halifax. The trade is time: home ~July 31, about 17 days.</p>
+    <p class="lead">Three nights in <strong>Halifax</strong>, fly Air Saint-Pierre to <strong>France</strong> on Mon Jul 20 (the booked townhouse), then <strong>instead of flying back</strong> we take the <strong>10:00a Thursday Jul 23 ferry to Fortune, NL</strong> — which neatly dissolves the townhouse's bridge-night problem. A shuttle up the Burin Peninsula to <strong>St. John's</strong>, a few days on the Avalon with a rental car, then fly St. John's → Halifax, collect our friends' car, and finish on <strong>PEI</strong> before flying home. The trade is pace: four stops in about 12 days.</p>
     <div id="map"></div>
     <div class="legend">
       <div><span class="sw" style="background:var(--stj)"></span>Numbered stops, in order</div>
@@ -143,10 +145,11 @@
 
   <section id="days">
     <div class="kick">Day by day</div>
-    <h2 class="title">17 days, color-coded</h2>
-    <p class="lead">Halifax (5) → Saint-Pierre (3) → St. John's (3) → PEI (5). The Saint-Pierre stay is a night shorter than the townhouse plan because the Thursday ferry <em>is</em> the exit — no bridge night to solve.</p>
+    <h2 class="title">12 nights, color-coded</h2>
+    <p class="lead">Halifax (3) → Saint-Pierre (3) → St. John's (3) → PEI (3). The Thursday ferry <em>is</em> the exit from France — no bridge night to solve.</p>
+    <p class="enote">📌 Return dates based on flights — may return to Orlando direct from St. John's. (The hatched Halifax days are tentative.)</p>
     <div class="ribbon-scroll"><div class="ribbon" id="ribbon"></div></div>
-    <p class="cap">Squares are nights; a <b>diagonal split</b> marks a travel day — morning in one place, night in the next. <b>Halifax 5 · Saint-Pierre 3 · St. John's 3 · PEI 5.</b> Home ~Friday July 31.</p>
+    <p class="cap">Squares are nights; a <b>diagonal split</b> marks a travel day — morning in one place, night in the next. <b>Halifax 3 · Saint-Pierre 3 · St. John's 3 · PEI 3.</b> Home Wednesday July 29.</p>
   </section>
 
   <section id="ch1">
@@ -154,11 +157,11 @@
       <div class="chap-head">
         <span class="num">01</span>
         <h3>Halifax, Nova Scotia</h3>
-        <div class="when"><b>Jul 15 → 20</b>5 nights · start + finish hub</div>
+        <div class="when"><b>Jul 17 → 20</b>3 nights · start hub</div>
       </div>
       <div class="chap-body">
-        <p class="get"><b>Getting there:</b> Orlando → Halifax, Wed Jul 15, United/Air Canada via Chicago · 7:09a → 3:58p · Economy + 1 checked bag ≈ <b>$432 total for two</b> (works with the United credit).</p>
-        <p class="get">Five nights here — the full Halifax visit — while our PEI friends drive down to meet us. Their car waits at Halifax for the loop back at the end.</p>
+        <p class="get"><b>Getting there:</b> Orlando → Halifax, <b>Fri Jul 17</b> · Economy + 1 checked bag (flights being rebooked to these dates).</p>
+        <p class="get">Three nights here while our PEI friends drive down to meet us — their car waits at Halifax for the loop back at the end.</p>
         <div class="stay">🛏️ <b>Stay:</b> hotel or friends' spare room — deep inventory, book last.</div>
       </div>
     </div>
@@ -206,10 +209,10 @@
       <div class="chap-head">
         <span class="num">04</span>
         <h3>Prince Edward Island</h3>
-        <div class="when"><b>Jul 26 → 31</b>5 nights · our friends' home turf, to finish</div>
+        <div class="when"><b>Jul 26 → 29</b>3 nights · our friends' home turf, to finish</div>
       </div>
       <div class="chap-body">
-        <p class="get"><b>Getting there:</b> fly <b>St. John's → Halifax</b> (~1h30, several daily), collect our friends' car parked at the airport, drive ~1¾ hrs to Caribou and roll onto the <b>Wood Islands ferry</b> to their place. A few days on PEI to finish, then we all drive back to Halifax for the flight home.</p>
+        <p class="get"><b>Getting there:</b> fly <b>St. John's → Halifax</b> (~1h30, several daily), collect our friends' car parked at the airport, drive ~1¾ hrs to Caribou and roll onto the <b>Wood Islands ferry</b> to their place. A few days on PEI to finish, then home out of Halifax on Jul 29. <em>(Depending on how the return flights book, we may skip the PEI finish and fly home direct from St. John's.)</em></p>
         <div class="stay">🛏️ <b>Stay:</b> with friends / their picks — they're the hosts here (free). 🚗 This is why their car waits at Halifax — it carries the PEI finish while our Avalon rental stays in Newfoundland.</div>
       </div>
     </div>
@@ -234,9 +237,9 @@
         <tr class="tot"><td>Both island legs · per couple</td><td class="amt">$2,280</td></tr>
       </table>
       </div>
-      <p class="excl">Separate (ours, not the friends'): Florida ⇄ Halifax flights ≈ $432/two · the Halifax rental car · Halifax hotel nights · PEI lodging is free (friends host).</p>
+      <p class="excl">Separate (ours, not the friends'): the Florida ⇄ Halifax flights · the Halifax rental car · Halifax hotel nights · PEI lodging is free (friends host).</p>
     </div>
-    <p class="lead" style="margin-top:18px">The <strong>most of everything</strong> — France <em>and</em> Newfoundland in one trip, no bridge night, ~$2,280 per couple. The honest caveat is length: ~17 days is a lot. This is the trip only if we want it all.</p>
+    <p class="lead" style="margin-top:18px">The <strong>most of everything</strong> — France <em>and</em> Newfoundland in one trip, no bridge night, ~$2,280 per couple. The honest caveat is pace: four stops in ~12 days. This is the trip only if we want it all.</p>
   </section>
 
 </main>
@@ -254,11 +257,9 @@
   // ---- day-by-day ribbon ----
   const DOW = ['Wed','Thu','Fri','Sat','Sun','Mon','Tue']; // Jul 15 2026 = Wednesday
   const days = [
-    {d:15,c:'hfx',w:'🛬 land 3:58p'},
-    {d:16,c:'hfx',w:'Halifax'},
-    {d:17,c:'hfx',w:'Halifax'},
-    {d:18,c:'hfx',w:'Halifax'},
-    {d:19,c:'hfx',w:'Halifax'},
+    {d:17,c:'hfx',hatch:true,w:'🛬 arrive Halifax'},
+    {d:18,c:'hfx',hatch:true,w:'Halifax'},
+    {d:19,c:'hfx',hatch:true,w:'Halifax'},
     {d:20,c:'spm',from:'hfx',w:'✈️ 3:30p → France'},
     {d:21,c:'spm',w:'Île aux Marins'},
     {d:22,c:'spm',w:'Miquelon'},
@@ -268,14 +269,13 @@
     {d:26,c:'pei',from:'stj',w:'✈️ YYT→Hfx + ⛴️'},
     {d:27,c:'pei',w:'PEI'},
     {d:28,c:'pei',w:'PEI'},
-    {d:29,c:'pei',w:'PEI'},
-    {d:30,c:'pei',w:'PEI'},
-    {d:31,c:'home',from:'pei',w:'🛫 home'}
+    {d:29,c:'home',from:'pei',w:'🛫 home'}
   ];
   const CV = { hfx:'var(--hfx)', spm:'var(--spm)', stj:'var(--stj)', pei:'var(--pei)', home:'var(--travel)' };
   document.getElementById('ribbon').innerHTML = days.map(x => {
     const dow = DOW[(x.d - 15) % 7];
     let cls = 'rb ' + x.c, style = '';
+    if (x.hatch) cls += ' hatch';
     if (x.from) { cls += ' split'; style = ` style="background: linear-gradient(122deg, ${CV[x.from]} 0 47.5%, rgba(255,255,255,.9) 47.5% 52.5%, ${CV[x.c]} 52.5% 100%)"`; }
     return `<div class="${cls}"${style}><div class="dow">${dow}</div><div class="d">${x.d}</div><div class="what">${x.w}</div></div>`;
   }).join('');
@@ -285,7 +285,7 @@
   const map = L.map('map', { scrollWheelZoom: false });
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; OpenStreetMap contributors', maxZoom: 10 }).addTo(map);
   const pin = (n, color) => L.divIcon({ className:'', html:`<div style="background:${color};color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font:700 13px Inter,sans-serif;border:2.5px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.35)">${n}</div>`, iconSize:[28,28], iconAnchor:[14,14] });
-  const stops = [['HFX',1,'#14395a','Halifax — 5 nights · start + finish hub'],['FSP',2,'#35479c','Saint-Pierre 🇫🇷 — Jul 20–23, townhouse (one-way)'],['YYT',3,'#0e7480','St. John\'s — Jul 23–26, by ferry + shuttle'],['PEI',4,'#2f7d50','PEI — 5 nights with friends, to finish']];
+  const stops = [['HFX',1,'#14395a','Halifax — 3 nights · start hub'],['FSP',2,'#35479c','Saint-Pierre 🇫🇷 — Jul 20–23, townhouse (one-way)'],['YYT',3,'#0e7480','St. John\'s — Jul 23–26, by ferry + shuttle'],['PEI',4,'#2f7d50','PEI — 3 nights with friends, to finish']];
   stops.forEach(([k,n,c,note]) => L.marker(PT[k], {icon: pin(n,c)}).addTo(map).bindPopup(`<b>${n} · ${note}</b>`));
   // flights: Halifax→Saint-Pierre and St. John's→Halifax (home leg)
   L.polyline([PT.HFX, PT.FSP], {color:'#c9921f', weight:3, dashArray:'3,9', opacity:.95}).addTo(map).bindPopup('✈️ Air Saint-Pierre · Halifax → Saint-Pierre');
