@@ -30,6 +30,9 @@
   .nav-title { display: none; font-size: 13px; font-weight: 700; color: var(--ink); text-align: center; padding-bottom: 7px; margin-bottom: 7px; border-bottom: 1px solid var(--line); }
   nav.stuck .nav-title { display: block; }        /* plan title appears only while the header is stuck */
   .nav-row { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 6px; }
+  .nav-mini { display: none; }
+  nav.stuck .nav-mini { display: flex; gap: 3px; overflow-x: auto; padding: 8px 2px 0; margin-top: 7px; border-top: 1px solid var(--line); }
+  .nav-mini .mc { flex: none; width: 24px; height: 24px; border-radius: 6px; color: #fff; font: 700 10px "Inter", sans-serif; display: flex; align-items: center; justify-content: center; opacity: .92; }
   .jumphint { font-size: 12px; font-weight: 600; color: var(--muted); margin-right: 1px; }
   nav a { text-decoration: none; font-size: 13px; font-weight: 600; padding: 6px 13px; border-radius: 999px; color: var(--muted); background: #f4efe4; border: 1px solid var(--line); }
   nav a:hover { background: #ece4d4; }
@@ -123,6 +126,7 @@
     <a href="#flights"><span class="dot" style="background:var(--gold)"></span>Flights</a>
     <a href="#cost"><span class="dot" style="background:var(--gold)"></span>Cost</a>
   </div>
+  <div class="nav-mini" id="navmini"></div>
 </nav>
 
 <main>
@@ -265,6 +269,7 @@
     }
     return `<div class="${cls}"${style}><div class="dow">${dow}</div><div class="d">${x.d}</div><div class="what">${x.w}</div></div>`;
   }).join('');
+  document.getElementById('navmini').innerHTML = days.map(x => `<div class="mc" style="background:${CV[x.c]}">${x.d}</div>`).join('');
 
   // ---- map ----
   const PT = { HFX:[44.6488,-63.5752], YYT:[47.5615,-52.7126], PEI:[46.2382,-63.1311], CARIBOU:[45.7280,-62.6680], WOODISL:[45.9490,-62.7440] };

@@ -30,6 +30,9 @@
   .nav-title { display: none; font-size: 13px; font-weight: 700; color: var(--ink); text-align: center; padding-bottom: 7px; margin-bottom: 7px; border-bottom: 1px solid var(--line); }
   nav.stuck .nav-title { display: block; }
   .nav-row { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 6px; }
+  .nav-mini { display: none; }
+  nav.stuck .nav-mini { display: flex; gap: 3px; overflow-x: auto; padding: 8px 2px 0; margin-top: 7px; border-top: 1px solid var(--line); }
+  .nav-mini .mc { flex: none; width: 24px; height: 24px; border-radius: 6px; color: #fff; font: 700 10px "Inter", sans-serif; display: flex; align-items: center; justify-content: center; opacity: .92; }
   .jumphint { font-size: 12px; font-weight: 600; color: var(--muted); margin-right: 1px; }
   nav a { text-decoration: none; font-size: 13px; font-weight: 600; padding: 6px 13px; border-radius: 999px; color: var(--muted); background: #f4efe4; border: 1px solid var(--line); }
   nav a:hover { background: #ece4d4; }
@@ -93,6 +96,20 @@
   .cost tr.tot td { border-top: 1.5px solid #e0bd63; border-bottom: none; padding-top: 8px; font-weight: 800; font-size: 16px; }
   .cost .excl { margin: 10px 0 0; font-size: 12.5px; color: #9a7d22; font-style: italic; }
 
+  .stat { display: inline-block; font-size: 10.5px; font-weight: 800; padding: 2px 9px; border-radius: 999px; white-space: nowrap; }
+  .stat.ok { background: #e5f3ea; color: #1f6b3d; }
+  .stat.warn { background: var(--gold-bg); color: #8a6410; }
+  .stat.bad { background: var(--red-bg); color: var(--spm-red); }
+
+  .confirm-list { list-style: none; margin: 14px 0 0; padding: 0; }
+  .confirm-list li { background: var(--card); border: 1.5px solid var(--line); border-radius: 14px; padding: 14px 18px; margin-bottom: 10px; }
+  .confirm-list li.crit { border-color: var(--spm-red); box-shadow: 0 2px 12px rgba(200,64,74,.12); }
+  .confirm-list .chead { display: flex; align-items: center; gap: 9px; margin-bottom: 5px; flex-wrap: wrap; }
+  .confirm-list .cnum { font-family: "Fraunces", serif; font-weight: 700; color: var(--muted); font-size: 15px; }
+  .confirm-list .ctitle { font-weight: 700; font-size: 15px; }
+  .confirm-list .cbody { font-size: 14px; color: var(--ink); margin: 0; }
+  .confirm-list .cbody b { color: var(--spm-red); }
+
   footer { text-align: center; padding: 30px 20px 50px; color: var(--muted); font-size: 13px; }
   footer a { font-weight: 600; }
   .verlinks { margin-bottom: 10px; }
@@ -124,8 +141,10 @@
     <a href="#ch2"><span class="dot" style="background:var(--spm)"></span>Saint-Pierre</a>
     <a href="#ch3"><span class="dot" style="background:var(--stj)"></span>Newfoundland</a>
     <a href="#ch4"><span class="dot" style="background:var(--pei)"></span>PEI</a>
+    <a href="#confirm"><span class="dot" style="background:var(--spm-red)"></span>Confirm</a>
     <a href="#cost"><span class="dot" style="background:var(--gold)"></span>Cost</a>
   </div>
+  <div class="nav-mini" id="navmini"></div>
 </nav>
 
 <main>
@@ -150,6 +169,27 @@
     <p class="enote">📌 Given the trip's length, the PEI finish is tentative based on flights, may fly home direct from St. John's.</p>
     <div class="ribbon-scroll"><div class="ribbon" id="ribbon"></div></div>
     <p class="cap">Squares are nights; a <b>diagonal split</b> marks a travel day — morning in one place, night in the next. <b>Halifax 3 · Saint-Pierre 3 · St. John's 3 · PEI 3.</b> Home Wednesday July 29.</p>
+
+    <div class="tbl-scroll">
+    <table>
+      <tr><th>Date</th><th>Time</th><th>What</th><th>Status</th></tr>
+      <tr><td><b>Fri Jul 17</b></td><td>—</td><td>Arrive Halifax (Orlando → Halifax)</td><td><span class="stat warn">not booked</span></td></tr>
+      <tr><td>Sat Jul 18</td><td>—</td><td>Halifax</td><td><span class="stat ok">open day</span></td></tr>
+      <tr><td>Sun Jul 19</td><td>—</td><td>Halifax</td><td><span class="stat ok">open day</span></td></tr>
+      <tr><td><b>Mon Jul 20</b></td><td>3:30p → 5:45p</td><td>Air Saint-Pierre, Halifax → Saint-Pierre</td><td><span class="stat warn">quoted, not ticketed</span></td></tr>
+      <tr><td>Tue Jul 21</td><td>—</td><td>Saint-Pierre · Île aux Marins</td><td><span class="stat ok">open day</span></td></tr>
+      <tr><td>Wed Jul 22</td><td>—</td><td>Saint-Pierre · Miquelon</td><td><span class="stat ok">open day</span></td></tr>
+      <tr><td><b>Thu Jul 23</b></td><td>10:00a → ~11:30a</td><td>SPM Ferries, Saint-Pierre → Fortune (~1h30)</td><td><span class="stat ok">schedule verified</span></td></tr>
+      <tr><td><b>Thu Jul 23</b></td><td>afternoon — <b>TBD</b></td><td>Shuttle, Fortune → St. John's (~4¾ hrs)</td><td><span class="stat bad">⚠️ call to confirm</span></td></tr>
+      <tr><td>Fri Jul 24</td><td>—</td><td>St. John's · Signal Hill</td><td><span class="stat ok">open day</span></td></tr>
+      <tr><td>Sat Jul 25</td><td>—</td><td>St. John's · Cape Spear</td><td><span class="stat ok">open day</span></td></tr>
+      <tr><td><b>Sun Jul 26</b></td><td>TBD</td><td>Fly St. John's → Halifax; Wood Islands ferry to PEI</td><td><span class="stat warn">not booked · PEI leg tentative</span></td></tr>
+      <tr><td>Mon Jul 27</td><td>—</td><td>PEI <span style="opacity:.7">(tentative)</span></td><td><span class="stat warn">depends on Jul 26</span></td></tr>
+      <tr><td>Tue Jul 28</td><td>—</td><td>PEI <span style="opacity:.7">(tentative)</span></td><td><span class="stat warn">depends on Jul 26</span></td></tr>
+      <tr><td><b>Wed Jul 29</b></td><td>—</td><td>Fly home (Halifax → Orlando, or direct from St. John's)</td><td><span class="stat warn">not booked</span></td></tr>
+    </table>
+    </div>
+    <p class="cap">Times are what's confirmed today (Jul 3). "TBD" rows are exactly the open items in the <a href="#confirm">Confirm before booking</a> list below.</p>
   </section>
 
   <section id="ch1">
@@ -194,10 +234,14 @@
       </div>
       <div class="chap-body">
         <p class="get"><b>Getting there:</b> the crossing that makes this plan — <b>SPM Ferries, Saint-Pierre → Fortune, NL, Thu Jul 23 at 10:00a</b> (~1h30, verified on the 2026 calendar). Then pick up the Avalon by road.</p>
-        <div class="alert teal">
-          <h4>🚐 Fortune → St. John's — the one stretch to arrange</h4>
-          <p>Fortune sits at the tip of the Burin Peninsula — <b>360 km / ~4¾ hrs</b> from St. John's, with no car-rental counter at the wharf. The clean answer is a <b>daily shuttle van</b>: <a href="https://www.facebook.com/footestaxi/" target="_blank" rel="noopener noreferrer">Foote's Taxi &amp; Bus</a> (~$70/pp · 1-800-866-1181 / 709-832-0491), or R&amp;E Transportation (709-891-1866) / Da Boot Bussing (709-567-4703). Book ahead — small vans. 🚗 Pick up a <b>rental car at St. John's airport (YYT)</b> for the few days on the Avalon — cheap and plentiful.</p>
+        <div class="alert red">
+          <h4>⚠️ Fortune → St. John's — the standard schedule doesn't match our ferry</h4>
+          <p>Fortune sits at the tip of the Burin Peninsula — <b>360 km / ~4¾ hrs</b> from St. John's, with no car-rental counter at the wharf. The shuttle we're counting on is <b>Foote's / Matthews Taxi &amp; Bus</b> — but their posted daily run departs <b>the peninsula early (~6:00a Fortune, ~6:20a Grand Bank, ~7:00a Marystown)</b>, timed for morning flights out of St. John's. Our ferry doesn't land in Fortune until <b>~11:30a</b> that Thursday — <b>the regular van will already be gone.</b></p>
+          <p><b>What this means:</b> either (1) they can run a special afternoon pickup timed to the ferry — call and ask, this is the first move — or (2) we overnight near Fortune/Grand Bank/Marystown and catch the 6a van <em>Friday</em> instead, which pushes the whole rest of the trip back a day, or (3) we find a one-way rental car out of Marystown (the largest town on the peninsula, ~45 min from Fortune) — not yet checked.</p>
+          <p style="margin-top:8px"><b>Contact:</b> office/cancellations <a href="tel:+17098320491">709-832-0491</a> (also 1-800-866-1181) · driver's cell <a href="tel:+17096825142">709-682-5142</a> · <a href="https://www.facebook.com/footestaxi/" target="_blank" rel="noopener noreferrer">Facebook page</a>. Backups if theirs can't work: R&amp;E Transportation (709-891-1866) or Da Boot Bussing (709-567-4703).</p>
+          <p style="margin-top:8px;font-size:13px;color:#7a2a26"><b>Their booking policy (per their own July post):</b> pickup times are approximate and depend on how many stops that run has — be ready, the driver may or may not call ahead. St. John's-bound pickups there run <b>11a–12p on weekends, 1:00–1:30p on weekdays</b> (their return leg down the peninsula). If you book by phone/email in advance, they're now requiring <b>payment ~1 week before travel</b> to hold the seat, and <b>no refund without 24 hours' cancellation notice</b> — so don't lock this in until the timing is actually confirmed.</p>
         </div>
+        <p class="get" style="margin-top:14px">🚗 Pick up a <b>rental car at St. John's airport (YYT)</b> for the few days on the Avalon — cheap and plentiful.</p>
         <p class="get"><b>Worth it:</b> Signal Hill, Cape Spear (easternmost point in North America), Quidi Vidi, whales offshore in July.</p>
         <div class="stay">🧭 <b>Heads up:</b> <b>NL time is 30 minutes ahead of Atlantic</b>, and Saint-Pierre is 30 minutes <em>behind</em> — the short ferry hop crosses a full hour. 🛏️ St. John's has real hotel + Airbnb inventory (easy, unlike Saint-Pierre).</div>
       </div>
@@ -216,6 +260,58 @@
         <div class="stay">🛏️ <b>Stay:</b> with friends / their picks — they're the hosts here (free). 🚗 This is why their car waits at Halifax — it carries the PEI finish while our Avalon rental stays in Newfoundland.</div>
       </div>
     </div>
+  </section>
+
+  <section id="confirm">
+    <div class="kick">Before we commit</div>
+    <h2 class="title">What's still open</h2>
+    <p class="lead">This is the plan we're moving on — here's everything that still needs a phone call, a booking, or a decision before it's real. Ordered by how much it can break the trip.</p>
+    <ol class="confirm-list">
+      <li class="crit">
+        <div class="chead"><span class="cnum">1</span><span class="ctitle">Fortune → St. John's shuttle timing</span><span class="stat bad">blocking</span></div>
+        <p class="cbody">The standard van leaves the peninsula ~6a, hours before our ~11:30a ferry lands. <b>Call Foote's/Matthews (709-832-0491) and ask for a special afternoon pickup timed to the ferry.</b> If they can't do it, decide between an extra overnight near Fortune or a one-way rental car from Marystown. See the Newfoundland chapter above for full detail.</p>
+      </li>
+      <li class="crit">
+        <div class="chead"><span class="cnum">2</span><span class="ctitle">Halifax outbound flights — rebook to Jul 17</span><span class="stat bad">not booked</span></div>
+        <p class="cbody">Every downstream date in this plan hinges on landing in Halifax <b>Friday Jul 17</b>. Nothing is ticketed yet at these new dates.</p>
+      </li>
+      <li>
+        <div class="chead"><span class="cnum">3</span><span class="ctitle">Return flights — St. John's home, and whether PEI happens</span><span class="stat warn">decision + booking</span></div>
+        <p class="cbody">Jul 26 is a fork: fly St. John's → Halifax → (Wood Islands ferry) → PEI → home, <em>or</em> skip PEI and fly home direct from St. John's. Whichever way, book it — the PEI days are hatched on the timeline because of this.</p>
+      </li>
+      <li>
+        <div class="chead"><span class="cnum">4</span><span class="ctitle">Air Saint-Pierre, Halifax ⇄ SPM (Mon Jul 20)</span><span class="stat warn">re-verify at booking</span></div>
+        <p class="cbody">Quoted refundable, not yet ticketed. Fares and seat availability were last checked in early July — reconfirm before paying.</p>
+      </li>
+      <li>
+        <div class="chead"><span class="cnum">5</span><span class="ctitle">St. John's lodging (3 nights)</span><span class="stat warn">not booked</span></div>
+        <p class="cbody">Real hotel/Airbnb inventory here, unlike Saint-Pierre — low risk, but still needs booking once the shuttle timing (item 1) locks the arrival time.</p>
+      </li>
+      <li>
+        <div class="chead"><span class="cnum">6</span><span class="ctitle">St. John's rental car</span><span class="stat warn">not booked</span></div>
+        <p class="cbody">Pick up at YYT for the Avalon days — cheap and plentiful, book whenever.</p>
+      </li>
+      <li>
+        <div class="chead"><span class="cnum">7</span><span class="ctitle">SPM Ferries, Thu Jul 23 sailing</span><span class="stat ok">verified, re-check closer to travel</span></div>
+        <p class="cbody">10:00a Saint-Pierre → Fortune confirmed on the 2026 calendar — small-operator schedules can shift, so re-verify a few weeks out.</p>
+      </li>
+      <li>
+        <div class="chead"><span class="cnum">8</span><span class="ctitle">Passports</span><span class="stat warn">check validity</span></div>
+        <p class="cbody">Saint-Pierre is French territory — confirm everyone's passport has enough validity left for the trip dates.</p>
+      </li>
+      <li>
+        <div class="chead"><span class="cnum">9</span><span class="ctitle">Euros for Saint-Pierre</span><span class="stat warn">plan ahead</span></div>
+        <p class="cbody">Saint-Pierre transacts in euros, not Canadian dollars — sort out cash or a no-foreign-fee card before landing there.</p>
+      </li>
+      <li>
+        <div class="chead"><span class="cnum">10</span><span class="ctitle">Our PEI friends' car at Halifax</span><span class="stat warn">confirm with them</span></div>
+        <p class="cbody">The PEI finish (if we do it) depends on their car waiting at the Halifax airport for the loop back — confirm that's still their plan.</p>
+      </li>
+      <li>
+        <div class="chead"><span class="cnum">11</span><span class="ctitle">Cost table — update once the shuttle is resolved</span><span class="stat warn">depends on item 1</span></div>
+        <p class="cbody">The $140 shuttle line below assumes the standard $70/pp rate. A charter pickup, an extra overnight, or a one-way rental would all change that number.</p>
+      </li>
+    </ol>
   </section>
 
   <section id="cost">
@@ -284,6 +380,8 @@
     }
     return `<div class="${cls}"${style}><div class="dow">${dow}</div><div class="d">${x.d}</div><div class="what">${x.w}</div></div>`;
   }).join('');
+  // mini color strip — locks into the sticky nav alongside the plan name + pills
+  document.getElementById('navmini').innerHTML = days.map(x => `<div class="mc" style="background:${CV[x.c]}">${x.d}</div>`).join('');
 
   // ---- map ----
   const PT = { HFX:[44.6488,-63.5752], FSP:[46.7778,-56.1778], YYT:[47.5615,-52.7126], FORTUNE:[47.0716,-55.8390], PEI:[46.2382,-63.1311], CARIBOU:[45.7280,-62.6680], WOODISL:[45.9490,-62.7440] };
