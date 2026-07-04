@@ -25,14 +25,14 @@
   .chip { background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.25); border-radius: 999px; padding: 5px 13px; font-size: 13px; font-weight: 600; }
 
   .nav-sentinel { height: 1px; }
-  nav { position: sticky; top: 0; z-index: 500; padding: 9px 14px; background: #fffdf8; border-bottom: 1px solid var(--line); box-shadow: 0 3px 12px rgba(20,40,60,0); transition: box-shadow .15s ease; }
+  nav { position: sticky; top: 0; z-index: 1200; padding: 9px 14px; background: #fffdf8; border-bottom: 1px solid var(--line); box-shadow: 0 3px 12px rgba(20,40,60,0); transition: box-shadow .15s ease; }
   nav.stuck { box-shadow: 0 3px 12px rgba(20,40,60,.10); }
   .nav-title { display: none; font-size: 13px; font-weight: 700; color: var(--ink); text-align: center; padding-bottom: 7px; margin-bottom: 7px; border-bottom: 1px solid var(--line); }
   nav.stuck .nav-title { display: block; }
   .nav-row { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 6px; }
-  .nav-mini { display: none; }
-  nav.stuck .nav-mini { display: flex; gap: 3px; overflow-x: auto; padding: 8px 2px 0; margin-top: 7px; border-top: 1px solid var(--line); }
-  .nav-mini .mc { flex: none; width: 24px; height: 24px; border-radius: 6px; color: #fff; font: 700 10px "Inter", sans-serif; display: flex; align-items: center; justify-content: center; opacity: .92; }
+  .nav-ribbon-wrap { display: none; }
+  nav.stuck .nav-ribbon-wrap { display: flex; justify-content: center; overflow-x: auto; padding-top: 8px; margin-top: 7px; border-top: 1px solid var(--line); }
+  .nav-ribbon-wrap .ribbon { min-width: 0; }
   .jumphint { font-size: 12px; font-weight: 600; color: var(--muted); margin-right: 1px; }
   nav a { text-decoration: none; font-size: 13px; font-weight: 600; padding: 6px 13px; border-radius: 999px; color: var(--muted); background: #f4efe4; border: 1px solid var(--line); }
   nav a:hover { background: #ece4d4; }
@@ -101,6 +101,14 @@
   .stat.warn { background: var(--gold-bg); color: #8a6410; }
   .stat.bad { background: var(--red-bg); color: var(--spm-red); }
 
+  .transit { margin: 16px 4px; }
+  .transit .trow { display: flex; align-items: center; gap: 12px; padding: 7px 6px; font-size: 13.5px; flex-wrap: wrap; }
+  .transit .trow + .trow { border-top: 1px dashed var(--line); }
+  .transit .tdate { font-weight: 700; min-width: 78px; }
+  .transit .ttime { color: var(--muted); min-width: 100px; }
+  .transit .twhat { flex: 1 1 200px; }
+  .transit .stat { margin-left: auto; }
+
   .confirm-list { list-style: none; margin: 14px 0 0; padding: 0; }
   .confirm-list li { background: var(--card); border: 1.5px solid var(--line); border-radius: 14px; padding: 14px 18px; margin-bottom: 10px; }
   .confirm-list li.crit { border-color: var(--spm-red); box-shadow: 0 2px 12px rgba(200,64,74,.12); }
@@ -144,7 +152,7 @@
     <a href="#confirm"><span class="dot" style="background:var(--spm-red)"></span>Confirm</a>
     <a href="#cost"><span class="dot" style="background:var(--gold)"></span>Cost</a>
   </div>
-  <div class="nav-mini" id="navmini"></div>
+  <div class="nav-ribbon-wrap"><div class="ribbon" id="navribbon"></div></div>
 </nav>
 
 <main>
@@ -168,28 +176,7 @@
     <p class="lead">Halifax (3) → Saint-Pierre (3) → St. John's (3) → PEI (3). The Thursday ferry <em>is</em> the exit from France — no bridge night to solve.</p>
     <p class="enote">📌 Given the trip's length, the PEI finish is tentative based on flights, may fly home direct from St. John's.</p>
     <div class="ribbon-scroll"><div class="ribbon" id="ribbon"></div></div>
-    <p class="cap">Squares are nights; a <b>diagonal split</b> marks a travel day — morning in one place, night in the next. <b>Halifax 3 · Saint-Pierre 3 · St. John's 3 · PEI 3.</b> Home Wednesday July 29.</p>
-
-    <div class="tbl-scroll">
-    <table>
-      <tr><th>Date</th><th>Time</th><th>What</th><th>Status</th></tr>
-      <tr><td><b>Fri Jul 17</b></td><td>—</td><td>Arrive Halifax (Orlando → Halifax)</td><td><span class="stat warn">not booked</span></td></tr>
-      <tr><td>Sat Jul 18</td><td>—</td><td>Halifax</td><td><span class="stat ok">open day</span></td></tr>
-      <tr><td>Sun Jul 19</td><td>—</td><td>Halifax</td><td><span class="stat ok">open day</span></td></tr>
-      <tr><td><b>Mon Jul 20</b></td><td>3:30p → 5:45p</td><td>Air Saint-Pierre, Halifax → Saint-Pierre</td><td><span class="stat warn">quoted, not ticketed</span></td></tr>
-      <tr><td>Tue Jul 21</td><td>—</td><td>Saint-Pierre · Île aux Marins</td><td><span class="stat ok">open day</span></td></tr>
-      <tr><td>Wed Jul 22</td><td>—</td><td>Saint-Pierre · Miquelon</td><td><span class="stat ok">open day</span></td></tr>
-      <tr><td><b>Thu Jul 23</b></td><td>10:00a → ~11:30a</td><td>SPM Ferries, Saint-Pierre → Fortune (~1h30)</td><td><span class="stat ok">schedule verified</span></td></tr>
-      <tr><td><b>Thu Jul 23</b></td><td>afternoon — <b>TBD</b></td><td>Shuttle, Fortune → St. John's (~4¾ hrs)</td><td><span class="stat bad">⚠️ call to confirm</span></td></tr>
-      <tr><td>Fri Jul 24</td><td>—</td><td>St. John's · Signal Hill</td><td><span class="stat ok">open day</span></td></tr>
-      <tr><td>Sat Jul 25</td><td>—</td><td>St. John's · Cape Spear</td><td><span class="stat ok">open day</span></td></tr>
-      <tr><td><b>Sun Jul 26</b></td><td>TBD</td><td>Fly St. John's → Halifax; Wood Islands ferry to PEI</td><td><span class="stat warn">not booked · PEI leg tentative</span></td></tr>
-      <tr><td>Mon Jul 27</td><td>—</td><td>PEI <span style="opacity:.7">(tentative)</span></td><td><span class="stat warn">depends on Jul 26</span></td></tr>
-      <tr><td>Tue Jul 28</td><td>—</td><td>PEI <span style="opacity:.7">(tentative)</span></td><td><span class="stat warn">depends on Jul 26</span></td></tr>
-      <tr><td><b>Wed Jul 29</b></td><td>—</td><td>Fly home (Halifax → Orlando, or direct from St. John's)</td><td><span class="stat warn">not booked</span></td></tr>
-    </table>
-    </div>
-    <p class="cap">Times are what's confirmed today (Jul 3). "TBD" rows are exactly the open items in the <a href="#confirm">Confirm before booking</a> list below.</p>
+    <p class="cap">Squares are nights; a <b>diagonal split</b> marks a travel day — morning in one place, night in the next. <b>Halifax 3 · Saint-Pierre 3 · St. John's 3 · PEI 3.</b> Home Wednesday July 29. Exact times for each travel day sit between the chapters below — "TBD" rows are the open items in <a href="#confirm">Confirm before booking</a>.</p>
   </section>
 
   <section id="ch1">
@@ -207,7 +194,11 @@
     </div>
   </section>
 
-  <section id="ch2">
+  <div class="transit">
+    <div class="trow"><span class="tdate">Mon Jul 20</span><span class="ttime">3:30p → 5:45p</span><span class="twhat">Air Saint-Pierre, Halifax → Saint-Pierre</span><span class="stat warn">quoted, not ticketed</span></div>
+  </div>
+
+  <section id="ch2" style="margin-top:0">
     <div class="chapter spm">
       <div class="chap-head">
         <span class="num">02</span>
@@ -225,7 +216,12 @@
     </div>
   </section>
 
-  <section id="ch3">
+  <div class="transit">
+    <div class="trow"><span class="tdate">Thu Jul 23</span><span class="ttime">10:00a → ~11:30a</span><span class="twhat">SPM Ferries, Saint-Pierre → Fortune (~1h30)</span><span class="stat ok">schedule verified</span></div>
+    <div class="trow"><span class="tdate">Thu Jul 23</span><span class="ttime">afternoon — TBD</span><span class="twhat">Shuttle, Fortune → St. John's (~4¾ hrs)</span><span class="stat bad">⚠️ call to confirm</span></div>
+  </div>
+
+  <section id="ch3" style="margin-top:0">
     <div class="chapter stj">
       <div class="chap-head">
         <span class="num">03</span>
@@ -248,7 +244,11 @@
     </div>
   </section>
 
-  <section id="ch4">
+  <div class="transit">
+    <div class="trow"><span class="tdate">Sun Jul 26</span><span class="ttime">TBD</span><span class="twhat">Fly St. John's → Halifax; Wood Islands ferry to PEI</span><span class="stat warn">not booked · PEI tentative</span></div>
+  </div>
+
+  <section id="ch4" style="margin-top:0">
     <div class="chapter pei">
       <div class="chap-head">
         <span class="num">04</span>
@@ -368,7 +368,7 @@
     {d:29,c:'home',from:'pei',w:'🛫 home'}
   ];
   const CV = { hfx:'var(--hfx)', spm:'var(--spm)', stj:'var(--stj)', pei:'var(--pei)', home:'var(--travel)' };
-  document.getElementById('ribbon').innerHTML = days.map(x => {
+  const ribbonHTML = days.map(x => {
     const dow = DOW[(x.d - 15) % 7];
     let cls = 'rb ' + x.c, style = '';
     if (x.hatch) cls += ' hatch';
@@ -380,8 +380,9 @@
     }
     return `<div class="${cls}"${style}><div class="dow">${dow}</div><div class="d">${x.d}</div><div class="what">${x.w}</div></div>`;
   }).join('');
-  // mini color strip — locks into the sticky nav alongside the plan name + pills
-  document.getElementById('navmini').innerHTML = days.map(x => `<div class="mc" style="background:${CV[x.c]}">${x.d}</div>`).join('');
+  document.getElementById('ribbon').innerHTML = ribbonHTML;
+  // full ribbon, reused — locks into the sticky nav alongside the plan name + pills
+  document.getElementById('navribbon').innerHTML = ribbonHTML;
 
   // ---- map ----
   const PT = { HFX:[44.6488,-63.5752], FSP:[46.7778,-56.1778], YYT:[47.5615,-52.7126], FORTUNE:[47.0716,-55.8390], PEI:[46.2382,-63.1311], CARIBOU:[45.7280,-62.6680], WOODISL:[45.9490,-62.7440] };

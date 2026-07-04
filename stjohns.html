@@ -25,14 +25,14 @@
   .chip { background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.25); border-radius: 999px; padding: 5px 13px; font-size: 13px; font-weight: 600; }
 
   .nav-sentinel { height: 1px; }
-  nav { position: sticky; top: 0; z-index: 500; padding: 9px 14px; background: #fffdf8; border-bottom: 1px solid var(--line); box-shadow: 0 3px 12px rgba(20,40,60,0); transition: box-shadow .15s ease; }
+  nav { position: sticky; top: 0; z-index: 1200; padding: 9px 14px; background: #fffdf8; border-bottom: 1px solid var(--line); box-shadow: 0 3px 12px rgba(20,40,60,0); transition: box-shadow .15s ease; }
   nav.stuck { box-shadow: 0 3px 12px rgba(20,40,60,.10); }
   .nav-title { display: none; font-size: 13px; font-weight: 700; color: var(--ink); text-align: center; padding-bottom: 7px; margin-bottom: 7px; border-bottom: 1px solid var(--line); }
   nav.stuck .nav-title { display: block; }        /* plan title appears only while the header is stuck */
   .nav-row { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 6px; }
-  .nav-mini { display: none; }
-  nav.stuck .nav-mini { display: flex; gap: 3px; overflow-x: auto; padding: 8px 2px 0; margin-top: 7px; border-top: 1px solid var(--line); }
-  .nav-mini .mc { flex: none; width: 24px; height: 24px; border-radius: 6px; color: #fff; font: 700 10px "Inter", sans-serif; display: flex; align-items: center; justify-content: center; opacity: .92; }
+  .nav-ribbon-wrap { display: none; }
+  nav.stuck .nav-ribbon-wrap { display: flex; justify-content: center; overflow-x: auto; padding-top: 8px; margin-top: 7px; border-top: 1px solid var(--line); }
+  .nav-ribbon-wrap .ribbon { min-width: 0; }
   .jumphint { font-size: 12px; font-weight: 600; color: var(--muted); margin-right: 1px; }
   nav a { text-decoration: none; font-size: 13px; font-weight: 600; padding: 6px 13px; border-radius: 999px; color: var(--muted); background: #f4efe4; border: 1px solid var(--line); }
   nav a:hover { background: #ece4d4; }
@@ -126,7 +126,7 @@
     <a href="#flights"><span class="dot" style="background:var(--gold)"></span>Flights</a>
     <a href="#cost"><span class="dot" style="background:var(--gold)"></span>Cost</a>
   </div>
-  <div class="nav-mini" id="navmini"></div>
+  <div class="nav-ribbon-wrap"><div class="ribbon" id="navribbon"></div></div>
 </nav>
 
 <main>
@@ -260,7 +260,7 @@
     {d:24,c:'home',from:'stj',w:'✈️ 7:30a → Hfx · 🛫 home'}
   ];
   const CV = { hfx:'var(--hfx)', pei:'var(--pei)', stj:'var(--stj)', home:'var(--travel)' };
-  document.getElementById('ribbon').innerHTML = days.map(x => {
+  const ribbonHTML = days.map(x => {
     const dow = DOW[(x.d - 15) % 7];
     let cls = 'rb ' + x.c, style = '';
     if (x.from) {  // travel day → diagonal split: morning place (left) → night place (right), thin divider
@@ -269,7 +269,8 @@
     }
     return `<div class="${cls}"${style}><div class="dow">${dow}</div><div class="d">${x.d}</div><div class="what">${x.w}</div></div>`;
   }).join('');
-  document.getElementById('navmini').innerHTML = days.map(x => `<div class="mc" style="background:${CV[x.c]}">${x.d}</div>`).join('');
+  document.getElementById('ribbon').innerHTML = ribbonHTML;
+  document.getElementById('navribbon').innerHTML = ribbonHTML;
 
   // ---- map ----
   const PT = { HFX:[44.6488,-63.5752], YYT:[47.5615,-52.7126], PEI:[46.2382,-63.1311], CARIBOU:[45.7280,-62.6680], WOODISL:[45.9490,-62.7440] };
